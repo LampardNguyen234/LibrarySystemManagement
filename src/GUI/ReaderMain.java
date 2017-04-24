@@ -5,9 +5,22 @@
  */
 package GUI;
 
+import AppPackage.AnimationClass;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.geom.RoundRectangle2D;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import main.Book;
+import main.DatabaseQuery;
+import main.SupportFunctions;
+import javax.swing.JCheckBox;
 
 /**
  *
@@ -15,6 +28,8 @@ import java.awt.geom.RoundRectangle2D;
  */
 public class ReaderMain extends javax.swing.JFrame {
     String userName;
+    ResultSet res;
+    int resultNum = 0;
     /**
      * Creates new form mainGUI
      */
@@ -26,7 +41,48 @@ public class ReaderMain extends javax.swing.JFrame {
         userName = "NGUYỄN VĂN THÀNH";
     }
     
+    public void checkCBSelected(JCheckBox jCheckBox){
+        if (jCheckBox.isSelected()) {
+            
+            cbGenre.setSelected(false);
+            cbAuthor.setSelected(false);
+            cbID.setSelected(false);
+            cbISBN.setSelected(false);
+            cbName.setSelected(false);
+            cbPublisher.setSelected(false);
+            jCheckBox.setSelected(true);
+        }
+    }
     
+    public JCheckBox getCheckBox(){
+        if (cbAuthor.isSelected()) return cbAuthor;
+        if (cbGenre.isSelected()) return cbGenre;
+        if (cbID.isSelected()) return cbID;
+        if (cbISBN.isSelected()) return cbISBN;
+        if (cbName.isSelected()) return cbName;
+        if (cbPublisher.isSelected()) return cbPublisher;
+        return null;
+    }
+    
+    
+    public void changeBackPanel(int inpState){
+        switch (inpState){
+            case 2:
+                pnReaderSearch.hide();
+                pnReaderHistory.show();
+                pnHistory.setBackground(new Color(0, 116, 163));
+                pnHistory.disable();
+                break;
+            case 1:
+                pnReaderHistory.hide();
+                pnReaderSearch.show();
+                pnSearch.setBackground(new Color(0, 116, 163));
+                pnSearch.disable();
+                break;
+            default:
+                break;
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,6 +108,7 @@ public class ReaderMain extends javax.swing.JFrame {
         pnSearch = new javax.swing.JPanel();
         lbSearch = new javax.swing.JLabel();
         lbSearch1 = new javax.swing.JLabel();
+        pnReaderSearch = new javax.swing.JPanel();
         pbMainSearch = new javax.swing.JPanel();
         lbSearch100 = new javax.swing.JLabel();
         tfSearch = new javax.swing.JTextField();
@@ -62,6 +119,43 @@ public class ReaderMain extends javax.swing.JFrame {
         cbPublisher = new javax.swing.JCheckBox();
         cbID = new javax.swing.JCheckBox();
         cbISBN = new javax.swing.JCheckBox();
+        lbResImg7 = new javax.swing.JLabel();
+        lbResTxt2 = new javax.swing.JLabel();
+        lbResImg6 = new javax.swing.JLabel();
+        lbResImg8 = new javax.swing.JLabel();
+        lbResImg9 = new javax.swing.JLabel();
+        lbResImg10 = new javax.swing.JLabel();
+        lbResTxt1 = new javax.swing.JLabel();
+        lbResTxt4 = new javax.swing.JLabel();
+        lbResTxt5 = new javax.swing.JLabel();
+        lbResTxt3 = new javax.swing.JLabel();
+        lbResTxt6 = new javax.swing.JLabel();
+        lbResTxt7 = new javax.swing.JLabel();
+        lbResTxt8 = new javax.swing.JLabel();
+        lbResTxt9 = new javax.swing.JLabel();
+        lbResTxt10 = new javax.swing.JLabel();
+        lbResImg1 = new javax.swing.JLabel();
+        lbResImg2 = new javax.swing.JLabel();
+        lbResImg3 = new javax.swing.JLabel();
+        lbResImg4 = new javax.swing.JLabel();
+        lbResImg5 = new javax.swing.JLabel();
+        lbResInfo = new javax.swing.JLabel();
+        pnReaderHistory = new javax.swing.JPanel();
+        lbResImg11 = new javax.swing.JLabel();
+        lbResImg12 = new javax.swing.JLabel();
+        lbResImg13 = new javax.swing.JLabel();
+        lbResImg14 = new javax.swing.JLabel();
+        lbResImg15 = new javax.swing.JLabel();
+        lbResTxt16 = new javax.swing.JLabel();
+        lbResTxt17 = new javax.swing.JLabel();
+        lbResTxt18 = new javax.swing.JLabel();
+        lbResTxt19 = new javax.swing.JLabel();
+        lbResTxt20 = new javax.swing.JLabel();
+        pnReaderHistoryInfo = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lbCancel = new javax.swing.JLabel();
         lbMinimize = new javax.swing.JLabel();
@@ -126,6 +220,9 @@ public class ReaderMain extends javax.swing.JFrame {
         lbHistory1.setText("Lịch Sử Mượn Sách");
         lbHistory1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbHistory1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbHistory1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lbHistory1MouseEntered(evt);
             }
@@ -190,6 +287,9 @@ public class ReaderMain extends javax.swing.JFrame {
         lbSearch1.setText("Tìm Kiếm");
         lbSearch1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbSearch1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbSearch1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lbSearch1MouseEntered(evt);
             }
@@ -233,10 +333,12 @@ public class ReaderMain extends javax.swing.JFrame {
                 .addComponent(pnHistory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(374, Short.MAX_VALUE))
+                .addContainerGap(377, Short.MAX_VALUE))
         );
 
         pnMain.add(pnLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 550));
+
+        pnReaderSearch.setPreferredSize(new java.awt.Dimension(820, 480));
 
         pbMainSearch.setBackground(new java.awt.Color(38, 40, 55));
         pbMainSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -248,6 +350,11 @@ public class ReaderMain extends javax.swing.JFrame {
         tfSearch.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         tfSearch.setForeground(new java.awt.Color(255, 255, 255));
         tfSearch.setBorder(null);
+        tfSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfSearchActionPerformed(evt);
+            }
+        });
         pbMainSearch.add(tfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 200, 30));
 
         jSeparator1.setAlignmentX(0.0F);
@@ -260,6 +367,16 @@ public class ReaderMain extends javax.swing.JFrame {
         cbName.setForeground(new java.awt.Color(255, 255, 255));
         cbName.setText("Tên Sách");
         cbName.setAlignmentY(0.0F);
+        cbName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbNameMouseClicked(evt);
+            }
+        });
+        cbName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbNameActionPerformed(evt);
+            }
+        });
         pbMainSearch.add(cbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 7, -1, -1));
 
         cbAuthor.setBackground(new java.awt.Color(38, 40, 55));
@@ -267,6 +384,16 @@ public class ReaderMain extends javax.swing.JFrame {
         cbAuthor.setForeground(new java.awt.Color(255, 255, 255));
         cbAuthor.setText("Tác Giả");
         cbAuthor.setAlignmentY(0.0F);
+        cbAuthor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbAuthorMouseClicked(evt);
+            }
+        });
+        cbAuthor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAuthorActionPerformed(evt);
+            }
+        });
         pbMainSearch.add(cbAuthor, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 7, -1, -1));
 
         cbGenre.setBackground(new java.awt.Color(38, 40, 55));
@@ -274,6 +401,11 @@ public class ReaderMain extends javax.swing.JFrame {
         cbGenre.setForeground(new java.awt.Color(255, 255, 255));
         cbGenre.setText("Thể Loại");
         cbGenre.setAlignmentY(0.0F);
+        cbGenre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbGenreMouseClicked(evt);
+            }
+        });
         pbMainSearch.add(cbGenre, new org.netbeans.lib.awtextra.AbsoluteConstraints(419, 7, -1, -1));
 
         cbPublisher.setBackground(new java.awt.Color(38, 40, 55));
@@ -281,6 +413,11 @@ public class ReaderMain extends javax.swing.JFrame {
         cbPublisher.setForeground(new java.awt.Color(255, 255, 255));
         cbPublisher.setText("Nhà Xuất Bản");
         cbPublisher.setAlignmentY(0.0F);
+        cbPublisher.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbPublisherMouseClicked(evt);
+            }
+        });
         pbMainSearch.add(cbPublisher, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 7, -1, -1));
 
         cbID.setBackground(new java.awt.Color(38, 40, 55));
@@ -288,6 +425,11 @@ public class ReaderMain extends javax.swing.JFrame {
         cbID.setForeground(new java.awt.Color(255, 255, 255));
         cbID.setText("Nhà Xuất Bản");
         cbID.setAlignmentY(0.0F);
+        cbID.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbIDMouseClicked(evt);
+            }
+        });
         pbMainSearch.add(cbID, new org.netbeans.lib.awtextra.AbsoluteConstraints(591, 7, -1, -1));
 
         cbISBN.setBackground(new java.awt.Color(38, 40, 55));
@@ -295,9 +437,267 @@ public class ReaderMain extends javax.swing.JFrame {
         cbISBN.setForeground(new java.awt.Color(255, 255, 255));
         cbISBN.setAlignmentY(0.0F);
         cbISBN.setLabel("SKU");
+        cbISBN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbISBNMouseClicked(evt);
+            }
+        });
         pbMainSearch.add(cbISBN, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 0, 70, 35));
 
-        pnMain.add(pbMainSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 830, -1));
+        lbResImg7.setBackground(new java.awt.Color(100, 240, 150));
+
+        lbResImg6.setBackground(new java.awt.Color(100, 240, 150));
+
+        lbResImg8.setBackground(new java.awt.Color(100, 240, 150));
+
+        lbResImg9.setBackground(new java.awt.Color(100, 240, 150));
+        lbResImg9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        lbResImg10.setBackground(new java.awt.Color(100, 240, 150));
+        lbResImg10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        lbResImg1.setBackground(new java.awt.Color(100, 240, 150));
+
+        lbResImg2.setBackground(new java.awt.Color(100, 240, 150));
+
+        lbResImg3.setBackground(new java.awt.Color(100, 240, 150));
+
+        lbResImg4.setBackground(new java.awt.Color(100, 240, 150));
+        lbResImg4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        lbResImg5.setBackground(new java.awt.Color(100, 240, 150));
+        lbResImg5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        lbResInfo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout pnReaderSearchLayout = new javax.swing.GroupLayout(pnReaderSearch);
+        pnReaderSearch.setLayout(pnReaderSearchLayout);
+        pnReaderSearchLayout.setHorizontalGroup(
+            pnReaderSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnReaderSearchLayout.createSequentialGroup()
+                .addComponent(pbMainSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnReaderSearchLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(pnReaderSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbResInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnReaderSearchLayout.createSequentialGroup()
+                        .addComponent(lbResTxt6, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(lbResTxt7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(lbResTxt8, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(lbResTxt9, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addComponent(lbResTxt10, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnReaderSearchLayout.createSequentialGroup()
+                        .addGroup(pnReaderSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbResImg6, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbResTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(pnReaderSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnReaderSearchLayout.createSequentialGroup()
+                                .addComponent(lbResTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(lbResTxt3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnReaderSearchLayout.createSequentialGroup()
+                                .addComponent(lbResImg7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(lbResImg8, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(30, 30, 30)
+                        .addGroup(pnReaderSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbResImg9, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbResTxt4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnReaderSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbResImg10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbResTxt5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnReaderSearchLayout.createSequentialGroup()
+                        .addComponent(lbResImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(lbResImg2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(lbResImg3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(lbResImg4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbResImg5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(32, 32, 32))
+        );
+        pnReaderSearchLayout.setVerticalGroup(
+            pnReaderSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnReaderSearchLayout.createSequentialGroup()
+                .addComponent(pbMainSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbResInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnReaderSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbResImg2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResImg4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResImg3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResImg5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnReaderSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbResTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResTxt4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResTxt5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResTxt3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnReaderSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbResImg7, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResImg6, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResImg9, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResImg8, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResImg10, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnReaderSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbResTxt7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResTxt9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResTxt10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResTxt8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResTxt6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(65, 65, 65))
+        );
+
+        lbResImg7.getAccessibleContext().setAccessibleName("lbResImg7");
+        lbResTxt2.getAccessibleContext().setAccessibleName("lbResTxt2");
+        lbResImg6.getAccessibleContext().setAccessibleName("lbResImg6");
+        lbResImg8.getAccessibleContext().setAccessibleName("lbResImg8");
+        lbResImg9.getAccessibleContext().setAccessibleName("lbResImg9");
+        lbResImg10.getAccessibleContext().setAccessibleName("lbResImg10");
+        lbResTxt1.getAccessibleContext().setAccessibleName("lbResTxt1");
+        lbResTxt4.getAccessibleContext().setAccessibleName("lbResTxt4");
+        lbResTxt5.getAccessibleContext().setAccessibleName("lbResTxt5");
+        lbResTxt3.getAccessibleContext().setAccessibleName("lbResTxt3");
+        lbResTxt6.getAccessibleContext().setAccessibleName("lbResTxt6");
+        lbResTxt7.getAccessibleContext().setAccessibleName("lbResTxt7");
+        lbResTxt8.getAccessibleContext().setAccessibleName("lbResTxt8");
+        lbResTxt9.getAccessibleContext().setAccessibleName("lbResTxt9");
+        lbResTxt10.getAccessibleContext().setAccessibleName("lbResTxt10");
+        lbResImg1.getAccessibleContext().setAccessibleName("lbResImg1");
+        lbResImg1.getAccessibleContext().setAccessibleDescription("lbResImg1");
+        lbResImg2.getAccessibleContext().setAccessibleName("lbResImg2");
+        lbResImg3.getAccessibleContext().setAccessibleName("lbResImg3");
+        lbResImg4.getAccessibleContext().setAccessibleName("lbResImg4");
+        lbResImg5.getAccessibleContext().setAccessibleName("lbResImg5");
+
+        pnMain.add(pnReaderSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 830, 580));
+        pnReaderSearch.getAccessibleContext().setAccessibleName("pnSearch");
+
+        pnReaderHistory.setPreferredSize(new java.awt.Dimension(820, 480));
+
+        lbResImg11.setBackground(new java.awt.Color(100, 240, 150));
+
+        lbResImg12.setBackground(new java.awt.Color(100, 240, 150));
+
+        lbResImg13.setBackground(new java.awt.Color(100, 240, 150));
+
+        lbResImg14.setBackground(new java.awt.Color(100, 240, 150));
+        lbResImg14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        lbResImg15.setBackground(new java.awt.Color(100, 240, 150));
+        lbResImg15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel16.setText("Bạn đã mượn ... cuốn sách");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setText("Hiện đang có ... cuốn chưa trả");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel17.setText("Click để xem các sách đã mượn");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel15.setText("Click để xem các sách chưa trả");
+
+        javax.swing.GroupLayout pnReaderHistoryInfoLayout = new javax.swing.GroupLayout(pnReaderHistoryInfo);
+        pnReaderHistoryInfo.setLayout(pnReaderHistoryInfoLayout);
+        pnReaderHistoryInfoLayout.setHorizontalGroup(
+            pnReaderHistoryInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnReaderHistoryInfoLayout.createSequentialGroup()
+                .addGroup(pnReaderHistoryInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnReaderHistoryInfoLayout.createSequentialGroup()
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnReaderHistoryInfoLayout.createSequentialGroup()
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        pnReaderHistoryInfoLayout.setVerticalGroup(
+            pnReaderHistoryInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnReaderHistoryInfoLayout.createSequentialGroup()
+                .addGroup(pnReaderHistoryInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnReaderHistoryInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 14, Short.MAX_VALUE))
+        );
+
+        jLabel12.getAccessibleContext().setAccessibleName("Hiện đang có ... cuốn chưa trả");
+
+        javax.swing.GroupLayout pnReaderHistoryLayout = new javax.swing.GroupLayout(pnReaderHistory);
+        pnReaderHistory.setLayout(pnReaderHistoryLayout);
+        pnReaderHistoryLayout.setHorizontalGroup(
+            pnReaderHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnReaderHistoryLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(pnReaderHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbResImg11, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnReaderHistoryLayout.createSequentialGroup()
+                        .addComponent(lbResTxt16, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addGroup(pnReaderHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbResTxt17, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbResImg13, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(pnReaderHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnReaderHistoryLayout.createSequentialGroup()
+                                .addComponent(lbResImg14, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(lbResImg15, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnReaderHistoryLayout.createSequentialGroup()
+                                .addComponent(lbResTxt18, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(lbResTxt19, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addGroup(pnReaderHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbResImg12, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbResTxt20, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8)))
+                .addGap(14, 14, 14))
+            .addComponent(pnReaderHistoryInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnReaderHistoryLayout.setVerticalGroup(
+            pnReaderHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnReaderHistoryLayout.createSequentialGroup()
+                .addComponent(pnReaderHistoryInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+                .addGroup(pnReaderHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbResImg11, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResImg12, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResImg14, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResImg13, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResImg15, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnReaderHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbResTxt17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResTxt19, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResTxt20, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResTxt18, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbResTxt16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(65, 65, 65))
+        );
+
+        pnMain.add(pnReaderHistory, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 830, 580));
 
         getContentPane().add(pnMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1010, 540));
 
@@ -396,7 +796,6 @@ public class ReaderMain extends javax.swing.JFrame {
     private void lbUserInfor1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUserInfor1MouseExited
         // TODO add your handling code here:
         pnUser.setBackground(new Color(38,40,55));
-
     }//GEN-LAST:event_lbUserInfor1MouseExited
 
     private void lbUserInfor1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUserInfor1MouseEntered
@@ -423,6 +822,61 @@ public class ReaderMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         pnHome.setBackground(new Color(0, 116, 163));
     }//GEN-LAST:event_lbHome1MouseEntered
+
+    private void tfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSearchActionPerformed
+        // TODO add your handling code here:
+        res = DatabaseQuery.SearchBookByKeyWord(tfSearch.getText());
+        resultNum = SupportFunctions.GetSize(res);
+        lbResInfo.setText("Có tất cả " + String.valueOf(resultNum) + " kết quả:");
+    }//GEN-LAST:event_tfSearchActionPerformed
+
+    private void lbSearch1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSearch1MouseClicked
+        // TODO add your handling code here:
+        changeBackPanel(1);
+    }//GEN-LAST:event_lbSearch1MouseClicked
+
+    private void lbHistory1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHistory1MouseClicked
+        // TODO add your handling code here:
+        changeBackPanel(2);
+    }//GEN-LAST:event_lbHistory1MouseClicked
+
+    private void cbNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbNameActionPerformed
+
+    private void cbNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbNameMouseClicked
+        // TODO add your handling code here:
+        checkCBSelected(cbName);
+    }//GEN-LAST:event_cbNameMouseClicked
+
+    private void cbAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAuthorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbAuthorActionPerformed
+
+    private void cbAuthorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbAuthorMouseClicked
+        // TODO add your handling code here:
+        checkCBSelected(cbAuthor);
+    }//GEN-LAST:event_cbAuthorMouseClicked
+
+    private void cbGenreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbGenreMouseClicked
+        // TODO add your handling code here:
+        checkCBSelected(cbGenre);
+    }//GEN-LAST:event_cbGenreMouseClicked
+
+    private void cbPublisherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbPublisherMouseClicked
+        // TODO add your handling code here:
+        checkCBSelected(cbPublisher);
+    }//GEN-LAST:event_cbPublisherMouseClicked
+
+    private void cbIDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbIDMouseClicked
+        // TODO add your handling code here:
+        checkCBSelected(cbID);
+    }//GEN-LAST:event_cbIDMouseClicked
+
+    private void cbISBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbISBNMouseClicked
+        // TODO add your handling code here:
+        checkCBSelected(cbISBN);
+    }//GEN-LAST:event_cbISBNMouseClicked
 
     /**
      * @param args the command line arguments
@@ -474,6 +928,12 @@ public class ReaderMain extends javax.swing.JFrame {
     private javax.swing.JCheckBox cbISBN;
     private javax.swing.JCheckBox cbName;
     private javax.swing.JCheckBox cbPublisher;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
@@ -485,6 +945,77 @@ public class ReaderMain extends javax.swing.JFrame {
     private javax.swing.JLabel lbHome1;
     private javax.swing.JLabel lbMinimize;
     private javax.swing.JLabel lbMinimize1;
+    private javax.swing.JLabel lbResImg1;
+    private javax.swing.JLabel lbResImg10;
+    private javax.swing.JLabel lbResImg11;
+    private javax.swing.JLabel lbResImg12;
+    private javax.swing.JLabel lbResImg13;
+    private javax.swing.JLabel lbResImg14;
+    private javax.swing.JLabel lbResImg15;
+    private javax.swing.JLabel lbResImg2;
+    private javax.swing.JLabel lbResImg21;
+    private javax.swing.JLabel lbResImg22;
+    private javax.swing.JLabel lbResImg23;
+    private javax.swing.JLabel lbResImg24;
+    private javax.swing.JLabel lbResImg25;
+    private javax.swing.JLabel lbResImg26;
+    private javax.swing.JLabel lbResImg27;
+    private javax.swing.JLabel lbResImg28;
+    private javax.swing.JLabel lbResImg29;
+    private javax.swing.JLabel lbResImg3;
+    private javax.swing.JLabel lbResImg30;
+    private javax.swing.JLabel lbResImg31;
+    private javax.swing.JLabel lbResImg32;
+    private javax.swing.JLabel lbResImg33;
+    private javax.swing.JLabel lbResImg34;
+    private javax.swing.JLabel lbResImg35;
+    private javax.swing.JLabel lbResImg36;
+    private javax.swing.JLabel lbResImg37;
+    private javax.swing.JLabel lbResImg38;
+    private javax.swing.JLabel lbResImg39;
+    private javax.swing.JLabel lbResImg4;
+    private javax.swing.JLabel lbResImg40;
+    private javax.swing.JLabel lbResImg5;
+    private javax.swing.JLabel lbResImg6;
+    private javax.swing.JLabel lbResImg7;
+    private javax.swing.JLabel lbResImg8;
+    private javax.swing.JLabel lbResImg9;
+    private javax.swing.JLabel lbResInfo;
+    private javax.swing.JLabel lbResTxt1;
+    private javax.swing.JLabel lbResTxt10;
+    private javax.swing.JLabel lbResTxt16;
+    private javax.swing.JLabel lbResTxt17;
+    private javax.swing.JLabel lbResTxt18;
+    private javax.swing.JLabel lbResTxt19;
+    private javax.swing.JLabel lbResTxt2;
+    private javax.swing.JLabel lbResTxt20;
+    private javax.swing.JLabel lbResTxt21;
+    private javax.swing.JLabel lbResTxt22;
+    private javax.swing.JLabel lbResTxt23;
+    private javax.swing.JLabel lbResTxt24;
+    private javax.swing.JLabel lbResTxt25;
+    private javax.swing.JLabel lbResTxt26;
+    private javax.swing.JLabel lbResTxt27;
+    private javax.swing.JLabel lbResTxt28;
+    private javax.swing.JLabel lbResTxt29;
+    private javax.swing.JLabel lbResTxt3;
+    private javax.swing.JLabel lbResTxt30;
+    private javax.swing.JLabel lbResTxt31;
+    private javax.swing.JLabel lbResTxt32;
+    private javax.swing.JLabel lbResTxt33;
+    private javax.swing.JLabel lbResTxt34;
+    private javax.swing.JLabel lbResTxt35;
+    private javax.swing.JLabel lbResTxt36;
+    private javax.swing.JLabel lbResTxt37;
+    private javax.swing.JLabel lbResTxt38;
+    private javax.swing.JLabel lbResTxt39;
+    private javax.swing.JLabel lbResTxt4;
+    private javax.swing.JLabel lbResTxt40;
+    private javax.swing.JLabel lbResTxt5;
+    private javax.swing.JLabel lbResTxt6;
+    private javax.swing.JLabel lbResTxt7;
+    private javax.swing.JLabel lbResTxt8;
+    private javax.swing.JLabel lbResTxt9;
     private javax.swing.JLabel lbSearch;
     private javax.swing.JLabel lbSearch1;
     private javax.swing.JLabel lbSearch100;
@@ -495,6 +1026,11 @@ public class ReaderMain extends javax.swing.JFrame {
     private javax.swing.JPanel pnHome;
     private javax.swing.JPanel pnLeft;
     private javax.swing.JPanel pnMain;
+    private javax.swing.JPanel pnReaderHistory;
+    private javax.swing.JPanel pnReaderHistoryInfo;
+    private javax.swing.JPanel pnReaderSearch;
+    private javax.swing.JPanel pnReaderSearch2;
+    private javax.swing.JPanel pnReaderSearch3;
     private javax.swing.JPanel pnSearch;
     private javax.swing.JPanel pnUser;
     private javax.swing.JTextField tfSearch;
