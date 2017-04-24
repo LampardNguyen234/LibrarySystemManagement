@@ -328,7 +328,7 @@ public class Admin extends javax.swing.JFrame {
         adminName.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         adminName.setForeground(new java.awt.Color(255, 255, 255));
         adminName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        adminName.setText("Nguyễn Văn Thành");
+        adminName.setText("Văn Minh Hào");
         pnUser.add(adminName, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 0, 150, -1));
 
         onlineIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/online.jpg"))); // NOI18N
