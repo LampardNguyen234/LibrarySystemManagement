@@ -323,7 +323,7 @@ public class HomePage extends javax.swing.JFrame {
         ResultImage2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ResultImage2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ResultImage2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Result2.add(ResultImage2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 170));
+        Result2.add(ResultImage2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 130, 170));
 
         main.add(Result2, new org.netbeans.lib.awtextra.AbsoluteConstraints(187, 11, -1, -1));
 
