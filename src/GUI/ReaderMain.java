@@ -82,29 +82,6 @@ public class ReaderMain extends javax.swing.JFrame {
         
     }
     
-    public void checkCBSelected(JCheckBox jCheckBox){
-        if (jCheckBox.isSelected()) {
-            
-            cbGenre.setSelected(false);
-            cbAuthor.setSelected(false);
-            cbID.setSelected(false);
-            cbISBN.setSelected(false);
-            cbName.setSelected(false);
-            cbPublisher.setSelected(false);
-            jCheckBox.setSelected(true);
-        }
-    }
-    
-    public JCheckBox getCheckBox(){
-        if (cbAuthor.isSelected()) return cbAuthor;
-        if (cbGenre.isSelected()) return cbGenre;
-        if (cbID.isSelected()) return cbID;
-        if (cbISBN.isSelected()) return cbISBN;
-        if (cbName.isSelected()) return cbName;
-        if (cbPublisher.isSelected()) return cbPublisher;
-        return null;
-    }
-    
     
     public void changeBackPanel(int inpState){
         switch (inpState){
@@ -262,6 +239,9 @@ public class ReaderMain extends javax.swing.JFrame {
         lbHome1.setText("Trang Chủ");
         lbHome1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbHome1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbHome1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lbHome1MouseEntered(evt);
             }
@@ -1209,6 +1189,12 @@ public class ReaderMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         changeBackPanel(3);
     }//GEN-LAST:event_lbUserInfor1MouseClicked
+
+    private void lbHome1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHome1MouseClicked
+        // TODO add your handling code here:
+        dispose();
+        new HomePage().setVisible(true);
+    }//GEN-LAST:event_lbHome1MouseClicked
 
     /**
      * @param args the command line arguments
