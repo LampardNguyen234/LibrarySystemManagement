@@ -54,10 +54,10 @@ public class Management extends javax.swing.JFrame {
         pnUserStatLeft = new javax.swing.JPanel();
         lbUserInfoImage = new javax.swing.JLabel();
         lbUserStats = new javax.swing.JLabel();
-        pnUser = new javax.swing.JPanel();
-        lbUserInfor = new javax.swing.JLabel();
-        lbUserInfor1 = new javax.swing.JLabel();
-        pnUpdate = new javax.swing.JPanel();
+        pnBooksLeft = new javax.swing.JPanel();
+        lbBooksIcon = new javax.swing.JLabel();
+        lbBooks = new javax.swing.JLabel();
+        pnUpdateLeft = new javax.swing.JPanel();
         lbUpdateImage = new javax.swing.JLabel();
         lbUpdate = new javax.swing.JLabel();
         pnManagementUpdate = new javax.swing.JPanel();
@@ -91,10 +91,28 @@ public class Management extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        lbReaderName = new javax.swing.JLabel();
+        tfReaderName = new javax.swing.JTextField();
+        lbReaderInfo = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        lbReaderSex = new javax.swing.JLabel();
+        tfReaderSex = new javax.swing.JTextField();
+        lbReaderIDN = new javax.swing.JLabel();
+        tfReaderIDN = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        lbReaderInfo1 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        lbBookName = new javax.swing.JLabel();
+        tfBookName = new javax.swing.JTextField();
+        lbAuthorName = new javax.swing.JLabel();
+        lbBookState = new javax.swing.JLabel();
+        tfAuthorName = new javax.swing.JTextField();
+        tfBookState = new javax.swing.JTextField();
+        lbAnnoucement = new javax.swing.JLabel();
+        btConfirm = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         lbCancel = new javax.swing.JLabel();
@@ -181,42 +199,42 @@ public class Management extends javax.swing.JFrame {
             .addComponent(lbUserStats, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pnUser.setBackground(new java.awt.Color(38, 40, 55));
+        pnBooksLeft.setBackground(new java.awt.Color(38, 40, 55));
 
-        lbUserInfor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/Literature_32px.png"))); // NOI18N
+        lbBooksIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/Literature_32px.png"))); // NOI18N
 
-        lbUserInfor1.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        lbUserInfor1.setForeground(new java.awt.Color(255, 255, 255));
-        lbUserInfor1.setText("Mượn trả sách");
-        lbUserInfor1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lbUserInfor1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lbBooks.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        lbBooks.setForeground(new java.awt.Color(255, 255, 255));
+        lbBooks.setText("Mượn trả sách");
+        lbBooks.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbBooks.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lbUserInfor1MouseClicked(evt);
+                lbBooksMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lbUserInfor1MouseEntered(evt);
+                lbBooksMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lbUserInfor1MouseExited(evt);
+                lbBooksMouseExited(evt);
             }
         });
 
-        javax.swing.GroupLayout pnUserLayout = new javax.swing.GroupLayout(pnUser);
-        pnUser.setLayout(pnUserLayout);
-        pnUserLayout.setHorizontalGroup(
-            pnUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnUserLayout.createSequentialGroup()
-                .addComponent(lbUserInfor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout pnBooksLeftLayout = new javax.swing.GroupLayout(pnBooksLeft);
+        pnBooksLeft.setLayout(pnBooksLeftLayout);
+        pnBooksLeftLayout.setHorizontalGroup(
+            pnBooksLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnBooksLeftLayout.createSequentialGroup()
+                .addComponent(lbBooksIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbUserInfor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lbBooks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        pnUserLayout.setVerticalGroup(
-            pnUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbUserInfor, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-            .addComponent(lbUserInfor1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        pnBooksLeftLayout.setVerticalGroup(
+            pnBooksLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbBooksIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+            .addComponent(lbBooks, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pnUpdate.setBackground(new java.awt.Color(38, 40, 55));
+        pnUpdateLeft.setBackground(new java.awt.Color(38, 40, 55));
 
         lbUpdateImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/Sheets_32px.png"))); // NOI18N
 
@@ -236,17 +254,17 @@ public class Management extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout pnUpdateLayout = new javax.swing.GroupLayout(pnUpdate);
-        pnUpdate.setLayout(pnUpdateLayout);
-        pnUpdateLayout.setHorizontalGroup(
-            pnUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnUpdateLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnUpdateLeftLayout = new javax.swing.GroupLayout(pnUpdateLeft);
+        pnUpdateLeft.setLayout(pnUpdateLeftLayout);
+        pnUpdateLeftLayout.setHorizontalGroup(
+            pnUpdateLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnUpdateLeftLayout.createSequentialGroup()
                 .addComponent(lbUpdateImage, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        pnUpdateLayout.setVerticalGroup(
-            pnUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnUpdateLeftLayout.setVerticalGroup(
+            pnUpdateLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbUpdateImage, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
             .addComponent(lbUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -257,8 +275,8 @@ public class Management extends javax.swing.JFrame {
             pnLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnUserStatLeft, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnBooksLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnUpdateLeft, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnLeftLayout.setVerticalGroup(
             pnLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,11 +284,11 @@ public class Management extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(pnHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnUpdateLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnUserStatLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnBooksLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(374, Short.MAX_VALUE))
         );
 
@@ -568,6 +586,8 @@ public class Management extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel1.setText("Mã khách hàng:");
 
@@ -577,18 +597,62 @@ public class Management extends javax.swing.JFrame {
         jButton1.setText("Quét mã vạch");
         jButton1.setToolTipText("Click để quét mã vạch từ thẻ");
 
+        lbReaderName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbReaderName.setText("Tên khách hàng:");
+
+        tfReaderName.setText("jTextField3");
+
+        lbReaderInfo.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbReaderInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbReaderInfo.setText("Thông tin khách hàng");
+
+        lbReaderSex.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbReaderSex.setText("Giới tính:");
+
+        tfReaderSex.setText("jTextField3");
+
+        lbReaderIDN.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbReaderIDN.setText("CMND:");
+
+        tfReaderIDN.setText("jTextField3");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jSeparator1)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbReaderSex, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfReaderSex, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbReaderName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfReaderName, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbReaderIDN, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfReaderIDN, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(70, 70, 70))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(lbReaderInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -598,8 +662,26 @@ public class Management extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(354, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lbReaderInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbReaderName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfReaderName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbReaderSex, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfReaderSex, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbReaderIDN, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfReaderIDN, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel3.setText("Mã sách (SKU):");
@@ -615,6 +697,25 @@ public class Management extends javax.swing.JFrame {
             }
         });
 
+        lbReaderInfo1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbReaderInfo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbReaderInfo1.setText("Thông tin sách");
+
+        lbBookName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbBookName.setText("Tên sách:");
+
+        tfBookName.setText("jTextField3");
+
+        lbAuthorName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbAuthorName.setText("Tên tác giả:");
+
+        lbBookState.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbBookState.setText("Tình trạng:");
+
+        tfAuthorName.setText("jTextField3");
+
+        tfBookState.setText("jTextField3");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -627,6 +728,27 @@ public class Management extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addContainerGap())
+            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbReaderInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(97, 97, 97))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(lbBookState, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfBookState, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(lbAuthorName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfAuthorName, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(lbBookName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfBookName, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -636,8 +758,33 @@ public class Management extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(354, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lbReaderInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbBookName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfBookName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbAuthorName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfAuthorName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbBookState, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfBookState, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
+
+        lbAnnoucement.setBackground(new java.awt.Color(255, 255, 0));
+        lbAnnoucement.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbAnnoucement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbAnnoucement.setText("Thông báo trình trạng cuốn sách và hỏi xác nhận mượn/trả sách?");
+        lbAnnoucement.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        btConfirm.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btConfirm.setText("Xác nhận");
 
         javax.swing.GroupLayout pnBooksLayout = new javax.swing.GroupLayout(pnBooks);
         pnBooks.setLayout(pnBooksLayout);
@@ -645,21 +792,34 @@ public class Management extends javax.swing.JFrame {
             pnBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnBooksLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(pnBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnBooksLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnBooksLayout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addComponent(lbAnnoucement, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 5, Short.MAX_VALUE))
+            .addGroup(pnBooksLayout.createSequentialGroup()
+                .addGap(363, 363, 363)
+                .addComponent(btConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnBooksLayout.setVerticalGroup(
             pnBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnBooksLayout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addGroup(pnBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGroup(pnBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lbAnnoucement, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btConfirm)
+                .addGap(0, 52, Short.MAX_VALUE))
         );
 
         pnMain.add(pnBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 830, 580));
@@ -741,13 +901,18 @@ public class Management extends javax.swing.JFrame {
         switch (inpState){
             case 1:
                 pnUserStats.hide();
-                pnUpdate.show();
+                pnBooks.hide();
+                pnManagementUpdate.show();
                 break;
             case 2:
-                pnUpdate.hide();
+                pnManagementUpdate.hide();
+                pnBooks.hide();
                 pnUserStats.show();
                 break;
             case 3:
+                pnUserStats.hide();
+                pnManagementUpdate.hide();
+                pnBooks.show();
                 break;
             default:
                 break;
@@ -787,20 +952,20 @@ public class Management extends javax.swing.JFrame {
         pnUserStatLeft.setBackground(new Color(38,40,55));
     }//GEN-LAST:event_lbUserStatsMouseExited
 
-    private void lbUserInfor1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUserInfor1MouseClicked
+    private void lbBooksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBooksMouseClicked
         // TODO add your handling code here:
         changeBackPanel(3);
-    }//GEN-LAST:event_lbUserInfor1MouseClicked
+    }//GEN-LAST:event_lbBooksMouseClicked
 
-    private void lbUserInfor1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUserInfor1MouseEntered
+    private void lbBooksMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBooksMouseEntered
         // TODO add your handling code here:
-        pnUser.setBackground(new Color(0, 116, 163));
-    }//GEN-LAST:event_lbUserInfor1MouseEntered
+        pnBooksLeft.setBackground(new Color(0, 116, 163));
+    }//GEN-LAST:event_lbBooksMouseEntered
 
-    private void lbUserInfor1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUserInfor1MouseExited
+    private void lbBooksMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBooksMouseExited
         // TODO add your handling code here:
-        pnUser.setBackground(new Color(38,40,55));
-    }//GEN-LAST:event_lbUserInfor1MouseExited
+        pnBooksLeft.setBackground(new Color(38,40,55));
+    }//GEN-LAST:event_lbBooksMouseExited
 
     private void lbUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUpdateMouseClicked
         // TODO add your handling code here:
@@ -809,12 +974,12 @@ public class Management extends javax.swing.JFrame {
 
     private void lbUpdateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUpdateMouseEntered
         // TODO add your handling code here:
-        pnUpdate.setBackground(new Color(0, 116, 163));
+        pnUpdateLeft.setBackground(new Color(0, 116, 163));
     }//GEN-LAST:event_lbUpdateMouseEntered
 
     private void lbUpdateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUpdateMouseExited
         // TODO add your handling code here:
-        pnUpdate.setBackground(new Color(38,40,55));
+        pnUpdateLeft.setBackground(new Color(38,40,55));
     }//GEN-LAST:event_lbUpdateMouseExited
 
     private void lbCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCancelMouseClicked
@@ -867,6 +1032,7 @@ public class Management extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btConfirm;
     private javax.swing.JButton btOK;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -880,10 +1046,18 @@ public class Management extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lbAnnoucement;
     private javax.swing.JLabel lbAuthor;
+    private javax.swing.JLabel lbAuthorName;
     private javax.swing.JLabel lbBName;
+    private javax.swing.JLabel lbBookName;
+    private javax.swing.JLabel lbBookState;
+    private javax.swing.JLabel lbBooks;
+    private javax.swing.JLabel lbBooksIcon;
     private javax.swing.JLabel lbCancel;
     private javax.swing.JLabel lbGenre;
     private javax.swing.JLabel lbHome;
@@ -894,14 +1068,18 @@ public class Management extends javax.swing.JFrame {
     private javax.swing.JLabel lbNumber;
     private javax.swing.JLabel lbPrice;
     private javax.swing.JLabel lbPublishDay;
+    private javax.swing.JLabel lbReaderIDN;
+    private javax.swing.JLabel lbReaderInfo;
+    private javax.swing.JLabel lbReaderInfo1;
+    private javax.swing.JLabel lbReaderName;
+    private javax.swing.JLabel lbReaderSex;
     private javax.swing.JLabel lbUpdate;
     private javax.swing.JLabel lbUpdateImage;
     private javax.swing.JLabel lbUserInfoImage;
-    private javax.swing.JLabel lbUserInfor;
-    private javax.swing.JLabel lbUserInfor1;
     private javax.swing.JLabel lbUserStats;
     private javax.swing.JLabel lnPublisher;
     private javax.swing.JPanel pnBooks;
+    private javax.swing.JPanel pnBooksLeft;
     private javax.swing.JPanel pnHome;
     private javax.swing.JPanel pnInpInfo;
     private javax.swing.JPanel pnInpSKU;
@@ -909,18 +1087,23 @@ public class Management extends javax.swing.JFrame {
     private javax.swing.JPanel pnMain;
     private javax.swing.JPanel pnManagementUpdate;
     private javax.swing.JPanel pnReaderHistoryInfo;
-    private javax.swing.JPanel pnUpdate;
-    private javax.swing.JPanel pnUser;
+    private javax.swing.JPanel pnUpdateLeft;
     private javax.swing.JPanel pnUserStatLeft;
     private javax.swing.JPanel pnUserStats;
     private javax.swing.JTable tbUserStats;
     private javax.swing.JTextField tfAuthor;
+    private javax.swing.JTextField tfAuthorName;
     private javax.swing.JTextField tfBName;
+    private javax.swing.JTextField tfBookName;
+    private javax.swing.JTextField tfBookState;
     private javax.swing.JTextField tfGenre;
     private javax.swing.JTextField tfInpSKU;
     private javax.swing.JTextField tfNumber;
     private javax.swing.JTextField tfPrice;
     private javax.swing.JTextField tfPublisher;
     private javax.swing.JTextField tfPublisherDay;
+    private javax.swing.JTextField tfReaderIDN;
+    private javax.swing.JTextField tfReaderName;
+    private javax.swing.JTextField tfReaderSex;
     // End of variables declaration//GEN-END:variables
 }
