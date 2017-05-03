@@ -21,6 +21,7 @@ import main.Book;
 import main.DatabaseQuery;
 import main.SupportFunctions;
 import javax.swing.JCheckBox;
+import main.People;
 
 /**
  *
@@ -46,7 +47,9 @@ public class ReaderMain extends javax.swing.JFrame {
         initComponents();
         this.setShape(new RoundRectangle2D.Float(0, 0, 1000, 600, 45, 45));
         this.setSize(1000, 600);
-        userName = "NGUYỄN VĂN THÀNH";
+        changeBackPanel(1);
+        this.userName = "Nguyễn Văn Thành";
+        updateReaderInfor();
         
         resultName.add(lbResTxt1);
         resultName.add(lbResTxt2);
@@ -79,6 +82,27 @@ public class ReaderMain extends javax.swing.JFrame {
 //        resultPanel.add(Result9);
 //        resultPanel.add(Result10);
 //        pnShowResult.hide();
+        
+    }
+    
+    public void updateReaderInfor(){
+        ResultSet res;
+        res = DatabaseQuery.FindUserByName(userName, "doc_gia");
+        resultNum = SupportFunctions.GetSize(res);
+        lbReaderInfo.setText("Khách hàng: " + userName);
+        try {
+            String str = res.getString("Address");
+            tfAddress.setText(str);
+            tfBirthDay.setText(res.getString(3));
+            tfCMND.setText(res.getString(6));
+            tfEmail.setText(res.getString(9));
+            tfFName.setText(res.getString(2));
+            tfPhoneNum.setText(res.getString(10));
+            tfSex.setText(res.getString(5));
+            tfUserName.setText(res.getString(7));
+        } catch (SQLException e) {
+            Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, e);
+        }
         
     }
     
@@ -192,22 +216,22 @@ public class ReaderMain extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
+        tfBirthDay = new javax.swing.JTextField();
+        tfSex = new javax.swing.JTextField();
+        tfAddress = new javax.swing.JTextField();
+        tfCMND = new javax.swing.JTextField();
+        tfPhoneNum = new javax.swing.JTextField();
+        tfEmail = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lbReaderInfo = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         pnAvatar = new javax.swing.JPanel();
         lbAvatar = new javax.swing.JLabel();
         lbBrowser = new javax.swing.JLabel();
+        tfUserName = new javax.swing.JTextField();
+        tfFName = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         lbCancel = new javax.swing.JLabel();
         lbMinimize = new javax.swing.JLabel();
@@ -815,30 +839,6 @@ public class ReaderMain extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel9.setText("Email:");
 
-        jTextField3.setText("jTextField3");
-        jTextField3.setEnabled(false);
-
-        jTextField4.setText("jTextField3");
-        jTextField4.setEnabled(false);
-
-        jTextField5.setText("jTextField3");
-        jTextField5.setEnabled(false);
-
-        jTextField6.setText("jTextField3");
-        jTextField6.setEnabled(false);
-
-        jTextField7.setText("jTextField3");
-        jTextField7.setEnabled(false);
-
-        jTextField8.setText("jTextField3");
-        jTextField8.setEnabled(false);
-
-        jTextField9.setText("jTextField3");
-        jTextField9.setEnabled(false);
-
-        jTextField10.setText("jTextField3");
-        jTextField10.setEnabled(false);
-
         jPanel2.setBackground(new java.awt.Color(0, 153, 255));
 
         jLabel10.setBackground(new java.awt.Color(255, 255, 255));
@@ -847,10 +847,10 @@ public class ReaderMain extends javax.swing.JFrame {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Thông tin tài khoản");
 
-        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Khách hàng: Văn Minh Hào");
+        lbReaderInfo.setBackground(new java.awt.Color(255, 255, 255));
+        lbReaderInfo.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbReaderInfo.setForeground(new java.awt.Color(255, 255, 255));
+        lbReaderInfo.setText("Khách hàng: Văn Minh Hào");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -862,7 +862,7 @@ public class ReaderMain extends javax.swing.JFrame {
                 .addGap(313, 313, 313))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(305, 305, 305)
-                .addComponent(jLabel11)
+                .addComponent(lbReaderInfo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -871,7 +871,7 @@ public class ReaderMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel11)
+                .addComponent(lbReaderInfo)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -926,46 +926,46 @@ public class ReaderMain extends javax.swing.JFrame {
             .addGroup(pnReaderInfoLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(pnAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(97, 97, 97)
+                .addGap(103, 103, 103)
                 .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnReaderInfoLayout.createSequentialGroup()
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField9))
+                        .addComponent(tfPhoneNum))
                     .addGroup(pnReaderInfoLayout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField8))
+                        .addComponent(tfCMND))
                     .addGroup(pnReaderInfoLayout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField7))
+                        .addComponent(tfAddress))
                     .addGroup(pnReaderInfoLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField6))
+                        .addComponent(tfSex))
                     .addGroup(pnReaderInfoLayout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField5))
-                    .addGroup(pnReaderInfoLayout.createSequentialGroup()
-                        .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfBirthDay))
                     .addGroup(pnReaderInfoLayout.createSequentialGroup()
                         .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton1)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField10)
+                            .addComponent(tfEmail)
                             .addGroup(pnReaderInfoLayout.createSequentialGroup()
                                 .addComponent(jButton2)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 5, Short.MAX_VALUE))))
+                    .addGroup(pnReaderInfoLayout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfUserName))
+                    .addGroup(pnReaderInfoLayout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfFName)))
                 .addGap(258, 258, 258))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -976,45 +976,51 @@ public class ReaderMain extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnReaderInfoLayout.createSequentialGroup()
-                        .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField3)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfUserName))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pnReaderInfoLayout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnReaderInfoLayout.createSequentialGroup()
+                                .addComponent(tfFName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5))
+                            .addGroup(pnReaderInfoLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(tfBirthDay, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField6)))
+                            .addComponent(tfSex)))
                     .addGroup(pnReaderInfoLayout.createSequentialGroup()
                         .addComponent(pnAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7))
+                    .addComponent(tfAddress))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8))
+                    .addComponent(tfCMND))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField9))
+                    .addComponent(tfPhoneNum))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField10))
+                    .addComponent(tfEmail))
                 .addGap(47, 47, 47)
                 .addGroup(pnReaderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addGap(104, 104, 104))
+                .addContainerGap())
         );
 
         pnMain.add(pnReaderInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 830, 580));
@@ -1261,7 +1267,6 @@ public class ReaderMain extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1274,14 +1279,6 @@ public class ReaderMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel lbAvatar;
     private javax.swing.JLabel lbBrowser;
     private javax.swing.JLabel lbCancel;
@@ -1298,6 +1295,7 @@ public class ReaderMain extends javax.swing.JFrame {
     private javax.swing.JLabel lbMinimize1;
     private javax.swing.JLabel lbNext;
     private javax.swing.JLabel lbPrevious;
+    private javax.swing.JLabel lbReaderInfo;
     private javax.swing.JLabel lbResImg1;
     private javax.swing.JLabel lbResImg10;
     private javax.swing.JLabel lbResImg11;
@@ -1346,6 +1344,14 @@ public class ReaderMain extends javax.swing.JFrame {
     private javax.swing.JPanel pnReaderSearch;
     private javax.swing.JPanel pnSearch;
     private javax.swing.JPanel pnUser;
+    private javax.swing.JTextField tfAddress;
+    private javax.swing.JTextField tfBirthDay;
+    private javax.swing.JTextField tfCMND;
+    private javax.swing.JTextField tfEmail;
+    private javax.swing.JTextField tfFName;
+    private javax.swing.JTextField tfPhoneNum;
     private javax.swing.JTextField tfSearch;
+    private javax.swing.JTextField tfSex;
+    private javax.swing.JTextField tfUserName;
     // End of variables declaration//GEN-END:variables
 }
