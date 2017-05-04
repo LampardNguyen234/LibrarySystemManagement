@@ -249,16 +249,14 @@ public class DatabaseQuery {
     public static boolean UpdateUserPassword(String ID, String Password, String table) {
         try {
             Connection conn = DatabaseConnection.getMySQLConnection();
-            PreparedStatement pst = conn.prepareStatement("update " + table + " set MatKhau = ? where ID = ?");
+            PreparedStatement pst = conn.prepareStatement("update " + table + " set Pass = ? where ID = ?");
             pst.setString(2, ID);
-            pst.setString(1, SupportFunctions.Hash256(Password));
+            pst.setString(1, Password);
             pst.executeUpdate();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
