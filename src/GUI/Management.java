@@ -5,21 +5,9 @@
  */
 package GUI;
 
-import AppPackage.AnimationClass;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.geom.RoundRectangle2D;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import main.Book;
-import main.DatabaseQuery;
-import main.SupportFunctions;
 
 /**
  *
@@ -121,6 +109,7 @@ public class Management extends javax.swing.JFrame {
         lbMinimize1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnMain.setBackground(new java.awt.Color(255, 247, 238));
@@ -313,7 +302,7 @@ public class Management extends javax.swing.JFrame {
         lbInpSKU.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         lbInpSKU.setText("Nhập SKU của sách:");
 
-        tfInpSKU.setText("jTextField1");
+        tfInpSKU.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout pnInpSKULayout = new javax.swing.GroupLayout(pnInpSKU);
         pnInpSKU.setLayout(pnInpSKULayout);
@@ -457,7 +446,7 @@ public class Management extends javax.swing.JFrame {
             .addGroup(pnManagementUpdateLayout.createSequentialGroup()
                 .addGap(242, 242, 242)
                 .addComponent(pnInpInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addContainerGap(244, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnManagementUpdateLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnInpSKU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -895,6 +884,7 @@ public class Management extends javax.swing.JFrame {
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 30));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public void changeBackPanel(int inpState){

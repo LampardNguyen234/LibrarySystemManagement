@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package GUI;
-
-import AppPackage.AnimationClass;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.geom.RoundRectangle2D;
@@ -32,7 +30,6 @@ public class Admin extends javax.swing.JFrame {
     /**
      * Creates new form mainGUI
      */
-    AnimationClass AC = new AnimationClass();
     int leftState = 0;
     int rightState = 0;
     final String staffDatabase = "nguoi_quan_ly";
