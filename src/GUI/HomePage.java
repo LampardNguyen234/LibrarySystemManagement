@@ -5,15 +5,11 @@
  */
 package GUI;
 
-import AppPackage.AnimationClass;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.geom.RoundRectangle2D;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -30,7 +26,6 @@ public class HomePage extends javax.swing.JFrame {
     /**
      * Creates new form mainGUI
      */
-    AnimationClass AC = new AnimationClass();
     ArrayList<JLabel> resultName = new ArrayList<>();
     ArrayList<JLabel> resultImage = new ArrayList<>();
     ArrayList<JPanel> resultPanel = new ArrayList<>();

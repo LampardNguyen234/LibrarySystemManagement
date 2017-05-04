@@ -5,7 +5,6 @@
  */
 package GUI;
 
-import AppPackage.AnimationClass;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.geom.RoundRectangle2D;
@@ -16,12 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import main.Book;
 import main.DatabaseQuery;
 import main.SupportFunctions;
-import javax.swing.JCheckBox;
-import main.People;
 
 /**
  *
@@ -35,7 +30,6 @@ public class ReaderMain extends javax.swing.JFrame {
     int quantityPerPage = 10;
     int resultNum = 0;
     
-    AnimationClass AC = new AnimationClass();
     ArrayList<JLabel> resultName = new ArrayList<>();
     ArrayList<JLabel> resultImage = new ArrayList<>();
     ArrayList<JPanel> resultPanel = new ArrayList<>();
@@ -91,6 +85,7 @@ public class ReaderMain extends javax.swing.JFrame {
         resultNum = SupportFunctions.GetSize(res);
         lbReaderInfo.setText("Khách hàng: " + userName);
         try {
+            res.next();
             String str = res.getString("Address");
             tfAddress.setText(str);
             tfBirthDay.setText(res.getString(3));
