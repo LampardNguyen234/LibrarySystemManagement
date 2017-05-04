@@ -103,7 +103,6 @@ public class ReaderMain extends javax.swing.JFrame {
         } catch (SQLException e) {
             Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, e);
         }
-        
     }
     
     
