@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -226,6 +227,19 @@ public class DatabaseQuery {
         }
         return null;
     }
+    
+    public static ResultSet SearchBookAdvanced(String querryString){
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection("datalibrary");
+            PreparedStatement pst = conn.prepareStatement(querryString);
+            return pst.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public static ResultSet SearchBookByKeyWord(String KeyWord) {
         try {
@@ -275,6 +289,20 @@ public class DatabaseQuery {
         }
         return null;
     }
+    
+    public static ResultSet FindBooksBySKU(String SKU) {
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection("datalibrary");
+            PreparedStatement pst = conn.prepareStatement("select * from datalibrary.tua_sach where SKU = ?");
+            pst.setString(1, SKU);
+            return pst.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     /*Delete book from database*/
     public static boolean DeleteBook(String SKU) {
@@ -287,6 +315,27 @@ public class DatabaseQuery {
             Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public static boolean updateBook(Book updateBook) throws ClassNotFoundException{
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection("datalibrary");
+            PreparedStatement pst = conn.prepareStatement("update datalibrary.tua_sach set BName = ?, Author = ?, Publisher = ?, PublishedDay = ?, Gendre = ?,"+
+                    "Price = ?, Total = ? where SKU = ?");
+            pst.setString(1, updateBook.getName());
+            pst.setString(2, updateBook.getAuthor());
+            pst.setString(3, updateBook.Publisher);
+            pst.setString(4, updateBook.getPublishedDay());
+            pst.setString(5, updateBook.getGendre());
+            pst.setString(6, updateBook.getPrice());
+            pst.setInt(7, updateBook.getTotal());
+            pst.setString(8, updateBook.getSKU());
+            pst.executeQuery();
+            return true;
+        } catch (SQLException e) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, e);
         }
         return false;
     }

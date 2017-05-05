@@ -3,9 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/C:/Users/minhh/OneDrive/Documents/GitHub/LibrarySystemManagement/src/GUI/ReaderMain.java</file>
             <file>file:/C:/Users/minhh/OneDrive/Documents/GitHub/LibrarySystemManagement/src/GUI/SignupSite.java</file>
+            <file>file:/C:/Users/minhh/OneDrive/Documents/GitHub/LibrarySystemManagement/src/main/Book.java</file>
             <file>file:/C:/Users/minhh/OneDrive/Documents/GitHub/LibrarySystemManagement/src/main/DatabaseQuery.java</file>
             <file>file:/C:/Users/minhh/OneDrive/Documents/GitHub/LibrarySystemManagement/src/GUI/Admin.java</file>
             <file>file:/C:/Users/minhh/OneDrive/Documents/GitHub/LibrarySystemManagement/src/GUI/LoginSite.java</file>
@@ -14,14 +14,6 @@
             <file>file:/C:/Users/minhh/OneDrive/Documents/GitHub/LibrarySystemManagement/src/main/DatabaseConnection.java</file>
             <file>file:/C:/Users/minhh/OneDrive/Documents/GitHub/LibrarySystemManagement/src/GUI/HomePage.java</file>
             <file>file:/C:/Users/minhh/OneDrive/Documents/GitHub/LibrarySystemManagement/src/main/SupportFunctions.java</file>
-=======
-            <file>file:/C:/Users/Thành/Documents/LibrarySystemManagement-master/src/main/DatabaseQuery.java</file>
-            <file>file:/C:/Users/Thành/Documents/LibrarySystemManagement-master/src/GUI/Management.java</file>
-            <file>file:/C:/Users/Thành/Documents/LibrarySystemManagement-master/src/GUI/HomePage.java</file>
-            <file>file:/C:/Users/Thành/Documents/LibrarySystemManagement-master/src/GUI/ReaderMain.java</file>
-            <file>file:/C:/Users/Thành/Documents/LibrarySystemManagement-master/src/GUI/Admin.java</file>
-            <file>file:/C:/Users/Thành/Documents/LibrarySystemManagement-master/src/main/DatabaseConnection.java</file>
->>>>>>> 9b78d869064d709131a8a3efe5439761a6728e89
         </group>
     </open-files>
 </project-private>
