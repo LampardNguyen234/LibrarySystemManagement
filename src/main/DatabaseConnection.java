@@ -14,7 +14,8 @@ import java.sql.SQLException;
  * @author Thành
  */
 public class DatabaseConnection {
-    public static String password = "minhhao0948441310";
+//    public static String password = "minhhao0948441310";
+    public static String password ="123456";
     public static String userName = "root";
 
     /*Taking database name as an input and connecting to that database*/
