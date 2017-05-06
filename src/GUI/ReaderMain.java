@@ -24,6 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import main.Book;
+import static main.DatabaseConnection.userName;
 import main.DatabaseQuery;
 import main.People;
 import main.SupportFunctions;
@@ -34,10 +35,7 @@ import main.ValidatingClass;
  * @author lampard
  */
 public class ReaderMain extends javax.swing.JFrame {
-    String userName;
-    String ID;
-    String CMND;
-    String Pass;
+    public static People user;
     //ResultSet resUser;
     boolean key;
     ResultSet res;
@@ -45,7 +43,11 @@ public class ReaderMain extends javax.swing.JFrame {
     int maxPage = 1;
     int quantityPerPage = 10;
     int resultNum = 0;
+<<<<<<< HEAD
     int state = 1;
+=======
+    int panel =1;
+>>>>>>> 972148d5567283410a8e964f1960eda7c8f7388a
     
     ArrayList<JLabel> resultName = new ArrayList<>();
     ArrayList<JLabel> resultImage = new ArrayList<>();
@@ -53,14 +55,19 @@ public class ReaderMain extends javax.swing.JFrame {
     /**
      * Creates new form mainGUI
      */
-    public ReaderMain() {
+    public ReaderMain(People user) {
         this.setResizable(false);
         initComponents();
         this.setShape(new RoundRectangle2D.Float(0, 0, 1000, 600, 45, 45));
         this.setSize(1000, 600);
         changeBackPanel(1);
+<<<<<<< HEAD
         this.userName = "Nguyễn Văn Thành";
         lbUserName.setText("Khách hàng: "+userName);
+=======
+        
+        this.user = user; 
+>>>>>>> 972148d5567283410a8e964f1960eda7c8f7388a
         
         resultName.add(ResultName1);
         resultName.add(ResultName2);
@@ -99,7 +106,11 @@ public class ReaderMain extends javax.swing.JFrame {
         lbCurrentPage.setText("Trang hiện tại: "+ String.valueOf(currentPage));
         maxPage = SupportFunctions.getMaxPage(resultNum, quantityPerPage);
         res = SupportFunctions.Display(resultImage, resultName, res, currentPage);
-        
+        int total = SupportFunctions.GetSize(DatabaseQuery.History(user.getID()));
+        int unret  = SupportFunctions.GetSize(DatabaseQuery.History(user.getID(), "0"));
+        lbName.setText(user.getFullName());
+        lbHInfo1.setText("Bạn đã mượn "+ String.valueOf(total)+" cuốn sách." );
+        lbHInfo3.setText("Hiện đang có "+ String.valueOf(unret)+" cuốn sách chưa trả." );
     }
     
     public void showReaderInfor(){
@@ -108,21 +119,16 @@ public class ReaderMain extends javax.swing.JFrame {
         pnChangePass.hide();
         pnShowInfo.show();
         pnRI1.show();
-        res = DatabaseQuery.FindUserByName(userName, "doc_gia");
-        resultNum = SupportFunctions.GetSize(res);
-        lbReaderInfo.setText("Khách hàng: " + userName);
+        lbReaderInfo.setText("Người dùng: " + user.getFullName());
         try {
             res.next();
-            ID = res.getString("ID");
-            CMND = res.getString("CMND");
-            Pass = res.getString("Pass");
-            tfAddress.setText(res.getString("Address"));
-            tfBirthDay.setText(res.getString("BirthDay"));
-            tfCMND.setText(res.getString("CMND"));
-            tfEmail.setText(res.getString("Email"));
-            tfFName.setText(res.getString("Name"));
-            tfPhoneNum.setText(res.getString("Phonenum"));
-            String str = res.getString("Sex");
+            tfAddress.setText(user.getAddress());
+            tfBirthDay.setText(user.getAddress());
+            tfCMND.setText(user.getCMND());
+            tfEmail.setText(user.getEmail());
+            tfFName.setText(user.getFullName());
+            tfPhoneNum.setText(user.getPhoneNumber());
+            String str = user.getSex();
             if (str.equals("Nam"))
                 cbSex.setSelectedIndex(0);
             else
@@ -131,7 +137,7 @@ public class ReaderMain extends javax.swing.JFrame {
             else
                 if (str.equals("Khác"))
                     cbSex.setSelectedIndex(2);
-            tfUserName.setText(res.getString(7));
+            tfUserName.setText(user.getUserName());
             tfAddress.disable();
             tfBirthDay.disable();
             tfCMND.disable();
@@ -147,8 +153,10 @@ public class ReaderMain extends javax.swing.JFrame {
     
     
     public void changeBackPanel(int inpState){
+        panel = inpState;
         switch (inpState){
             case 2:
+                
                 pnReaderSearch.hide();
                 pnReaderInfo.hide();
                 pnReaderHistory.show();
@@ -202,8 +210,10 @@ public class ReaderMain extends javax.swing.JFrame {
         pnMain = new javax.swing.JPanel();
         pnLeft = new javax.swing.JPanel();
         pnHome = new javax.swing.JPanel();
-        lbHome = new javax.swing.JLabel();
-        lbHome1 = new javax.swing.JLabel();
+        lbName = new javax.swing.JLabel();
+        lbLogout = new javax.swing.JLabel();
+        iconOnline = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         pnHistory = new javax.swing.JPanel();
         lbHistory = new javax.swing.JLabel();
         lbHistory1 = new javax.swing.JLabel();
@@ -213,6 +223,7 @@ public class ReaderMain extends javax.swing.JFrame {
         pnSearch = new javax.swing.JPanel();
         lbSearch = new javax.swing.JLabel();
         lbSearch1 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
         pnReaderSearch = new javax.swing.JPanel();
         pbMainSearch = new javax.swing.JPanel();
         lbSearch100 = new javax.swing.JLabel();
@@ -274,7 +285,7 @@ public class ReaderMain extends javax.swing.JFrame {
         lbHInfo2 = new javax.swing.JLabel();
         lbHInfo4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbHistory = new javax.swing.JTable();
         pnReaderInfo = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -337,39 +348,35 @@ public class ReaderMain extends javax.swing.JFrame {
         pnLeft.setBackground(new java.awt.Color(38, 40, 55));
 
         pnHome.setBackground(new java.awt.Color(38, 40, 55));
+        pnHome.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/Home_32px_2.png"))); // NOI18N
-
-        lbHome1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbHome1.setForeground(new java.awt.Color(255, 255, 255));
-        lbHome1.setText("Đăng xuất");
-        lbHome1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lbHome1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lbName.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        lbName.setForeground(new java.awt.Color(255, 255, 255));
+        lbName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbName.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lbHome1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lbHome1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lbHome1MouseExited(evt);
+                lbNameMouseClicked(evt);
             }
         });
+        pnHome.add(lbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 30));
 
-        javax.swing.GroupLayout pnHomeLayout = new javax.swing.GroupLayout(pnHome);
-        pnHome.setLayout(pnHomeLayout);
-        pnHomeLayout.setHorizontalGroup(
-            pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnHomeLayout.createSequentialGroup()
-                .addComponent(lbHome, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbHome1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnHomeLayout.setVerticalGroup(
-            pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbHome, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-            .addComponent(lbHome1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        lbLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/Logout Rounded_32px_2.png"))); // NOI18N
+        lbLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbLogoutMouseClicked(evt);
+            }
+        });
+        pnHome.add(lbLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, -1, -1));
+
+        iconOnline.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/online.jpg"))); // NOI18N
+        pnHome.add(iconOnline, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 10, 10));
+
+        jLabel16.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Reader");
+        pnHome.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 35, 60, 20));
 
         pnHistory.setBackground(new java.awt.Color(38, 40, 55));
 
@@ -398,7 +405,7 @@ public class ReaderMain extends javax.swing.JFrame {
             .addGroup(pnHistoryLayout.createSequentialGroup()
                 .addComponent(lbHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbHistory1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                .addComponent(lbHistory1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnHistoryLayout.setVerticalGroup(
             pnHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -433,7 +440,7 @@ public class ReaderMain extends javax.swing.JFrame {
             .addGroup(pnUserLayout.createSequentialGroup()
                 .addComponent(lbUserInfor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbUserInfor1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                .addComponent(lbUserInfor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnUserLayout.setVerticalGroup(
             pnUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -484,19 +491,21 @@ public class ReaderMain extends javax.swing.JFrame {
             .addComponent(pnHistory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jSeparator3)
         );
         pnLeftLayout.setVerticalGroup(
             pnLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnLeftLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
                 .addComponent(pnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnHistory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(377, Short.MAX_VALUE))
+                .addContainerGap(338, Short.MAX_VALUE))
         );
 
         pnMain.add(pnLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 550));
@@ -1005,8 +1014,14 @@ public class ReaderMain extends javax.swing.JFrame {
         lbHInfo2.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         lbHInfo2.setForeground(new java.awt.Color(0, 0, 102));
         lbHInfo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbHInfo2.setText("Xem các sách đã mượn");
+        lbHInfo2.setText("Xem các sách đã trả");
         lbHInfo2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lbHInfo2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbHInfo2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbHInfo2MouseClicked(evt);
+            }
+        });
 
         lbHInfo4.setBackground(new java.awt.Color(255, 255, 255));
         lbHInfo4.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
@@ -1014,6 +1029,12 @@ public class ReaderMain extends javax.swing.JFrame {
         lbHInfo4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbHInfo4.setText("Xem các sách chưa trả");
         lbHInfo4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lbHInfo4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbHInfo4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbHInfo4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnReaderHistoryInfoLayout = new javax.swing.GroupLayout(pnReaderHistoryInfo);
         pnReaderHistoryInfo.setLayout(pnReaderHistoryInfoLayout);
@@ -1044,7 +1065,7 @@ public class ReaderMain extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1071,23 +1092,23 @@ public class ReaderMain extends javax.swing.JFrame {
                 "Tên sách", "Ngày mượn", "Ngày trả", "Ngày trả dự kiến"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbHistory);
 
         javax.swing.GroupLayout pnReaderHistoryLayout = new javax.swing.GroupLayout(pnReaderHistory);
         pnReaderHistory.setLayout(pnReaderHistoryLayout);
         pnReaderHistoryLayout.setHorizontalGroup(
             pnReaderHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnReaderHistoryInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(pnReaderHistoryLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnReaderHistoryLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
         pnReaderHistoryLayout.setVerticalGroup(
             pnReaderHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnReaderHistoryLayout.createSequentialGroup()
                 .addComponent(pnReaderHistoryInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1108,7 +1129,7 @@ public class ReaderMain extends javax.swing.JFrame {
         lbReaderInfo.setBackground(new java.awt.Color(255, 255, 255));
         lbReaderInfo.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbReaderInfo.setForeground(new java.awt.Color(255, 255, 255));
-        lbReaderInfo.setText("Khách hàng: Văn Minh Hào");
+        lbReaderInfo.setText("Người dùng: Văn Minh Hào");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1580,16 +1601,6 @@ public class ReaderMain extends javax.swing.JFrame {
         if (state != 2) pnHistory.setBackground(new Color(0, 116, 163));
     }//GEN-LAST:event_lbHistory1MouseEntered
 
-    private void lbHome1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHome1MouseExited
-        // TODO add your handling code here:
-        pnHome.setBackground(new Color(38,40,55));
-    }//GEN-LAST:event_lbHome1MouseExited
-
-    private void lbHome1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHome1MouseEntered
-        // TODO add your handling code here:
-        pnHome.setBackground(new Color(0, 116, 163));
-    }//GEN-LAST:event_lbHome1MouseEntered
-
     private void tfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSearchActionPerformed
         // TODO add your handling code here:
         String querryString;
@@ -1631,11 +1642,16 @@ public class ReaderMain extends javax.swing.JFrame {
     private void lbSearch1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSearch1MouseClicked
         // TODO add your handling code here:
         changeBackPanel(1);
+        
     }//GEN-LAST:event_lbSearch1MouseClicked
 
     private void lbHistory1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHistory1MouseClicked
         // TODO add your handling code here:
         changeBackPanel(2);
+        if(panel == 2)
+        {
+            SupportFunctions.DisplayHistory(DatabaseQuery.History(user.getID()), tbHistory);
+        }
     }//GEN-LAST:event_lbHistory1MouseClicked
 
     private void cbNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNameActionPerformed
@@ -1671,11 +1687,10 @@ public class ReaderMain extends javax.swing.JFrame {
         changeBackPanel(3);
     }//GEN-LAST:event_lbUserInfor1MouseClicked
 
-    private void lbHome1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHome1MouseClicked
+    private void lbNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNameMouseClicked
         // TODO add your handling code here:
-        dispose();
-        new HomePage().setVisible(true);
-    }//GEN-LAST:event_lbHome1MouseClicked
+        
+    }//GEN-LAST:event_lbNameMouseClicked
 
     private void btUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btUpdateMouseClicked
         // TODO add your handling code here:
@@ -1707,12 +1722,12 @@ public class ReaderMain extends javax.swing.JFrame {
         else if (!ValidatingClass.isDateValid(tfBirthDay.getText())){
             JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ");
         }
-        else if ((ValidatingClass.isCMNDExisting(tfCMND.getText(), "doc_gia")) && (!tfCMND.getText().equals(CMND))) {
+        else if ((ValidatingClass.isCMNDExisting(tfCMND.getText(), "doc_gia")) && (!tfCMND.getText().equals(user.getCMND()))) {
             JOptionPane.showMessageDialog(null, "CMND bị trùng, vui lòng nhập lại!");
         } else {
             try {
-                People user = new People(ID, tfFName.getText(),tfAddress.getText(),tfBirthDay.getText(),
-                        tfEmail.getText(),tfUserName.getText(),res.getString("Pass"),cbSex.getSelectedItem().toString(),tfCMND.getText(),tfPhoneNum.getText());
+                user = new People(user.getID(), tfFName.getText(),tfAddress.getText(),tfBirthDay.getText(),
+                        tfEmail.getText(),tfUserName.getText(),user.getPassword(),cbSex.getSelectedItem().toString(),tfCMND.getText(),tfPhoneNum.getText());
                 DatabaseQuery.UpdateUser(user, "doc_gia");
                 pnChangePass.hide();
                 pnRI2.hide();
@@ -1781,6 +1796,7 @@ public class ReaderMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btChangePW1ActionPerformed
 
     private void btChangePW1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btChangePW1MouseClicked
+<<<<<<< HEAD
         // TODO add your handling code here:
         
         //Querry code here
@@ -1803,6 +1819,35 @@ public class ReaderMain extends javax.swing.JFrame {
                 Logger.getLogger(ReaderMain.class.getName()).log(Level.SEVERE, null, e);
                 JOptionPane.showMessageDialog(null, "Có lỗi trong việc cập nhật CSDL, vui lòng thử lại!!!");
             }
+=======
+        try {
+            // TODO add your handling code here:
+            
+            //Querry code here
+            
+            if (!SupportFunctions.Hash256(pfCurPass.getText()).equals(user.getPassword()))
+                JOptionPane.showMessageDialog(null, "Nhập sai Password hiện tại!!!");
+            else
+                if (!SupportFunctions.Hash256(pfNewPass.getText()).equals(SupportFunctions.Hash256(pfTestNewPass.getText())))
+                    JOptionPane.showMessageDialog(null, "Password mới không trùng khớp!!!");
+                else
+                {
+                    try {
+                        DatabaseQuery.UpdateUserPassword(user.getID(), SupportFunctions.Hash256(pfNewPass.getText()), "doc_gia");
+                        JOptionPane.showMessageDialog(null, "Cập nhật mật khẩu thành công!!!");
+                        pnChangePass.hide();
+                        pnRI2.hide();
+                        pnRI3.hide();
+                        pnShowInfo.show();
+                        pnAvatar.show();
+                        pnRI1.show();
+                    } catch (Exception e) {
+                        Logger.getLogger(ReaderMain.class.getName()).log(Level.SEVERE, null, e);
+                    }
+                }
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(ReaderMain.class.getName()).log(Level.SEVERE, null, ex);
+>>>>>>> 972148d5567283410a8e964f1960eda7c8f7388a
         }
         JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công!!!");
         
@@ -1921,6 +1966,26 @@ public class ReaderMain extends javax.swing.JFrame {
         Admin.changeBackPanelExited(pnPrevious);
     }//GEN-LAST:event_lbPreviousMouseExited
 
+    private void lbHInfo2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHInfo2MouseClicked
+        // TODO add your handling code here:
+        if(panel == 2){
+            SupportFunctions.DisplayHistory(DatabaseQuery.History(user.getID(), "1"), tbHistory);
+        }
+    }//GEN-LAST:event_lbHInfo2MouseClicked
+
+    private void lbHInfo4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHInfo4MouseClicked
+        // TODO add your handling code here:
+        if(panel == 2){
+            SupportFunctions.DisplayHistory(DatabaseQuery.History(user.getID(), "0"), tbHistory);
+        }
+    }//GEN-LAST:event_lbHInfo4MouseClicked
+
+    private void lbLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLogoutMouseClicked
+        // TODO add your handling code here:
+        dispose();
+        new HomePage().setVisible(true);
+    }//GEN-LAST:event_lbLogoutMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1958,7 +2023,7 @@ public class ReaderMain extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ReaderMain().setVisible(true);
+                new ReaderMain(user).setVisible(true);
             }
         });
     }
@@ -2005,6 +2070,7 @@ public class ReaderMain extends javax.swing.JFrame {
     private javax.swing.JCheckBox cbName;
     private javax.swing.JCheckBox cbPublisher;
     private javax.swing.JComboBox<String> cbSex;
+    private javax.swing.JLabel iconOnline;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2012,6 +2078,7 @@ public class ReaderMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2027,7 +2094,13 @@ public class ReaderMain extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+<<<<<<< HEAD
     private javax.swing.JTable jTable1;
+=======
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel lbAvatar;
+    private javax.swing.JLabel lbBrowser;
+>>>>>>> 972148d5567283410a8e964f1960eda7c8f7388a
     private javax.swing.JLabel lbCancel;
     private javax.swing.JLabel lbCurrentPage;
     private javax.swing.JLabel lbHInfo1;
@@ -2036,10 +2109,10 @@ public class ReaderMain extends javax.swing.JFrame {
     private javax.swing.JLabel lbHInfo4;
     private javax.swing.JLabel lbHistory;
     private javax.swing.JLabel lbHistory1;
-    private javax.swing.JLabel lbHome;
-    private javax.swing.JLabel lbHome1;
+    private javax.swing.JLabel lbLogout;
     private javax.swing.JLabel lbMinimize;
     private javax.swing.JLabel lbMinimize1;
+    private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbNext;
     private javax.swing.JLabel lbPrevious;
     private javax.swing.JLabel lbReaderInfo;
@@ -2076,6 +2149,7 @@ public class ReaderMain extends javax.swing.JFrame {
     private javax.swing.JPanel pnShowResult;
     private javax.swing.JPanel pnUser;
     private javax.swing.JTextArea taResult;
+    private javax.swing.JTable tbHistory;
     private javax.swing.JTextField tfAddress;
     private javax.swing.JTextField tfBirthDay;
     private javax.swing.JTextField tfCMND;

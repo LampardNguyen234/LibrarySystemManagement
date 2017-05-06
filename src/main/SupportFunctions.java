@@ -8,15 +8,22 @@ package main;
 import GUI.Admin;
 import GUI.HomePage;
 import java.awt.Image;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -215,10 +222,11 @@ public class SupportFunctions {
                         name.setToolTipText(resBook.getString("BName"));
                         String SKU = resBook.getString("SKU");
                         String URL;
-                        if(checkBookImageExist(SKU))
-                             URL = "Images/Books/" + SKU + ".jpg";
-                        else
-                            URL =  "Images/transparent.png";
+                        if (checkBookImageExist(SKU)) {
+                            URL = "Images/Books/" + SKU + ".jpg";
+                        } else {
+                            URL = "Images/transparent.png";
+                        }
                         setImageToLabel(Image, URL);
                     } catch (SQLException ex) {
                         Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -230,8 +238,8 @@ public class SupportFunctions {
                     setImageToLabel(Image, URL);
                 }
             }
-            
-        resBook.beforeFirst();
+
+            resBook.beforeFirst();
         } catch (SQLException ex) {
             Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -250,19 +258,118 @@ public class SupportFunctions {
         }
         return size;
     }
-    
-    public static int getMaxPage(int size, int quantityPerPage){
-        float result = (float) size /quantityPerPage;
-        if(result-(int)result >0)
-            return (int)result +1;
-        else
-            return (int)result;
+
+    public static int getMaxPage(int size, int quantityPerPage) {
+        float result = (float) size / quantityPerPage;
+        if (result - (int) result > 0) {
+            return (int) result + 1;
+        } else {
+            return (int) result;
+        }
     }
-    
-    public static boolean checkUserName(String username){
+
+    public static boolean checkUserName(String username) {
         Pattern pattern = Pattern.compile("[A-Za-z0-9_]+");
         boolean valid = (username != null) && pattern.matcher(username).matches();
         return valid;
     }
+
+    public static boolean checkFileExist(String filePath) {
+        File file = new File(filePath);
+        return file.isFile();
+    }
+
+    public static boolean backupData() {
+        String filePath = System.getProperty("user.dir");
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        String file = filePath + "\\Data\\mysql" + timeStamp + ".sql";
+        System.out.println(file);
+        Process p = null;
+        try {
+            p = Runtime.getRuntime().exec("cmd /c mysqldump -uroot -p123456 datalibrary > " + file);
+            int processComplete = p.waitFor();
+            if (processComplete == 0) {
+                System.out.println("Backup created successfully!");
+                return true;
+            } else {
+                System.out.println("Could not create the backup");
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean restoreData() {
+        try {
+            String filePath = "Data\\Datalibrary.sql";
+            Connection con = DatabaseConnection.getMySQLConnection();
+            try {
+                // Initialize object for ScripRunner
+                ScriptRunner sr = new ScriptRunner(con, false, false);
+
+                // Give the input file to Reader
+                Reader reader = new BufferedReader(
+                        new FileReader(filePath));
+
+                // Exctute script
+                sr.runScript(reader);
+                return true;
+            } catch (Exception e) {
+                System.err.println("Failed to Execute" + filePath
+                        + " The error is " + e.getMessage());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
     
+    public static void DisplayHistory(ResultSet res, JTable result){
+        String[] columnNames = { "ID sách","SKU", "Tên sách","Tác giả","Ngày Mượn", "Ngày Trả", "Tình Trạng", "Hạn trả"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        try {
+            while (res.next()) {
+                String ID = res.getString(2);
+                ResultSet rs = DatabaseQuery.FindBookByID(ID);
+                rs.next();
+                String SKU = rs.getString("SKU");
+                String BName = rs.getString("BName");
+                String Author = rs.getString("Author");
+                String bDay = String.valueOf(res.getDate("NgayMuon"));
+                String rDay = String.valueOf(res.getDate("NgayTra"));
+                String dLine = String.valueOf(res.getDate("NgayTraDuKien"));
+                String status = res.getString("TinhTrang");
+                if(status.equals("0"))
+                {
+                    status = "Chưa trả";
+                }
+                else
+                    status = "Đã trả";
+                model.addRow(new Object[]{ID, SKU, BName, Author, bDay, rDay, status, dLine});
+            }
+            result.setModel(model);
+            result.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+            result.getColumnModel().getColumn(0).setPreferredWidth(10);
+            result.getColumnModel().getColumn(1).setPreferredWidth(20);
+            result.getColumnModel().getColumn(2).setPreferredWidth(150);
+            result.getColumnModel().getColumn(3).setPreferredWidth(150);
+            result.getColumnModel().getColumn(4).setPreferredWidth(20);
+            result.getColumnModel().getColumn(5).setPreferredWidth(20);
+            result.getColumnModel().getColumn(6).setPreferredWidth(20);
+            result.getColumnModel().getColumn(7).setPreferredWidth(20);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
