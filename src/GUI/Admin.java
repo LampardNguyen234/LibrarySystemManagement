@@ -1446,7 +1446,7 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel39.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel39.setText("Lần sao lưu gần nhất:");
+        jLabel39.setText("Lần sao lưu gần nhất: 2017-05-06 20:51:26");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1972,32 +1972,38 @@ public class Admin extends javax.swing.JFrame {
 
     private void lbSaoLuuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSaoLuuMouseEntered
         // TODO add your handling code here:
-        pnSaoLuu.setBackground(new Color(30, 49, 92));
+        if (leftState == 2) {
+            pnSaoLuu.setBackground(new Color(30, 49, 92));
+        }
     }//GEN-LAST:event_lbSaoLuuMouseEntered
 
     private void lbSaoLuuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSaoLuuMouseExited
         // TODO add your handling code here:
-        pnSaoLuu.setBackground(new Color(101, 197, 185));
+        if (leftState == 2) {
+            pnSaoLuu.setBackground(new Color(101, 197, 185));
+        }
     }//GEN-LAST:event_lbSaoLuuMouseExited
 
     private void lbKhoiPhucMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbKhoiPhucMouseExited
         // TODO add your handling code here:
-        pnKhoiPhuc.setBackground(new Color(0, 159, 60));
+        if (leftState == 2) {
+            pnKhoiPhuc.setBackground(new Color(0, 159, 60));
+        }
     }//GEN-LAST:event_lbKhoiPhucMouseExited
 
     private void lbKhoiPhucMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbKhoiPhucMouseEntered
         // TODO add your handling code here:
-        pnKhoiPhuc.setBackground(new Color(30, 49, 92));
+        if (leftState == 2) {
+            pnKhoiPhuc.setBackground(new Color(30, 49, 92));
+        }
     }//GEN-LAST:event_lbKhoiPhucMouseEntered
 
     private void lbKhoiPhucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbKhoiPhucMouseClicked
         // TODO add your handling code here:
         boolean success = SupportFunctions.restoreData();
-        if(success){
+        if (success) {
             JOptionPane.showMessageDialog(null, "Khôi phục dữ liệu thành công");
-        }
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(null, "Khôi phục dữ liệu không thành công");
         }
     }//GEN-LAST:event_lbKhoiPhucMouseClicked

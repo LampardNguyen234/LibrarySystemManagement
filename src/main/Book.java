@@ -18,6 +18,8 @@ public class Book {
     String Publisher;
     String PublishedDay;
     String Author;
+    String Price;
+    int Total;
 
     public String getSKU() {
         return SKU;
@@ -42,7 +44,15 @@ public class Book {
     public String getAuthor() {
         return Author;
     }
-
+    
+    public String getPrice() {
+        return Price;
+    }
+    
+    public int getTotal() {
+        return Total;
+    }
+    
     public Book(String SKU, String Name, String Gendre, String Publisher, String PublishedDay, String Author) {
         this.SKU = SKU;
         this.Name = Name;
@@ -50,6 +60,17 @@ public class Book {
         this.Publisher = Publisher;
         this.PublishedDay = PublishedDay;
         this.Author = Author;
+    }
+
+    public Book(String SKU, String Name, String Gendre, String Publisher, String PublishedDay, String Author, String Price, int Total) {
+        this.SKU = SKU;
+        this.Name = Name;
+        this.Gendre = Gendre;
+        this.Publisher = Publisher;
+        this.PublishedDay = PublishedDay;
+        this.Author = Author;
+        this.Price = Price;
+        this.Total = Total;
     }
 
     public Book() {
