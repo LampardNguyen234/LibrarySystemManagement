@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -303,12 +304,11 @@ public class DatabaseQuery {
         }
         return null;
     }
-
-    /*Delete book from database*/
-    public static boolean DeleteBook(String SKU) {
+    
+    public static boolean DeleteAllBook(String SKU){
         try {
             Connection conn = DatabaseConnection.getMySQLConnection("datalibrary");
-            PreparedStatement pst = conn.prepareStatement("delete from datalibrary.tua_sach where ID = ?");
+            PreparedStatement pst = conn.prepareStatement("delete from datalibrary.cuon_sach where SKU = ?");
             pst.setString(1, SKU);
             return pst.execute();
         } catch (SQLException ex) {
@@ -318,24 +318,37 @@ public class DatabaseQuery {
         }
         return false;
     }
+
+    /*Delete book from database*/
+    public static boolean DeleteBook(String SKU) {
+        DeleteAllBook(SKU);
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection("datalibrary");
+            PreparedStatement pst  = conn.prepareStatement("delete from datalibrary.tua_sach where SKU = ?");
+            pst.setString(1, SKU);
+            return pst.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Lỗi cập nhật vào CSDL, vui lòng thử lại");         
+        }
+        return false;
+    }
     
     public static boolean updateBook(Book updateBook) throws ClassNotFoundException{
         try {
             Connection conn = DatabaseConnection.getMySQLConnection("datalibrary");
-            PreparedStatement pst = conn.prepareStatement("update datalibrary.tua_sach set BName = ?, Author = ?, Publisher = ?, PublishedDay = ?, Gendre = ?,"+
-                    "Price = ?, Total = ? where SKU = ?");
-            pst.setString(1, updateBook.getName());
-            pst.setString(2, updateBook.getAuthor());
-            pst.setString(3, updateBook.Publisher);
-            pst.setString(4, updateBook.getPublishedDay());
-            pst.setString(5, updateBook.getGendre());
-            pst.setString(6, updateBook.getPrice());
-            pst.setInt(7, updateBook.getTotal());
-            pst.setString(8, updateBook.getSKU());
-            pst.executeQuery();
-            return true;
+            PreparedStatement pst = conn.prepareStatement("update datalibrary.tua_sach set BName = '"+updateBook.getName()+"', Author = '"+updateBook.getAuthor()
+            +"', Publisher = '"+updateBook.getPublisher()+"', PublishedDay = '"+updateBook.getPublishedDay()+"', Gendre = '"+updateBook.getGendre()
+            +"', Price = '"+updateBook.getPrice()+"', Total = "+String.valueOf(updateBook.getTotal())+" where SKU = '"+updateBook.getSKU()+"'");
+            System.out.println("update datalibrary.tua_sach set BName = '"+updateBook.getName()+"', Author = '"+updateBook.getAuthor()
+            +"', Publisher = '"+updateBook.getPublisher()+"', PublishedDay = '"+updateBook.getPublishedDay()+"', Gendre = '"+updateBook.getGendre()
+            +"', Price = '"+updateBook.getPrice()+"', Total = "+String.valueOf(updateBook.getTotal())+" where SKU = '"+updateBook.getSKU()+"'");
+            return pst.execute();
         } catch (SQLException e) {
             Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(null, "Lỗi cập nhật vào CSDL, vui lòng thử lại");         
         }
         return false;
     }

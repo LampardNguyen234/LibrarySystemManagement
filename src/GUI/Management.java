@@ -7,6 +7,7 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Frame;
+import java.awt.event.KeyEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.sql.ResultSet;
 import java.util.logging.Level;
@@ -83,6 +84,7 @@ public class Management extends javax.swing.JFrame {
         btDelete = new javax.swing.JButton();
         pnMOption2 = new javax.swing.JPanel();
         btAddBook = new javax.swing.JButton();
+        pnMOption3 = new javax.swing.JPanel();
         pnUserStats = new javax.swing.JPanel();
         pnReaderHistoryInfo = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -138,7 +140,7 @@ public class Management extends javax.swing.JFrame {
 
         lbHome1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbHome1.setForeground(new java.awt.Color(255, 255, 255));
-        lbHome1.setText("Trang Chủ");
+        lbHome1.setText("Đăng xuất");
         lbHome1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbHome1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -317,9 +319,24 @@ public class Management extends javax.swing.JFrame {
         lbInpSKU.setText("Nhập SKU của sách:");
 
         tfInpSKU.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        tfInpSKU.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                tfInpSKUInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
         tfInpSKU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfInpSKUActionPerformed(evt);
+            }
+        });
+        tfInpSKU.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfInpSKUKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfInpSKUKeyTyped(evt);
             }
         });
 
@@ -341,8 +358,12 @@ public class Management extends javax.swing.JFrame {
                 .addComponent(tfInpSKU, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
         );
 
+        pnInpInfo.setBackground(new java.awt.Color(204, 255, 255));
+
         lbBName.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbBName.setText("Tên sách:");
+
+        tfBName.setEnabled(false);
 
         lbAuthor.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbAuthor.setText("Tên tác giả:");
@@ -362,11 +383,22 @@ public class Management extends javax.swing.JFrame {
         lbNumber.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbNumber.setText("Số lượng:");
 
+        tfAuthor.setEnabled(false);
+
+        tfPublisher.setEnabled(false);
+
+        tfGenre.setEnabled(false);
+
+        tfPublisherDay.setEnabled(false);
         tfPublisherDay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfPublisherDayActionPerformed(evt);
             }
         });
+
+        tfPrice.setEnabled(false);
+
+        tfNumber.setEnabled(false);
 
         javax.swing.GroupLayout pnInpInfoLayout = new javax.swing.GroupLayout(pnInpInfo);
         pnInpInfo.setLayout(pnInpInfoLayout);
@@ -485,22 +517,39 @@ public class Management extends javax.swing.JFrame {
         btAddBook.setBackground(new java.awt.Color(255, 153, 0));
         btAddBook.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btAddBook.setText("Thêm sách");
+        btAddBook.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btAddBookMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnMOption2Layout = new javax.swing.GroupLayout(pnMOption2);
         pnMOption2.setLayout(pnMOption2Layout);
         pnMOption2Layout.setHorizontalGroup(
             pnMOption2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnMOption2Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnMOption2Layout.createSequentialGroup()
+                .addContainerGap(60, Short.MAX_VALUE)
                 .addComponent(btAddBook)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGap(47, 47, 47))
         );
         pnMOption2Layout.setVerticalGroup(
             pnMOption2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnMOption2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnMOption2Layout.createSequentialGroup()
                 .addComponent(btAddBook)
-                .addContainerGap())
+                .addGap(0, 22, Short.MAX_VALUE))
+        );
+
+        pnMOption3.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout pnMOption3Layout = new javax.swing.GroupLayout(pnMOption3);
+        pnMOption3.setLayout(pnMOption3Layout);
+        pnMOption3Layout.setHorizontalGroup(
+            pnMOption3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 206, Short.MAX_VALUE)
+        );
+        pnMOption3Layout.setVerticalGroup(
+            pnMOption3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 47, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnManagementUpdateLayout = new javax.swing.GroupLayout(pnManagementUpdate);
@@ -526,6 +575,11 @@ public class Management extends javax.swing.JFrame {
                     .addGap(304, 304, 304)
                     .addComponent(pnMOption2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(310, Short.MAX_VALUE)))
+            .addGroup(pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnManagementUpdateLayout.createSequentialGroup()
+                    .addContainerGap(314, Short.MAX_VALUE)
+                    .addComponent(pnMOption3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(300, 300, 300)))
         );
         pnManagementUpdateLayout.setVerticalGroup(
             pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -537,12 +591,17 @@ public class Management extends javax.swing.JFrame {
                 .addComponent(pnInpInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnMOption1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
             .addGroup(pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnManagementUpdateLayout.createSequentialGroup()
-                    .addContainerGap(472, Short.MAX_VALUE)
+                    .addContainerGap(493, Short.MAX_VALUE)
                     .addComponent(pnMOption2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(31, 31, 31)))
+            .addGroup(pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnManagementUpdateLayout.createSequentialGroup()
+                    .addContainerGap(503, Short.MAX_VALUE)
+                    .addComponent(pnMOption3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(21, 21, 21)))
         );
 
         pnMain.add(pnManagementUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 830, 580));
@@ -975,9 +1034,10 @@ public class Management extends javax.swing.JFrame {
             case 1:
                 pnUserStats.hide();
                 pnBooks.hide();
-                pnMOption2.hide();
                 pnManagementUpdate.show();
-                pnMOption1.show();
+                pnMOption2.hide();
+                pnMOption1.hide();
+                pnMOption3.show();
                 break;
             case 2:
                 pnManagementUpdate.hide();
@@ -1073,29 +1133,53 @@ public class Management extends javax.swing.JFrame {
 
     private void tfInpSKUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfInpSKUActionPerformed
         // TODO add your handling code here:
-        res = DatabaseQuery.FindBooksBySKU(tfInpSKU.getText());
-        int Numres = SupportFunctions.GetSize(res);
-        if (Numres > 0) {
-            JOptionPane.showMessageDialog(null, "Sách đã tồn tại, cập nhật lại thông tin sách ...");
-            try {
-                res.next();
-                pnMOption2.hide();
-                pnMOption1.show();
-                tfBName.setText(res.getString("BName"));
-                tfAuthor.setText(res.getString("Author"));
-                tfPublisher.setText(res.getString("Publisher"));
-                tfGenre.setText(res.getString("Gendre"));
-                tfPublisherDay.setText(res.getString("PublishedDay"));
-                tfPrice.setText(res.getString("Price"));
-                tfNumber.setText(res.getString("Total"));
-            } catch (Exception e) {
-                Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, e);
+        
+        Double SKU;
+        try {
+            SKU = Double.valueOf(tfInpSKU.getText());
+            res = DatabaseQuery.FindBooksBySKU(tfInpSKU.getText());
+            int Numres = SupportFunctions.GetSize(res);
+            tfBName.enable();
+            tfAuthor.enable();
+            tfPublisher.enable();
+            tfGenre.enable();
+            tfPublisherDay.enable();
+            tfPrice.enable();
+            tfNumber.enable();            
+            if (Numres > 0) {
+                JOptionPane.showMessageDialog(null, "Sách đã tồn tại, cập nhật lại thông tin sách ...");
+                try {
+                    res.next();
+                    pnMOption2.hide();
+                    pnMOption3.hide();
+                    pnMOption1.show();
+                    tfBName.setText(res.getString("BName"));
+                    tfAuthor.setText(res.getString("Author"));
+                    tfPublisher.setText(res.getString("Publisher"));
+                    tfGenre.setText(res.getString("Gendre"));
+                    tfPublisherDay.setText(res.getString("PublishedDay"));
+                    tfPrice.setText(res.getString("Price"));
+                    tfNumber.setText(res.getString("Total"));
+                } catch (Exception e) {
+                    Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, e);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Chưa tồn tại SKU, mời nhập thông tin sách");
+                tfBName.setText("");
+                tfAuthor.setText("");
+                tfPublisher.setText("");
+                tfGenre.setText("");
+                tfPublisherDay.setText("");
+                tfPrice.setText("");
+                tfNumber.setText("");
+                pnMOption1.hide();
+                pnMOption3.hide();
+                pnMOption2.show();
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Chưa tồn tại SKU, mời nhập thông tin sách");
-            pnMOption2.hide();
-            pnMOption1.show();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "SKU phải là chuỗi số");
         }
+        
         
     }//GEN-LAST:event_tfInpSKUActionPerformed
 
@@ -1105,18 +1189,79 @@ public class Management extends javax.swing.JFrame {
 
     private void btOkUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btOkUpdateMouseClicked
         // TODO add your handling code here:
-        Book updateBook = new Book(tfInpSKU.getText(), tfBName.getText(), tfGenre.getText(), tfPublisher.getText(), tfPublisherDay.getText(), tfAuthor.getText(), tfPrice.getText(),Integer.getInteger(tfNumber.getText()));
+        Book updateBook = new Book(tfInpSKU.getText(), tfBName.getText(), tfGenre.getText(), tfPublisher.getText(), tfPublisherDay.getText(), tfAuthor.getText(), tfPrice.getText(),Integer.parseInt(tfNumber.getText()));
         try {
             DatabaseQuery.updateBook(updateBook);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Lỗi cập nhật vào CSDL, vui lòng thử lại");         
         }
+        JOptionPane.showMessageDialog(null, "Cập nhật thông tin sách thành công!!!");
     }//GEN-LAST:event_btOkUpdateMouseClicked
 
     private void btDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btDeleteMouseClicked
         // TODO add your handling code here:
-        DatabaseQuery.DeleteBook(tfInpSKU.getText());
+        try {
+            DatabaseQuery.DeleteBook(tfInpSKU.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showConfirmDialog(null, "Xóa sách thành công!!!");
+        tfInpSKU.setText(null);
+        pnMOption1.hide();
+        pnMOption2.hide();
+        pnMOption3.show();
+        tfBName.disable();
+        tfAuthor.disable();
+        tfPublisher.disable();
+        tfGenre.disable();
+        tfPublisherDay.disable();
+        tfPrice.disable();
+        tfNumber.disable();
+        tfBName.setText(null);
+        tfAuthor.setText(null);
+        tfPublisher.setText(null);
+        tfPublisherDay.setText(null);
+        tfGenre.setText(null);
+        tfPrice.setText(null);
+        tfNumber.setText(null);
     }//GEN-LAST:event_btDeleteMouseClicked
+
+    private void btAddBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAddBookMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_btAddBookMouseClicked
+
+    private void tfInpSKUInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tfInpSKUInputMethodTextChanged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_tfInpSKUInputMethodTextChanged
+
+    private void tfInpSKUKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfInpSKUKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfInpSKUKeyTyped
+
+    private void tfInpSKUKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfInpSKUKeyPressed
+        // TODO add your handling code here:
+        pnMOption1.hide();
+        pnMOption2.hide();
+        pnMOption3.show();
+        tfBName.disable();
+        tfAuthor.disable();
+        tfPublisher.disable();
+        tfGenre.disable();
+        tfPublisherDay.disable();
+        tfPrice.disable();
+        tfNumber.disable();
+        tfBName.setText(null);
+        tfAuthor.setText(null);
+        tfPublisher.setText(null);
+        tfPublisherDay.setText(null);
+        tfGenre.setText(null);
+        tfPrice.setText(null);
+        tfNumber.setText(null);
+        
+    }//GEN-LAST:event_tfInpSKUKeyPressed
 
     /**
      * @param args the command line arguments
@@ -1210,6 +1355,7 @@ public class Management extends javax.swing.JFrame {
     private javax.swing.JPanel pnLeft;
     private javax.swing.JPanel pnMOption1;
     private javax.swing.JPanel pnMOption2;
+    private javax.swing.JPanel pnMOption3;
     private javax.swing.JPanel pnMain;
     private javax.swing.JPanel pnManagementUpdate;
     private javax.swing.JPanel pnReaderHistoryInfo;
