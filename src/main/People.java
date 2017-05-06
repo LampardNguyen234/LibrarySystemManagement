@@ -5,8 +5,6 @@
  */
 package main;
 
-import java.util.Date;
-
 /**
  *
  * @author Thành

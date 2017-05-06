@@ -34,12 +34,14 @@ public class Admin extends javax.swing.JFrame {
     int rightState = 0;
     final String staffDatabase = "nguoi_quan_ly";
     final String userDatabase = "doc_gia";
-
-    public Admin() {
+    public static People admin;
+    public Admin(People admin) {
         this.setResizable(false);
         initComponents();
         this.setShape(new RoundRectangle2D.Float(0, 0, 1000, 600, 45, 45));
         this.setSize(1000, 600);
+        this.admin=admin;
+        adminName.setText(admin.getFullName());
         SetAdminState(0, 0);
         SetTable(DatabaseQuery.getAllManager(), tbStaff, 0);
         // tableSelected(tbStaff);
@@ -1900,12 +1902,16 @@ public class Admin extends javax.swing.JFrame {
             if (!IDExisted) {
                 JOptionPane.showMessageDialog(null, "ID người dùng không tồn tại");
             } else {
-                boolean change = DatabaseQuery.UpdateUserPassword(ID, "123456", userDatabase);
-                if (change == true) {
-                    JOptionPane.showMessageDialog(null, "Đặt lại mật khẩu thành công!");
-                    SetAdminState(1, 0);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Đặt lại mật khẩu không thành công, vui lòng thử lại!");
+                try {
+                    boolean change = DatabaseQuery.UpdateUserPassword(ID, SupportFunctions.Hash256("123456"), userDatabase);
+                    if (change == true) {
+                        JOptionPane.showMessageDialog(null, "Đặt lại mật khẩu thành công!");
+                        SetAdminState(1, 0);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Đặt lại mật khẩu không thành công, vui lòng thử lại!");
+                    }
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -2046,7 +2052,7 @@ public class Admin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Admin().setVisible(true);
+                new Admin(admin).setVisible(true);
             }
         });
     }

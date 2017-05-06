@@ -6,12 +6,10 @@
 package main;
 
 import java.security.NoSuchAlgorithmException;
-import java.security.spec.PSSParameterSpec;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -350,7 +348,7 @@ public class DatabaseQuery {
             if (res.next()) {
                 String SKU = res.getString("SKU");
                 String Name = res.getString("BName");
-                String Gendre = res.getString("Gendre");
+                String Gendre = res.getString("Gender");
                 String Publisher = res.getString("Publisher");
                 String PublishedDay = res.getString("PublishedDay");
                 String Author = res.getString("Author");
@@ -381,15 +379,15 @@ public class DatabaseQuery {
         return false;
     }
     
-    public static boolean CheckValidAccount(String Username, String Password) {
+    public static boolean CheckValidAccount(String Username, String Password, String Table) {
         try {
             Connection conn = DatabaseConnection.getMySQLConnection();
-            PreparedStatement pst = conn.prepareStatement("select * from doc_gia where TaiKhoan = ?");
+            PreparedStatement pst = conn.prepareStatement("select * from " + Table +" where Username = ?");
             pst.setString(1, Username);
             ResultSet res = pst.executeQuery();
             if (res.next()) {
                 try {
-                    if(SupportFunctions.Hash256(Password).equals(res.getString("MatKhau")));
+                    if(SupportFunctions.Hash256(Password).equals(res.getString("Pass")));
                     return true;
                 } catch (NoSuchAlgorithmException ex) {
                     Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
@@ -403,4 +401,73 @@ public class DatabaseQuery {
         return false;
     }
     
+    public static ResultSet History(String userID, String choice){
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection();
+            PreparedStatement pst = conn.prepareStatement("select * from muon where IDNguoiMuon = ? and TinhTrang = ?");
+            pst.setString(1, userID);
+            pst.setString(2, choice);
+            return pst.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public static ResultSet History(String userID){
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection();
+            PreparedStatement pst = conn.prepareStatement("select * from muon where IDNguoiMuon = ?");
+            pst.setString(1, userID);
+            return pst.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public static ResultSet FindBookByID(String ID){
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection();
+            PreparedStatement pst = conn.prepareStatement("select * from cuon_sach where ID = ?");
+            pst.setString(1, ID);
+            ResultSet res = pst.executeQuery();
+            if(res.next())
+            {
+                String SKU = res.getString("SKU");
+                return FindBooksBySKU(SKU);
+            }
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public static People findUserByUsername(String Username, String Table){
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection();
+            PreparedStatement pst = conn.prepareStatement("select * from " + Table + " where Username = ?");
+            pst.setString(1, Username);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next())
+            {
+                People pl = new People(rs.getString("ID"), rs.getString("Name"), rs.getString("Address"), rs.getString("Birthday"), rs.getString("Email"),
+                        rs.getString("Username"), rs.getString("Pass"), rs.getString("Sex"),rs.getString("CMND"), rs.getString("PhoneNum"));
+                return pl;
+            }
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

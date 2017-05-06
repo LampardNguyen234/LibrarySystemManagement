@@ -21,7 +21,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -277,22 +279,31 @@ public class SupportFunctions {
         return file.isFile();
     }
 
-    public static boolean backupData(String filePath, String dbName) {//Back up dữ liệu vào một file cho trước
+    public static boolean backupData() {
+        String filePath = System.getProperty("user.dir");
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        String file = filePath + "\\Data\\mysql" + timeStamp + ".sql";
+        System.out.println(file);
+        Process p = null;
         try {
-            String command1 = "cd C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin";
-            String command2 = "mysqldump -h 127.0.0.1 -u root -p " + DatabaseConnection.password + " " + dbName + ">" + filePath + ".sql";
-            Runtime.getRuntime().exec(command1);
-            Runtime.getRuntime().exec(command2);
-            return checkFileExist(filePath + ".sql");
-        } catch (IOException ex) {
-            Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, ex);
+            p = Runtime.getRuntime().exec("cmd /c mysqldump -uroot -p123456 datalibrary > " + file);
+            int processComplete = p.waitFor();
+            if (processComplete == 0) {
+                System.out.println("Backup created successfully!");
+                return true;
+            } else {
+                System.out.println("Could not create the backup");
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return false;
     }
 
     public static boolean restoreData() {
         try {
-            String filePath = "Data\\dump.sql";
+            String filePath = "Data\\Datalibrary.sql";
             Connection con = DatabaseConnection.getMySQLConnection();
             try {
                 // Initialize object for ScripRunner
@@ -315,5 +326,50 @@ public class SupportFunctions {
             Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    
+    public static void DisplayHistory(ResultSet res, JTable result){
+        String[] columnNames = { "ID sách","SKU", "Tên sách","Tác giả","Ngày Mượn", "Ngày Trả", "Tình Trạng", "Hạn trả"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        try {
+            while (res.next()) {
+                String ID = res.getString(2);
+                ResultSet rs = DatabaseQuery.FindBookByID(ID);
+                rs.next();
+                String SKU = rs.getString("SKU");
+                String BName = rs.getString("BName");
+                String Author = rs.getString("Author");
+                String bDay = String.valueOf(res.getDate("NgayMuon"));
+                String rDay = String.valueOf(res.getDate("NgayTra"));
+                String dLine = String.valueOf(res.getDate("NgayTraDuKien"));
+                String status = res.getString("TinhTrang");
+                if(status.equals("0"))
+                {
+                    status = "Chưa trả";
+                }
+                else
+                    status = "Đã trả";
+                model.addRow(new Object[]{ID, SKU, BName, Author, bDay, rDay, status, dLine});
+            }
+            result.setModel(model);
+            result.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+            result.getColumnModel().getColumn(0).setPreferredWidth(10);
+            result.getColumnModel().getColumn(1).setPreferredWidth(20);
+            result.getColumnModel().getColumn(2).setPreferredWidth(150);
+            result.getColumnModel().getColumn(3).setPreferredWidth(150);
+            result.getColumnModel().getColumn(4).setPreferredWidth(20);
+            result.getColumnModel().getColumn(5).setPreferredWidth(20);
+            result.getColumnModel().getColumn(6).setPreferredWidth(20);
+            result.getColumnModel().getColumn(7).setPreferredWidth(20);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

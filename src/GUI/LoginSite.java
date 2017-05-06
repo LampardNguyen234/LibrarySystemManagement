@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JOptionPane;
 import main.DatabaseQuery;
+import main.People;
 
 /**
  *
@@ -140,6 +141,9 @@ public class LoginSite extends javax.swing.JFrame {
         lbLoginCard.setText("Đăng Nhập Bằng Thẻ");
         lbLoginCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbLoginCard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbLoginCardMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lbLoginCardMouseEntered(evt);
             }
@@ -295,13 +299,26 @@ public class LoginSite extends javax.swing.JFrame {
         // TODO add your handling code here:
         String Username = tfUsername.getText();
         String Password = pfPassword.getText();
-        if (DatabaseQuery.CheckValidAccount(Username, Password)) {
+        if (DatabaseQuery.CheckValidAccount(Username, Password, "nguoi_quan_ly")) {
             dispose();
-            new Admin().show();
+            new Management().show();
+        } else if (DatabaseQuery.CheckValidAccount(Username, Password, "doc_gia")) {
+            People pl = DatabaseQuery.findUserByUsername(Username, "doc_gia");
+            dispose();
+            new ReaderMain(pl).show();
+        } else if (DatabaseQuery.CheckValidAccount(Username, Password, "admin")) {
+            People pl = DatabaseQuery.findUserByUsername(Username, "admin");
+            dispose();
+            new Admin(pl).show();
         } else {
             JOptionPane.showMessageDialog(null, "Tài khoản không chính xác, vui lòng kiểm tra lại!");
         }
     }//GEN-LAST:event_lbLoginMouseClicked
+
+    private void lbLoginCardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLoginCardMouseClicked
+        // TODO add your handling code here:
+        new ScanID().show();
+    }//GEN-LAST:event_lbLoginCardMouseClicked
 
     /**
      * @param args the command line arguments
