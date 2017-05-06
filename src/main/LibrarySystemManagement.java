@@ -5,13 +5,8 @@
  */
 package main;
 
-import GUI.StartUp;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  *
@@ -23,21 +18,23 @@ public class LibrarySystemManagement {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        try {
-//            Connection cnn = DatabaseConnection.getMySQLConnection("datalibrary");
-//            PreparedStatement pst = cnn.prepareStatement("select * from tua_sach where Publisher = ?");
-//            pst.setString(1, "");
-//            ResultSet result = pst.executeQuery();
-//            while(result.next()){
-//                pst = cnn.prepareStatement("update tua_sach set Publisher = ? where SKU = ? ");
-//                pst.setString(1, "Đang cập nhật");
-//                pst.setString(2, result.getString("SKU"));
-//                pst.executeUpdate();
-//            }
-//                    } catch (SQLException ex) {
-//            Logger.getLogger(LibrarySystemManagement.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(LibrarySystemManagement.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    }    
+        //SupportFunctions.restoreData();
+        String filePath = System.getProperty("user.dir");
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        String file = filePath + "\\Data\\mysql"+ timeStamp+".sql";
+        System.out.println(file);
+        Process p = null;
+        try {
+            p = Runtime.getRuntime().exec("cmd /c mysqldump -uroot -p123456 datalibrary > " + file);
+//change the dbpass and dbname with your dbpass and dbname
+            int processComplete = p.waitFor();
+            if (processComplete == 0) {
+                System.out.println("Backup created successfully!");
+            } else {
+                System.out.println("Could not create the backup");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

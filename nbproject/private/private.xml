@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Thành/Documents/LibrarySystemManagement-master/src/main/DatabaseQuery.java</file>
-            <file>file:/C:/Users/Thành/Documents/LibrarySystemManagement-master/src/GUI/Management.java</file>
-            <file>file:/C:/Users/Thành/Documents/LibrarySystemManagement-master/src/GUI/HomePage.java</file>
-            <file>file:/C:/Users/Thành/Documents/LibrarySystemManagement-master/src/GUI/ReaderMain.java</file>
-            <file>file:/C:/Users/Thành/Documents/LibrarySystemManagement-master/src/GUI/Admin.java</file>
-            <file>file:/C:/Users/Thành/Documents/LibrarySystemManagement-master/src/main/DatabaseConnection.java</file>
+            <file>file:/C:/Users/Thành/Documents/GitHub/LibrarySystemManagement/LSM/LibrarySystemManagement/src/main/SupportFunctions.java</file>
+            <file>file:/C:/Users/Thành/Documents/GitHub/LibrarySystemManagement/LSM/LibrarySystemManagement/src/main/DatabaseConnection.java</file>
+            <file>file:/C:/Users/Thành/Documents/GitHub/LibrarySystemManagement/LSM/LibrarySystemManagement/src/main/DatabaseQuery.java</file>
+            <file>file:/C:/Users/Thành/Documents/GitHub/LibrarySystemManagement/LSM/LibrarySystemManagement/src/GUI/Admin.java</file>
         </group>
     </open-files>
 </project-private>

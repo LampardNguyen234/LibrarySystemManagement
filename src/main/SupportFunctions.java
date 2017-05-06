@@ -8,15 +8,20 @@ package main;
 import GUI.Admin;
 import GUI.HomePage;
 import java.awt.Image;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -215,10 +220,11 @@ public class SupportFunctions {
                         name.setToolTipText(resBook.getString("BName"));
                         String SKU = resBook.getString("SKU");
                         String URL;
-                        if(checkBookImageExist(SKU))
-                             URL = "Images/Books/" + SKU + ".jpg";
-                        else
-                            URL =  "Images/transparent.png";
+                        if (checkBookImageExist(SKU)) {
+                            URL = "Images/Books/" + SKU + ".jpg";
+                        } else {
+                            URL = "Images/transparent.png";
+                        }
                         setImageToLabel(Image, URL);
                     } catch (SQLException ex) {
                         Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -230,8 +236,8 @@ public class SupportFunctions {
                     setImageToLabel(Image, URL);
                 }
             }
-            
-        resBook.beforeFirst();
+
+            resBook.beforeFirst();
         } catch (SQLException ex) {
             Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -250,19 +256,64 @@ public class SupportFunctions {
         }
         return size;
     }
-    
-    public static int getMaxPage(int size, int quantityPerPage){
-        float result = (float) size /quantityPerPage;
-        if(result-(int)result >0)
-            return (int)result +1;
-        else
-            return (int)result;
+
+    public static int getMaxPage(int size, int quantityPerPage) {
+        float result = (float) size / quantityPerPage;
+        if (result - (int) result > 0) {
+            return (int) result + 1;
+        } else {
+            return (int) result;
+        }
     }
-    
-    public static boolean checkUserName(String username){
+
+    public static boolean checkUserName(String username) {
         Pattern pattern = Pattern.compile("[A-Za-z0-9_]+");
         boolean valid = (username != null) && pattern.matcher(username).matches();
         return valid;
     }
-    
+
+    public static boolean checkFileExist(String filePath) {
+        File file = new File(filePath);
+        return file.isFile();
+    }
+
+    public static boolean backupData(String filePath, String dbName) {//Back up dữ liệu vào một file cho trước
+        try {
+            String command1 = "cd C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin";
+            String command2 = "mysqldump -h 127.0.0.1 -u root -p " + DatabaseConnection.password + " " + dbName + ">" + filePath + ".sql";
+            Runtime.getRuntime().exec(command1);
+            Runtime.getRuntime().exec(command2);
+            return checkFileExist(filePath + ".sql");
+        } catch (IOException ex) {
+            Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public static boolean restoreData() {
+        try {
+            String filePath = "Data\\dump.sql";
+            Connection con = DatabaseConnection.getMySQLConnection();
+            try {
+                // Initialize object for ScripRunner
+                ScriptRunner sr = new ScriptRunner(con, false, false);
+
+                // Give the input file to Reader
+                Reader reader = new BufferedReader(
+                        new FileReader(filePath));
+
+                // Exctute script
+                sr.runScript(reader);
+                return true;
+            } catch (Exception e) {
+                System.err.println("Failed to Execute" + filePath
+                        + " The error is " + e.getMessage());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

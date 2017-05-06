@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package GUI;
+
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.geom.RoundRectangle2D;
@@ -100,7 +101,7 @@ public class Admin extends javax.swing.JFrame {
                 }
                 break;
             }
-            case 1: {
+            case 1: {//User Manager
                 changeBackPanelEntered(pnUserManagement);
                 changeBackPanelExited(pnStaffManagement);
                 changeBackPanelExited(pnBackUp);
@@ -141,6 +142,11 @@ public class Admin extends javax.swing.JFrame {
                         break;
                 }
                 break;
+            }
+            case 2: {
+                changeBackPanelEntered(pnBackUp);
+                changeBackPanelExited(pnStaffManagement);
+                changeBackPanelExited(pnUserManagement);
             }
         }
     }
@@ -291,6 +297,17 @@ public class Admin extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
         tfID1 = new javax.swing.JTextField();
         cbUserEdit = new javax.swing.JComboBox<>();
+        pnBackupScr = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        lbBackup = new javax.swing.JLabel();
+        pnSaoLuu = new javax.swing.JPanel();
+        lbSaoLuu = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        lbRestore = new javax.swing.JLabel();
+        pnKhoiPhuc = new javax.swing.JPanel();
+        lbKhoiPhuc = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel39 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lbCancel = new javax.swing.JLabel();
         lbMinimize = new javax.swing.JLabel();
@@ -1305,6 +1322,153 @@ public class Admin extends javax.swing.JFrame {
 
         pnMain.add(pnUser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 800, 540));
 
+        pnBackupScr.setBackground(new java.awt.Color(255, 247, 238));
+        pnBackupScr.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(101, 197, 185));
+
+        lbBackup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/backup.png"))); // NOI18N
+
+        pnSaoLuu.setBackground(new java.awt.Color(101, 197, 185));
+
+        lbSaoLuu.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        lbSaoLuu.setForeground(new java.awt.Color(255, 255, 255));
+        lbSaoLuu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbSaoLuu.setText("SAO LƯU");
+        lbSaoLuu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbSaoLuu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lbSaoLuuMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lbSaoLuuMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnSaoLuuLayout = new javax.swing.GroupLayout(pnSaoLuu);
+        pnSaoLuu.setLayout(pnSaoLuuLayout);
+        pnSaoLuuLayout.setHorizontalGroup(
+            pnSaoLuuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbSaoLuu, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+        );
+        pnSaoLuuLayout.setVerticalGroup(
+            pnSaoLuuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbSaoLuu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(lbBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(pnSaoLuu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(85, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(lbBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnSaoLuu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+
+        pnBackupScr.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 390));
+
+        jPanel2.setBackground(new java.awt.Color(0, 159, 60));
+
+        lbRestore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/restore.png"))); // NOI18N
+
+        pnKhoiPhuc.setBackground(new java.awt.Color(0, 159, 60));
+
+        lbKhoiPhuc.setFont(new java.awt.Font("Times New Roman", 1, 23)); // NOI18N
+        lbKhoiPhuc.setForeground(new java.awt.Color(255, 255, 255));
+        lbKhoiPhuc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbKhoiPhuc.setText("KHÔI PHỤC");
+        lbKhoiPhuc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbKhoiPhuc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbKhoiPhucMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lbKhoiPhucMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lbKhoiPhucMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnKhoiPhucLayout = new javax.swing.GroupLayout(pnKhoiPhuc);
+        pnKhoiPhuc.setLayout(pnKhoiPhucLayout);
+        pnKhoiPhucLayout.setHorizontalGroup(
+            pnKhoiPhucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbKhoiPhuc, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+        );
+        pnKhoiPhucLayout.setVerticalGroup(
+            pnKhoiPhucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbKhoiPhuc, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(83, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(lbRestore, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(pnKhoiPhuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(108, 108, 108))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(lbRestore, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnKhoiPhuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+
+        pnBackupScr.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 400, 390));
+
+        jPanel8.setBackground(new java.awt.Color(38, 40, 55));
+
+        jLabel39.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel39.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel39.setText("Lần sao lưu gần nhất:");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(401, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel39, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        pnBackupScr.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 800, 70));
+
+        pnMain.add(pnBackupScr, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 800, 540));
+
         getContentPane().add(pnMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 1010, 460));
 
         jPanel4.setBackground(new java.awt.Color(53, 53, 53));
@@ -1381,6 +1545,7 @@ public class Admin extends javax.swing.JFrame {
     private void lbStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbStaffMouseClicked
         pnStaff.show();
         pnUser2.hide();
+        pnBackupScr.hide();
         SetAdminState(0, 0);
     }//GEN-LAST:event_lbStaffMouseClicked
 
@@ -1400,6 +1565,7 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
         pnStaff.hide();
         pnUser2.show();
+        pnBackupScr.hide();
         SetAdminState(1, 0);
     }//GEN-LAST:event_lbUserMouseClicked
 
@@ -1417,6 +1583,10 @@ public class Admin extends javax.swing.JFrame {
 
     private void lbBackUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBackUpMouseClicked
         // TODO add your handling code here:
+        pnStaff.hide();
+        pnUser2.hide();
+        pnBackupScr.show();
+        SetAdminState(2, 0);
     }//GEN-LAST:event_lbBackUpMouseClicked
 
     private void lbBackUpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBackUpMouseEntered
@@ -1426,7 +1596,9 @@ public class Admin extends javax.swing.JFrame {
 
     private void lbBackUpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBackUpMouseExited
         // TODO add your handling code here:
-        changeBackPanelExited(pnBackUp);
+        if (leftState != 2) {
+            changeBackPanelExited(pnBackUp);
+        }
     }//GEN-LAST:event_lbBackUpMouseExited
 
     private void lbStatisticsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbStatisticsMouseClicked
@@ -1545,10 +1717,10 @@ public class Admin extends javax.swing.JFrame {
                 cbStaffEdit.setSelectedIndex(0);
             }
             if (gendre.equals("Nữ")) {
-                 cbStaffEdit.setSelectedIndex(1);
+                cbStaffEdit.setSelectedIndex(1);
             }
             if (gendre.equals("Khác")) {
-                 cbStaffEdit.setSelectedIndex(2);
+                cbStaffEdit.setSelectedIndex(2);
             }
             tfID.setText(ID);
             tfFullname1.setText(res.getString("Name"));
@@ -1673,7 +1845,7 @@ public class Admin extends javax.swing.JFrame {
 
     private void btnEditStaff1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditStaff1ActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             // TODO add your handling code here:
             int row = tbStaff1.getSelectedRow();
             String ID = (String) tbStaff1.getValueAt(row, 0);
@@ -1776,7 +1948,7 @@ public class Admin extends javax.swing.JFrame {
         tfEmail2.setText("");
         tfPhoneNum2.setText("");
     }
-    
+
     private void btnUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdate1ActionPerformed
         // TODO add your handling code here:
         if (tfFullname3.getText().equals("")) {
@@ -1797,6 +1969,38 @@ public class Admin extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnUpdate1ActionPerformed
+
+    private void lbSaoLuuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSaoLuuMouseEntered
+        // TODO add your handling code here:
+        pnSaoLuu.setBackground(new Color(30, 49, 92));
+    }//GEN-LAST:event_lbSaoLuuMouseEntered
+
+    private void lbSaoLuuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSaoLuuMouseExited
+        // TODO add your handling code here:
+        pnSaoLuu.setBackground(new Color(101, 197, 185));
+    }//GEN-LAST:event_lbSaoLuuMouseExited
+
+    private void lbKhoiPhucMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbKhoiPhucMouseExited
+        // TODO add your handling code here:
+        pnKhoiPhuc.setBackground(new Color(0, 159, 60));
+    }//GEN-LAST:event_lbKhoiPhucMouseExited
+
+    private void lbKhoiPhucMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbKhoiPhucMouseEntered
+        // TODO add your handling code here:
+        pnKhoiPhuc.setBackground(new Color(30, 49, 92));
+    }//GEN-LAST:event_lbKhoiPhucMouseEntered
+
+    private void lbKhoiPhucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbKhoiPhucMouseClicked
+        // TODO add your handling code here:
+        boolean success = SupportFunctions.restoreData();
+        if(success){
+            JOptionPane.showMessageDialog(null, "Khôi phục dữ liệu thành công");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Khôi phục dữ liệu không thành công");
+        }
+    }//GEN-LAST:event_lbKhoiPhucMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1893,17 +2097,21 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -1912,13 +2120,17 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel lbAddStaff;
     private javax.swing.JLabel lbAddStaff1;
     private javax.swing.JLabel lbBackUp;
+    private javax.swing.JLabel lbBackup;
     private javax.swing.JLabel lbCancel;
     private javax.swing.JLabel lbEditStaff;
     private javax.swing.JLabel lbEditStaff1;
+    private javax.swing.JLabel lbKhoiPhuc;
     private javax.swing.JLabel lbMinimize;
     private javax.swing.JLabel lbMinimize1;
     private javax.swing.JLabel lbNum;
     private javax.swing.JLabel lbNum1;
+    private javax.swing.JLabel lbRestore;
+    private javax.swing.JLabel lbSaoLuu;
     private javax.swing.JLabel lbStaff;
     private javax.swing.JLabel lbStatistics;
     private javax.swing.JLabel lbStatistics1;
@@ -1927,8 +2139,10 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel pnAddStaff;
     private javax.swing.JPanel pnAddStaff1;
     private javax.swing.JPanel pnBackUp;
+    private javax.swing.JPanel pnBackupScr;
     private javax.swing.JPanel pnEdit;
     private javax.swing.JPanel pnEdit1;
+    private javax.swing.JPanel pnKhoiPhuc;
     private javax.swing.JPanel pnLeft;
     private javax.swing.JPanel pnMain;
     private javax.swing.JPanel pnMainAdd;
@@ -1937,6 +2151,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel pnMainEdit1;
     private javax.swing.JPanel pnMainStatistics;
     private javax.swing.JPanel pnMainStatistics1;
+    private javax.swing.JPanel pnSaoLuu;
     private javax.swing.JPanel pnStaff;
     private javax.swing.JPanel pnStaffManagement;
     private javax.swing.JPanel pnStatistics;
