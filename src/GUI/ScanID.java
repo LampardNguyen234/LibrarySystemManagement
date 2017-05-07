@@ -6,6 +6,9 @@
 package GUI;
 
 import java.awt.geom.RoundRectangle2D;
+import javax.swing.JOptionPane;
+import main.DatabaseQuery;
+import main.People;
 
 /**
  *
@@ -20,6 +23,7 @@ public class ScanID extends javax.swing.JFrame {
         initComponents();
         this.setShape(new RoundRectangle2D.Float(0, 0, 300, 300, 45, 45));
         this.setSize(300, 300);
+        one.start();
     }
 
     /**
@@ -33,7 +37,7 @@ public class ScanID extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnCancel = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        tfID = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
 
@@ -56,11 +60,11 @@ public class ScanID extends javax.swing.JFrame {
         });
         jPanel1.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 245, -1, -1));
 
-        jTextField1.setBackground(new java.awt.Color(45, 59, 85));
-        jTextField1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setBorder(null);
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 200, 39));
+        tfID.setBackground(new java.awt.Color(45, 59, 85));
+        tfID.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        tfID.setForeground(new java.awt.Color(255, 255, 255));
+        tfID.setBorder(null);
+        jPanel1.add(tfID, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 200, 39));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 200, 17));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -87,6 +91,8 @@ public class ScanID extends javax.swing.JFrame {
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         this.dispose();
+        new LoginSite().show();
+                
     }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
@@ -124,11 +130,57 @@ public class ScanID extends javax.swing.JFrame {
         });
     }
 
+    Thread one = new Thread() {
+        public void run() {
+            String text;
+            while (true) {
+                text = tfID.getText();
+                System.out.println(text);
+                if (text.length() == 7) {
+                    People user = DatabaseQuery.findUserByID(text, "admin");
+                    if (user != null) {
+                        dispose();
+                        new Admin(user).show();
+                        JOptionPane.showMessageDialog(null, "Đăng nhập thành công! Xin chào "+ user.getFullName() +". Đăng nhập với tư cách Admin");
+                        stop();
+                        break;
+                    } else {
+                        user = DatabaseQuery.findUserByID(text, "doc_gia");
+                        if (user != null) {
+                            dispose();
+                            new ReaderMain(user).show();
+                            JOptionPane.showMessageDialog(null, "Đăng nhập thành công! Xin chào "+ user.getFullName()+". Đăng nhập với tư cách Độc giả");
+                            stop();
+                            break;
+                        } else {
+                            user = DatabaseQuery.findUserByID(text, "nguoi_quan_ly");
+                            if (user != null) {
+                                dispose();
+                                new Management().show();
+                                JOptionPane.showMessageDialog(null, "Đăng nhập thành công! Xin chào "+ user.getFullName()+". Đăng nhập với tư cách Thủ thư");
+                                tfID.setText("");
+                                stop();
+                                break;
+                            }
+                            else
+                            {
+                                tfID.setText("");
+                                hide();
+                                JOptionPane.showMessageDialog(getOwner(), "ID không tồn tại, vui lòng kiểm tra lại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                                show();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    };
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField tfID;
     // End of variables declaration//GEN-END:variables
 }

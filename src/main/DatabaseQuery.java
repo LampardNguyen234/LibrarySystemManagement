@@ -483,4 +483,25 @@ public class DatabaseQuery {
         }
         return null;
     }
+    
+    public static People findUserByID(String ID, String Table){
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection();
+            PreparedStatement pst = conn.prepareStatement("select * from " + Table + " where ID = ?");
+            pst.setString(1, ID);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next())
+            {
+                People pl = new People(rs.getString("ID"), rs.getString("Name"), rs.getString("Address"), rs.getString("Birthday"), rs.getString("Email"),
+                        rs.getString("Username"), rs.getString("Pass"), rs.getString("Sex"),rs.getString("CMND"), rs.getString("PhoneNum"));
+                return pl;
+            }
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
