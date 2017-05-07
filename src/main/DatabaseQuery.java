@@ -361,7 +361,7 @@ public class DatabaseQuery {
             if (res.next()) {
                 String SKU = res.getString("SKU");
                 String Name = res.getString("BName");
-                String Gendre = res.getString("Gender");
+                String Gendre = res.getString("Gendre");
                 String Publisher = res.getString("Publisher");
                 String PublishedDay = res.getString("PublishedDay");
                 String Author = res.getString("Author");

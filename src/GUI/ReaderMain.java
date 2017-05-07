@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import main.Book;
 import static main.DatabaseConnection.userName;
 import main.DatabaseQuery;
@@ -39,15 +40,14 @@ public class ReaderMain extends javax.swing.JFrame {
     //ResultSet resUser;
     boolean key;
     ResultSet res;
+    String Pass;
+    String userName;
     int currentPage = 1;
     int maxPage = 1;
     int quantityPerPage = 10;
     int resultNum = 0;
-<<<<<<< HEAD
     int state = 1;
-=======
     int panel =1;
->>>>>>> 972148d5567283410a8e964f1960eda7c8f7388a
     
     ArrayList<JLabel> resultName = new ArrayList<>();
     ArrayList<JLabel> resultImage = new ArrayList<>();
@@ -61,13 +61,10 @@ public class ReaderMain extends javax.swing.JFrame {
         this.setShape(new RoundRectangle2D.Float(0, 0, 1000, 600, 45, 45));
         this.setSize(1000, 600);
         changeBackPanel(1);
-<<<<<<< HEAD
         this.userName = "Nguyễn Văn Thành";
         lbUserName.setText("Khách hàng: "+userName);
-=======
         
         this.user = user; 
->>>>>>> 972148d5567283410a8e964f1960eda7c8f7388a
         
         resultName.add(ResultName1);
         resultName.add(ResultName2);
@@ -151,6 +148,17 @@ public class ReaderMain extends javax.swing.JFrame {
         }
     }
     
+    public void addDataToTable(ResultSet inpSet) {
+        DefaultTableModel model = (DefaultTableModel) tbHistory.getModel();
+        try {
+            while (inpSet.next()){
+                model.addRow(new Object[]{inpSet.getString("IDSach"),inpSet.getString("NgayMuon"),inpSet.getString("NgayTra"),inpSet.getString("NgayTraDuKien")});
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReaderMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public void changeBackPanel(int inpState){
         panel = inpState;
@@ -1067,26 +1075,7 @@ public class ReaderMain extends javax.swing.JFrame {
 
         tbHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Tên sách", "Ngày mượn", "Ngày trả", "Ngày trả dự kiến"
@@ -1796,12 +1785,11 @@ public class ReaderMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btChangePW1ActionPerformed
 
     private void btChangePW1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btChangePW1MouseClicked
-<<<<<<< HEAD
         // TODO add your handling code here:
         
         //Querry code here
         
-        if (!pfCurPass.getText().equals(Pass))
+        if (!pfCurPass.getText().equals(user.getPassword()))
             JOptionPane.showMessageDialog(null, "Nhập sai Password hiện tại!!!");
         else
         if (!pfNewPass.getText().equals(pfTestNewPass.getText()))
@@ -1809,7 +1797,7 @@ public class ReaderMain extends javax.swing.JFrame {
         else
         {
             try {
-                DatabaseQuery.UpdateUserPassword(ID, pfNewPass.getText(), "doc_gia");
+                DatabaseQuery.UpdateUserPassword(user.getID(), pfNewPass.getText(), "doc_gia");
                 pnChangePass.hide();
                 pnRI2.hide();
                 pnRI3.hide();
@@ -1819,7 +1807,7 @@ public class ReaderMain extends javax.swing.JFrame {
                 Logger.getLogger(ReaderMain.class.getName()).log(Level.SEVERE, null, e);
                 JOptionPane.showMessageDialog(null, "Có lỗi trong việc cập nhật CSDL, vui lòng thử lại!!!");
             }
-=======
+        }
         try {
             // TODO add your handling code here:
             
@@ -1839,7 +1827,7 @@ public class ReaderMain extends javax.swing.JFrame {
                         pnRI2.hide();
                         pnRI3.hide();
                         pnShowInfo.show();
-                        pnAvatar.show();
+                        //pnAvatar.show();
                         pnRI1.show();
                     } catch (Exception e) {
                         Logger.getLogger(ReaderMain.class.getName()).log(Level.SEVERE, null, e);
@@ -1847,7 +1835,6 @@ public class ReaderMain extends javax.swing.JFrame {
                 }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(ReaderMain.class.getName()).log(Level.SEVERE, null, ex);
->>>>>>> 972148d5567283410a8e964f1960eda7c8f7388a
         }
         JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công!!!");
         
@@ -2094,13 +2081,7 @@ public class ReaderMain extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-<<<<<<< HEAD
-    private javax.swing.JTable jTable1;
-=======
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JLabel lbAvatar;
-    private javax.swing.JLabel lbBrowser;
->>>>>>> 972148d5567283410a8e964f1960eda7c8f7388a
     private javax.swing.JLabel lbCancel;
     private javax.swing.JLabel lbCurrentPage;
     private javax.swing.JLabel lbHInfo1;
