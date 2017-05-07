@@ -754,8 +754,8 @@ public class HomePage extends javax.swing.JFrame {
 
     private void lbUser1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUser1MouseClicked
         // TODO add your handling code here:
-
-        new LoginSite().setVisible(true);
+        dispose();
+        new LoginSite().show();
     }//GEN-LAST:event_lbUser1MouseClicked
 
     private void lbNextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNextMouseClicked

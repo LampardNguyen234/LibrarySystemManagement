@@ -7,7 +7,6 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Frame;
-import java.awt.Toolkit;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JOptionPane;
 import main.DatabaseQuery;
@@ -24,7 +23,6 @@ public class LoginSite extends javax.swing.JFrame {
      */
     public LoginSite() {
         initComponents();
-        Toolkit tk = Toolkit.getDefaultToolkit();
         this.setResizable(false);
         this.setShape(new RoundRectangle2D.Float(0, 0, 300, 400, 45, 45));
         setSize(300, 400);
@@ -282,6 +280,7 @@ public class LoginSite extends javax.swing.JFrame {
     private void lbCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCancelMouseClicked
         // TODO add your handling code here:
         this.dispose();
+        new HomePage().show();
     }//GEN-LAST:event_lbCancelMouseClicked
 
     private void lbMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbMinimizeMouseClicked
@@ -311,12 +310,13 @@ public class LoginSite extends javax.swing.JFrame {
             dispose();
             new Admin(pl).show();
         } else {
-            JOptionPane.showMessageDialog(null, "Tài khoản không chính xác, vui lòng kiểm tra lại!");
+            JOptionPane.showMessageDialog(this, "Tài khoản không chính xác, vui lòng kiểm tra lại!");
         }
     }//GEN-LAST:event_lbLoginMouseClicked
 
     private void lbLoginCardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLoginCardMouseClicked
         // TODO add your handling code here:
+        dispose();
         new ScanID().show();
     }//GEN-LAST:event_lbLoginCardMouseClicked
 
