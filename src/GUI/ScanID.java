@@ -137,6 +137,7 @@ public class ScanID extends javax.swing.JFrame {
                 text = tfID.getText();
                 System.out.println(text);
                 if (text.length() == 7) {
+                    tfID.requestFocus(false);
                     People user = DatabaseQuery.findUserByID(text, "admin");
                     if (user != null) {
                         dispose();
