@@ -157,7 +157,7 @@ public class ScanID extends javax.swing.JFrame {
                             user = DatabaseQuery.findUserByID(text, "nguoi_quan_ly");
                             if (user != null) {
                                 dispose();
-                                new Management().show();
+                                new Management(user).show();
                                 JOptionPane.showMessageDialog(null, "Đăng nhập thành công! Xin chào "+ user.getFullName()+". Đăng nhập với tư cách Thủ thư");
                                 tfID.setText("");
                                 stop();

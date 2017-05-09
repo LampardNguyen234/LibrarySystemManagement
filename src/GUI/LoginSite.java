@@ -299,8 +299,9 @@ public class LoginSite extends javax.swing.JFrame {
         String Username = tfUsername.getText();
         String Password = pfPassword.getText();
         if (DatabaseQuery.CheckValidAccount(Username, Password, "nguoi_quan_ly")) {
+            People p1 = DatabaseQuery.findUserByUsername(Username, "nguoi_quan_ly");
             dispose();
-            new Management().show();
+            new Management(p1).show();
         } else if (DatabaseQuery.CheckValidAccount(Username, Password, "doc_gia")) {
             People pl = DatabaseQuery.findUserByUsername(Username, "doc_gia");
             dispose();

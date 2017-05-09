@@ -392,6 +392,21 @@ public class DatabaseQuery {
         return false;
     }
     
+    public static ResultSet getReaderBook(){
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection();
+            PreparedStatement pst = conn.prepareStatement("select IDNguoiMuon, Name, count(IDNguoiMuon) as countID from ("+
+                    "(select * from datalibrary.muon left outer join datalibrary.doc_gia on muon.IDNguoiMuon = doc_gia.ID)"+
+                    " as muonsach)"+"group by IDNguoiMuon");
+            return pst.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     public static boolean CheckValidAccount(String Username, String Password, String Table) {
         try {
             Connection conn = DatabaseConnection.getMySQLConnection();
@@ -400,7 +415,7 @@ public class DatabaseQuery {
             ResultSet res = pst.executeQuery();
             if (res.next()) {
                 try {
-                    if(SupportFunctions.Hash256(Password).equals(res.getString("Pass")));
+                    if(SupportFunctions.Hash256(Password).equals(res.getString("Pass")))
                     return true;
                 } catch (NoSuchAlgorithmException ex) {
                     Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
