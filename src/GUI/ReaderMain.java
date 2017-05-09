@@ -1,7 +1,5 @@
 package GUI;
 
-import GUI.Admin;
-import GUI.HomePage;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.geom.RoundRectangle2D;
