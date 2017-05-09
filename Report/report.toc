@@ -22,7 +22,7 @@
 \contentsline {section}{\numberline {4.2}M\IeC {\`a}n h\IeC {\`\i }nh ch\IeC {\'\i }nh}{15}{section.4.2}
 \contentsline {section}{\numberline {4.3}Giao di\IeC {\d \ecircumflex }n ng\IeC {\uhorn }\IeC {\`\ohorn }i qu\IeC {\h a}n tr\IeC {\d i} h\IeC {\d \ecircumflex } th\IeC {\'\ocircumflex }ng}{17}{section.4.3}
 \contentsline {section}{\numberline {4.4}Giao di\IeC {\d \ecircumflex }n c\IeC {\h u}a \IeC {\dj }\IeC {\d \ocircumflex }c gi\IeC {\h a}}{21}{section.4.4}
-\contentsline {section}{\numberline {4.5}Giao di\IeC {\d \ecircumflex }n c\IeC {\h u}a th\IeC {\h u} th\IeC {\uhorn }}{21}{section.4.5}
+\contentsline {section}{\numberline {4.5}}{21}{section.4.5}
 \contentsline {chapter}{\numberline {5}T\IeC {\h \ocircumflex }ng k\IeC {\'\ecircumflex }t}{23}{chapter.5}
 \contentsline {section}{\numberline {5.1}K\IeC {\'\ecircumflex }t qu\IeC {\h a} \IeC {\dj }\IeC {\d a}t \IeC {\dj }\IeC {\uhorn }\IeC {\d \ohorn }c}{23}{section.5.1}
 \contentsline {section}{\numberline {5.2}Kh\IeC {\'o} kh\IeC {\u a}n v\IeC {\`a} h\IeC {\d a}n ch\IeC {\'\ecircumflex }}{23}{section.5.2}
