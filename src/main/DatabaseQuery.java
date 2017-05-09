@@ -5,11 +5,14 @@
  */
 package main;
 
+import com.sun.org.apache.xerces.internal.impl.dv.xs.YearDV;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Year;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -227,6 +230,57 @@ public class DatabaseQuery {
         return null;
     }
     
+    public static int countReaderOrBook(String table, String colName){
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection();
+            PreparedStatement pst = conn.prepareStatement("SELECT count("+colName+") as countID FROM "+table);
+            ResultSet res = pst.executeQuery();
+            res.next();
+            return res.getInt("countID");
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    public static int countBookRemainOrNot(int status){
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection();
+            PreparedStatement pst = conn.prepareStatement("select count(ID) as countID from datalibrary.cuon_sach\n" +
+                "where mStatus = "+String.valueOf(status));
+            ResultSet res = pst.executeQuery();
+            res.next();
+            return res.getInt("countID");
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    public static int countBookInMonth(String table, String colName, String countCol){
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection();
+            String date1 = String.valueOf(Calendar.getInstance().getTime().getYear())+"-"+String.valueOf(Calendar.getInstance().getTime().getMonth())+
+                    "-"+String.valueOf(Calendar.getInstance().getTime().getDate());
+            String date2 = String.valueOf(Calendar.getInstance().getTime().getYear())+"-"+String.valueOf(Calendar.getInstance().getTime().getMonth()+1)+
+                    "-"+String.valueOf(Calendar.getInstance().getTime().getDate());
+            PreparedStatement pst = conn.prepareStatement("select count("+countCol+") as countID from " + table +
+                " where " + colName + " between " + date1 + " and " + date2);
+            ResultSet res = pst.executeQuery();
+            res.next();
+            return res.getInt("countID");
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
     public static ResultSet SearchBookAdvanced(String querryString){
         try {
             Connection conn = DatabaseConnection.getMySQLConnection("datalibrary");
@@ -243,7 +297,7 @@ public class DatabaseQuery {
     public static ResultSet SearchBookByKeyWord(String KeyWord) {
         try {
             Connection conn = DatabaseConnection.getMySQLConnection("datalibrary");
-            PreparedStatement pst = conn.prepareStatement("select * from " + "datalibrary.tua_sach" + " where SKU like ? or Bname like ? or Gendre like ? or Author like ?"
+            PreparedStatement pst = conn.prepareStatement("select * from " + "datalibrary.tua_sach" + " where SKU like ? or Bname like ? or Gender like ? or Author like ?"
                     + " or Publisher like ? order by SKU");
             pst.setString(1, "%" + KeyWord + "%");
             pst.setString(2, "%" + KeyWord + "%");
@@ -338,10 +392,10 @@ public class DatabaseQuery {
         try {
             Connection conn = DatabaseConnection.getMySQLConnection("datalibrary");
             PreparedStatement pst = conn.prepareStatement("update datalibrary.tua_sach set BName = '"+updateBook.getName()+"', Author = '"+updateBook.getAuthor()
-            +"', Publisher = '"+updateBook.getPublisher()+"', PublishedDay = '"+updateBook.getPublishedDay()+"', Gendre = '"+updateBook.getGendre()
+            +"', Publisher = '"+updateBook.getPublisher()+"', PublishedDay = '"+updateBook.getPublishedDay()+"', Gender = '"+updateBook.getGendre()
             +"', Price = '"+updateBook.getPrice()+"', Total = "+String.valueOf(updateBook.getTotal())+" where SKU = '"+updateBook.getSKU()+"'");
             System.out.println("update datalibrary.tua_sach set BName = '"+updateBook.getName()+"', Author = '"+updateBook.getAuthor()
-            +"', Publisher = '"+updateBook.getPublisher()+"', PublishedDay = '"+updateBook.getPublishedDay()+"', Gendre = '"+updateBook.getGendre()
+            +"', Publisher = '"+updateBook.getPublisher()+"', PublishedDay = '"+updateBook.getPublishedDay()+"', Gender = '"+updateBook.getGendre()
             +"', Price = '"+updateBook.getPrice()+"', Total = "+String.valueOf(updateBook.getTotal())+" where SKU = '"+updateBook.getSKU()+"'");
             return pst.execute();
         } catch (SQLException e) {
@@ -361,11 +415,11 @@ public class DatabaseQuery {
             if (res.next()) {
                 String SKU = res.getString("SKU");
                 String Name = res.getString("BName");
-                String Gendre = res.getString("Gendre");
+                String Gender = res.getString("Gender");
                 String Publisher = res.getString("Publisher");
                 String PublishedDay = res.getString("PublishedDay");
                 String Author = res.getString("Author");
-                return new Book(SKU, Name, Gendre, Publisher, PublishedDay, Author);
+                return new Book(SKU, Name, Gender, Publisher, PublishedDay, Author);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);

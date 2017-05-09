@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import com.sun.org.apache.xerces.internal.impl.dv.xs.YearDV;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -13,7 +14,9 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -129,8 +132,12 @@ public class Management extends javax.swing.JFrame {
         pnAdvancedSearchLeft = new javax.swing.JPanel();
         lbAdvancedSearchImg = new javax.swing.JLabel();
         lbAdvancedSearch = new javax.swing.JLabel();
+        pnStorageStatsLeft = new javax.swing.JPanel();
+        lbStorageStatsImg = new javax.swing.JLabel();
+        lbStorageStatsLeft = new javax.swing.JLabel();
         pnManagementUpdate = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         pnInpSKU = new javax.swing.JPanel();
         lbInpSKU = new javax.swing.JLabel();
         tfInpSKU = new javax.swing.JTextField();
@@ -157,12 +164,14 @@ public class Management extends javax.swing.JFrame {
         pnMOption3 = new javax.swing.JPanel();
         pnUserStats = new javax.swing.JPanel();
         pnBackGr = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         srpUserStat = new javax.swing.JScrollPane();
         tbUserStats = new javax.swing.JTable();
         btDetails = new javax.swing.JButton();
         btBack = new javax.swing.JButton();
         pnBooks = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -185,7 +194,6 @@ public class Management extends javax.swing.JFrame {
         lbBookState = new javax.swing.JLabel();
         tfAuthorName = new javax.swing.JTextField();
         tfBookState = new javax.swing.JTextField();
-        lbAnnoucement = new javax.swing.JLabel();
         btConfirm = new javax.swing.JButton();
         pnAdvancedSearch = new javax.swing.JPanel();
         pbMainSearch = new javax.swing.JPanel();
@@ -248,19 +256,19 @@ public class Management extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         pnInpInfo1 = new javax.swing.JPanel();
         lbBName1 = new javax.swing.JLabel();
-        tfBName1 = new javax.swing.JTextField();
+        tfCountReader = new javax.swing.JTextField();
         lbAuthor1 = new javax.swing.JLabel();
         lnPublisher1 = new javax.swing.JLabel();
         lbGenre1 = new javax.swing.JLabel();
         lbPublishDay1 = new javax.swing.JLabel();
         lbPrice1 = new javax.swing.JLabel();
         lbNumber1 = new javax.swing.JLabel();
-        tfAuthor1 = new javax.swing.JTextField();
-        tfPublisher1 = new javax.swing.JTextField();
-        tfGenre1 = new javax.swing.JTextField();
-        tfPublisherDay1 = new javax.swing.JTextField();
-        tfPrice1 = new javax.swing.JTextField();
-        tfNumber1 = new javax.swing.JTextField();
+        tfBookRemain = new javax.swing.JTextField();
+        tfBookBorrowed = new javax.swing.JTextField();
+        tfCountBook = new javax.swing.JTextField();
+        tfBookInMonth = new javax.swing.JTextField();
+        tfBookBorrowedInMonth = new javax.swing.JTextField();
+        tfCountBName = new javax.swing.JTextField();
         pnMOption5 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -458,6 +466,46 @@ public class Management extends javax.swing.JFrame {
             .addComponent(lbAdvancedSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        pnStorageStatsLeft.setBackground(new java.awt.Color(38, 40, 55));
+        pnStorageStatsLeft.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnStorageStatsLeftMouseClicked(evt);
+            }
+        });
+
+        lbStorageStatsImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/Literature_32px.png"))); // NOI18N
+
+        lbStorageStatsLeft.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbStorageStatsLeft.setForeground(new java.awt.Color(255, 255, 255));
+        lbStorageStatsLeft.setText("Thống kê sách");
+        lbStorageStatsLeft.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbStorageStatsLeft.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbStorageStatsLeftMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lbStorageStatsLeftMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lbStorageStatsLeftMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnStorageStatsLeftLayout = new javax.swing.GroupLayout(pnStorageStatsLeft);
+        pnStorageStatsLeft.setLayout(pnStorageStatsLeftLayout);
+        pnStorageStatsLeftLayout.setHorizontalGroup(
+            pnStorageStatsLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnStorageStatsLeftLayout.createSequentialGroup()
+                .addComponent(lbStorageStatsImg, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbStorageStatsLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnStorageStatsLeftLayout.setVerticalGroup(
+            pnStorageStatsLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbStorageStatsImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lbStorageStatsLeft, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout pnLeftLayout = new javax.swing.GroupLayout(pnLeft);
         pnLeft.setLayout(pnLeftLayout);
         pnLeftLayout.setHorizontalGroup(
@@ -467,6 +515,7 @@ public class Management extends javax.swing.JFrame {
             .addComponent(pnBooksLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnUpdateLeft, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnAdvancedSearchLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnStorageStatsLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnLeftLayout.setVerticalGroup(
             pnLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -481,7 +530,9 @@ public class Management extends javax.swing.JFrame {
                 .addComponent(pnUserStatLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnBooksLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(360, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnStorageStatsLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(317, Short.MAX_VALUE))
         );
 
         pnMain.add(pnLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 580));
@@ -491,15 +542,26 @@ public class Management extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(255, 153, 0));
 
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Cập nhật kho sách trong thư viện");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(261, 261, 261))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 74, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         lbInpSKU.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
@@ -788,12 +850,12 @@ public class Management extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnManagementUpdateLayout.createSequentialGroup()
-                    .addContainerGap(465, Short.MAX_VALUE)
+                    .addContainerGap(502, Short.MAX_VALUE)
                     .addComponent(pnMOption2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(31, 31, 31)))
             .addGroup(pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnManagementUpdateLayout.createSequentialGroup()
-                    .addContainerGap(475, Short.MAX_VALUE)
+                    .addContainerGap(512, Short.MAX_VALUE)
                     .addComponent(pnMOption3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(21, 21, 21)))
         );
@@ -805,15 +867,26 @@ public class Management extends javax.swing.JFrame {
 
         pnBackGr.setBackground(new java.awt.Color(255, 153, 0));
 
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Thống kê tình trạng độc giả mượn sách");
+
         javax.swing.GroupLayout pnBackGrLayout = new javax.swing.GroupLayout(pnBackGr);
         pnBackGr.setLayout(pnBackGrLayout);
         pnBackGrLayout.setHorizontalGroup(
             pnBackGrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 830, Short.MAX_VALUE)
+            .addGroup(pnBackGrLayout.createSequentialGroup()
+                .addGap(244, 244, 244)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnBackGrLayout.setVerticalGroup(
             pnBackGrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 89, Short.MAX_VALUE)
+            .addGroup(pnBackGrLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel6)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         tbUserStats.setModel(new javax.swing.table.DefaultTableModel(
@@ -821,7 +894,7 @@ public class Management extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã khách hàng", "Tên khách hàng", "Số sách đã mượn"
+                "Mã độc giả", "Tên độc giả", "Số sách đã mượn"
             }
         ) {
             Class[] types = new Class [] {
@@ -839,6 +912,7 @@ public class Management extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbUserStats.setColumnSelectionAllowed(true);
         tbUserStats.setName("Thống kê người dùng"); // NOI18N
         tbUserStats.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         srpUserStat.setViewportView(tbUserStats);
@@ -877,7 +951,7 @@ public class Management extends javax.swing.JFrame {
                     .addGroup(pnUserStatsLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(srpUserStat, javax.swing.GroupLayout.PREFERRED_SIZE, 790, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         pnUserStatsLayout.setVerticalGroup(
             pnUserStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -889,7 +963,7 @@ public class Management extends javax.swing.JFrame {
                 .addGroup(pnUserStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btDetails)
                     .addComponent(btBack))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnMain.add(pnUserStats, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 830, 580));
@@ -899,28 +973,39 @@ public class Management extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(255, 153, 0));
 
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Mượn trả sách cho độc giả");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(291, 291, 291)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel7)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel1.setText("Mã khách hàng:");
+        jLabel1.setText("Mã độc giả:");
 
         lbReaderName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbReaderName.setText("Tên khách hàng:");
+        lbReaderName.setText("Tên độc giả:");
 
         lbReaderInfo.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbReaderInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbReaderInfo.setText("Thông tin khách hàng");
+        lbReaderInfo.setText("Thông tin đọc giả");
 
         lbReaderSex.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lbReaderSex.setText("Giới tính:");
@@ -1078,12 +1163,6 @@ public class Management extends javax.swing.JFrame {
                 .addContainerGap(64, Short.MAX_VALUE))
         );
 
-        lbAnnoucement.setBackground(new java.awt.Color(255, 255, 0));
-        lbAnnoucement.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lbAnnoucement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbAnnoucement.setText("Thông báo trình trạng cuốn sách và hỏi xác nhận mượn/trả sách?");
-        lbAnnoucement.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
         btConfirm.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btConfirm.setText("Xác nhận");
 
@@ -1093,20 +1172,15 @@ public class Management extends javax.swing.JFrame {
             pnBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnBooksLayout.createSequentialGroup()
-                .addGroup(pnBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnBooksLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnBooksLayout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(lbAnnoucement, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(pnBooksLayout.createSequentialGroup()
-                .addGap(363, 363, 363)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnBooksLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(363, 363, 363))
         );
         pnBooksLayout.setVerticalGroup(
             pnBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1116,11 +1190,9 @@ public class Management extends javax.swing.JFrame {
                 .addGroup(pnBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(lbAnnoucement, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(31, 31, 31)
                 .addComponent(btConfirm)
-                .addGap(0, 79, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
         pnMain.add(pnBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 830, 580));
@@ -1688,10 +1760,10 @@ public class Management extends javax.swing.JFrame {
         pnInpInfo1.setBackground(new java.awt.Color(204, 255, 255));
 
         lbBName1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lbBName1.setText("Số lượng đọc giả:");
+        lbBName1.setText("Số lượng độc giả:");
 
-        tfBName1.setEnabled(false);
-        tfBName1.setVerifyInputWhenFocusTarget(false);
+        tfCountReader.setEnabled(false);
+        tfCountReader.setVerifyInputWhenFocusTarget(false);
 
         lbAuthor1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbAuthor1.setText("Số sách đang còn trong kho:");
@@ -1711,28 +1783,33 @@ public class Management extends javax.swing.JFrame {
         lbNumber1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbNumber1.setText("Số lượng tựa sách:");
 
-        tfAuthor1.setEnabled(false);
-        tfAuthor1.setVerifyInputWhenFocusTarget(false);
-
-        tfPublisher1.setEnabled(false);
-        tfPublisher1.setVerifyInputWhenFocusTarget(false);
-
-        tfGenre1.setEnabled(false);
-        tfGenre1.setVerifyInputWhenFocusTarget(false);
-
-        tfPublisherDay1.setEnabled(false);
-        tfPublisherDay1.setVerifyInputWhenFocusTarget(false);
-        tfPublisherDay1.addActionListener(new java.awt.event.ActionListener() {
+        tfBookRemain.setEnabled(false);
+        tfBookRemain.setVerifyInputWhenFocusTarget(false);
+        tfBookRemain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfPublisherDay1ActionPerformed(evt);
+                tfBookRemainActionPerformed(evt);
             }
         });
 
-        tfPrice1.setEnabled(false);
-        tfPrice1.setVerifyInputWhenFocusTarget(false);
+        tfBookBorrowed.setEnabled(false);
+        tfBookBorrowed.setVerifyInputWhenFocusTarget(false);
 
-        tfNumber1.setEnabled(false);
-        tfNumber1.setVerifyInputWhenFocusTarget(false);
+        tfCountBook.setEnabled(false);
+        tfCountBook.setVerifyInputWhenFocusTarget(false);
+
+        tfBookInMonth.setEnabled(false);
+        tfBookInMonth.setVerifyInputWhenFocusTarget(false);
+        tfBookInMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfBookInMonthActionPerformed(evt);
+            }
+        });
+
+        tfBookBorrowedInMonth.setEnabled(false);
+        tfBookBorrowedInMonth.setVerifyInputWhenFocusTarget(false);
+
+        tfCountBName.setEnabled(false);
+        tfCountBName.setVerifyInputWhenFocusTarget(false);
 
         javax.swing.GroupLayout pnInpInfo1Layout = new javax.swing.GroupLayout(pnInpInfo1);
         pnInpInfo1.setLayout(pnInpInfo1Layout);
@@ -1742,22 +1819,21 @@ public class Management extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(pnInpInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lbNumber1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnInpInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lbPrice1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbPublishDay1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbGenre1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lnPublisher1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbBName1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbAuthor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(lbPrice1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbPublishDay1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbGenre1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lnPublisher1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbBName1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbAuthor1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(pnInpInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfAuthor1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfBName1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfPublisher1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfGenre1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfPublisherDay1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfPrice1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfNumber1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfBookRemain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCountReader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfBookBorrowed, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCountBook, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfBookInMonth, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfBookBorrowedInMonth, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCountBName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4))
         );
         pnInpInfo1Layout.setVerticalGroup(
@@ -1765,32 +1841,32 @@ public class Management extends javax.swing.JFrame {
             .addGroup(pnInpInfo1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnInpInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfBName1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCountReader, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbBName1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnInpInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbAuthor1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfAuthor1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfBookRemain, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnInpInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lnPublisher1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfPublisher1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfBookBorrowed, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnInpInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbGenre1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfGenre1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfCountBook, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnInpInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbPublishDay1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfPublisherDay1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfBookInMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnInpInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbPrice1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfPrice1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfBookBorrowedInMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnInpInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfCountBName, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -1828,7 +1904,7 @@ public class Management extends javax.swing.JFrame {
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pnInpInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnMOption5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -1915,7 +1991,7 @@ public class Management extends javax.swing.JFrame {
                 pnUserStats.hide();
                 pnBooks.hide();
                 pnAdvancedSearch.hide();
-              
+                pnStorageStats.hide();
                 pnManagementUpdate.show();
                 pnMOption2.hide();
                 pnMOption1.hide();
@@ -1924,16 +2000,19 @@ public class Management extends javax.swing.JFrame {
                 pnUserStatLeft.setBackground(new Color(38,40,55));
                 pnBooksLeft.setBackground(new Color(38,40,55));
                 pnAdvancedSearchLeft.setBackground(new Color(38,40,55));
+                pnStorageStatsLeft.setBackground(new Color(38,40,55));
                 pnUpdateLeft.setBackground(new Color(255,153,0));
                 break;
             case 2:
                 pnManagementUpdate.hide();
                 pnBooks.hide();
                 pnAdvancedSearch.hide();
+                pnStorageStats.hide();
                 pnUserStats.show();
                 pnUpdateLeft.setBackground(new Color(38,40,55));
                 pnBooksLeft.setBackground(new Color(38,40,55));
                 pnAdvancedSearchLeft.setBackground(new Color(38,40,55));
+                pnStorageStatsLeft.setBackground(new Color(38,40,55));
                 state = 2;
                 addDataToTable();
                 btDetails.show();
@@ -1944,10 +2023,12 @@ public class Management extends javax.swing.JFrame {
                 pnUserStats.hide();
                 pnManagementUpdate.hide();
                 pnAdvancedSearch.hide();
+                pnStorageStats.hide();
                 pnBooks.show();
                 pnUpdateLeft.setBackground(new Color(38,40,55));
                 pnUserStatLeft.setBackground(new Color(38,40,55));
                 pnAdvancedSearchLeft.setBackground(new Color(38,40,55));
+                pnStorageStatsLeft.setBackground(new Color(38,40,55));
                 state = 3;
                 pnBooksLeft.setBackground(new Color(255,153,0));
                 break;
@@ -1955,12 +2036,29 @@ public class Management extends javax.swing.JFrame {
                 pnUserStats.hide();
                 pnManagementUpdate.hide();
                 pnBooks.hide();
+                pnStorageStats.hide();
                 pnAdvancedSearch.show();
                 pnUpdateLeft.setBackground(new Color(38,40,55));
                 pnBooksLeft.setBackground(new Color(38,40,55));
                 pnUserStatLeft.setBackground(new Color(38,40,55));
+                pnStorageStatsLeft.setBackground(new Color(38,40,55));
                 state = 4;
                 pnAdvancedSearchLeft.setBackground(new Color(255,153,0));
+                break;
+            case 5:
+                pnUserStats.hide();
+                pnManagementUpdate.hide();
+                pnBooks.hide();
+                pnAdvancedSearch.hide();
+                pnStorageStats.show();
+                showUserStats();
+                pnUpdateLeft.setBackground(new Color(38,40,55));
+                pnBooksLeft.setBackground(new Color(38,40,55));
+                pnUserStatLeft.setBackground(new Color(38,40,55));
+                pnAdvancedSearchLeft.setBackground(new Color(38,40,55));
+                state = 5;
+                pnStorageStatsLeft.setBackground(new Color(255,153,0));
+                break;
             default:
                 break;
         }
@@ -1983,6 +2081,16 @@ public class Management extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void showUserStats(){
+        tfCountReader.setText(String.valueOf(DatabaseQuery.countReaderOrBook("datalibrary.doc_gia","ID")));
+        tfBookRemain.setText(String.valueOf(DatabaseQuery.countBookRemainOrNot(0)));
+        tfBookBorrowed.setText(String.valueOf(DatabaseQuery.countBookRemainOrNot(1)));
+        tfCountBook.setText(String.valueOf(DatabaseQuery.countBookRemainOrNot(0)+DatabaseQuery.countBookRemainOrNot(1)));
+        tfBookInMonth.setText(String.valueOf(DatabaseQuery.countBookInMonth("datalibrary.cuon_sach", "ImportedDay", "ID")));
+        tfBookBorrowedInMonth.setText(String.valueOf(DatabaseQuery.countBookInMonth("datalibrary.muon", "NgayMuon", "IDSach")));
+        tfCountBName.setText(String.valueOf(DatabaseQuery.countReaderOrBook("datalibrary.tua_sach", "SKU")));
     }
     
     private void lbNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNameMouseClicked
@@ -2082,7 +2190,7 @@ public class Management extends javax.swing.JFrame {
                     tfBName.setText(res.getString("BName"));
                     tfAuthor.setText(res.getString("Author"));
                     tfPublisher.setText(res.getString("Publisher"));
-                    tfGenre.setText(res.getString("Gendre"));
+                    tfGenre.setText(res.getString("Gender"));
                     tfPublisherDay.setText(res.getString("PublishedDay"));
                     tfPrice.setText(res.getString("Price"));
                     tfNumber.setText(res.getString("Total"));
@@ -2245,7 +2353,7 @@ public class Management extends javax.swing.JFrame {
             key = false;
         }
         if (cbGenre.isSelected()) {
-            querryString += check(key)+" Gendre like " + keyword;
+            querryString += check(key)+" Gender like " + keyword;
             key = false;
         }
         if (cbPublisher.isSelected()) {
@@ -2457,9 +2565,9 @@ public class Management extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfAuthorNameActionPerformed
 
-    private void tfPublisherDay1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPublisherDay1ActionPerformed
+    private void tfBookInMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfBookInMonthActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfPublisherDay1ActionPerformed
+    }//GEN-LAST:event_tfBookInMonthActionPerformed
 
     private void tfInpSKUKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfInpSKUKeyTyped
         // TODO add your handling code here:
@@ -2497,6 +2605,29 @@ public class Management extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_tfInpSKUInputMethodTextChanged
+
+    private void lbStorageStatsLeftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbStorageStatsLeftMouseClicked
+        // TODO add your handling code here:
+        if (state != 5) changeBackPanel(5);
+    }//GEN-LAST:event_lbStorageStatsLeftMouseClicked
+
+    private void lbStorageStatsLeftMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbStorageStatsLeftMouseEntered
+        // TODO add your handling code here:
+        if (state != 5) pnStorageStatsLeft.setBackground(new Color(0, 116, 163));
+    }//GEN-LAST:event_lbStorageStatsLeftMouseEntered
+
+    private void lbStorageStatsLeftMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbStorageStatsLeftMouseExited
+        // TODO add your handling code here:
+        if (state != 5) pnStorageStatsLeft.setBackground(new Color(38, 40, 55));
+    }//GEN-LAST:event_lbStorageStatsLeftMouseExited
+
+    private void pnStorageStatsLeftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnStorageStatsLeftMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnStorageStatsLeftMouseClicked
+
+    private void tfBookRemainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfBookRemainActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfBookRemainActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2581,6 +2712,9 @@ public class Management extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -2597,7 +2731,6 @@ public class Management extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lbAdvancedSearch;
     private javax.swing.JLabel lbAdvancedSearchImg;
-    private javax.swing.JLabel lbAnnoucement;
     private javax.swing.JLabel lbAuthor;
     private javax.swing.JLabel lbAuthor1;
     private javax.swing.JLabel lbAuthorName;
@@ -2632,6 +2765,8 @@ public class Management extends javax.swing.JFrame {
     private javax.swing.JLabel lbResult;
     private javax.swing.JLabel lbResultNum;
     private javax.swing.JLabel lbSearch100;
+    private javax.swing.JLabel lbStorageStatsImg;
+    private javax.swing.JLabel lbStorageStatsLeft;
     private javax.swing.JLabel lbUpdate;
     private javax.swing.JLabel lbUpdateImage;
     private javax.swing.JLabel lbUserInfoImage;
@@ -2661,6 +2796,7 @@ public class Management extends javax.swing.JFrame {
     private javax.swing.JPanel pnPrevious;
     private javax.swing.JPanel pnShowResult;
     private javax.swing.JPanel pnStorageStats;
+    private javax.swing.JPanel pnStorageStatsLeft;
     private javax.swing.JPanel pnUpdateFromSearch;
     private javax.swing.JPanel pnUpdateLeft;
     private javax.swing.JPanel pnUserStatLeft;
@@ -2669,23 +2805,23 @@ public class Management extends javax.swing.JFrame {
     private javax.swing.JTextArea taResult;
     private javax.swing.JTable tbUserStats;
     private javax.swing.JTextField tfAuthor;
-    private javax.swing.JTextField tfAuthor1;
     private javax.swing.JTextField tfAuthorName;
     private javax.swing.JTextField tfBName;
-    private javax.swing.JTextField tfBName1;
+    private javax.swing.JTextField tfBookBorrowed;
+    private javax.swing.JTextField tfBookBorrowedInMonth;
+    private javax.swing.JTextField tfBookInMonth;
     private javax.swing.JTextField tfBookName;
+    private javax.swing.JTextField tfBookRemain;
     private javax.swing.JTextField tfBookState;
+    private javax.swing.JTextField tfCountBName;
+    private javax.swing.JTextField tfCountBook;
+    private javax.swing.JTextField tfCountReader;
     private javax.swing.JTextField tfGenre;
-    private javax.swing.JTextField tfGenre1;
     private javax.swing.JTextField tfInpSKU;
     private javax.swing.JTextField tfNumber;
-    private javax.swing.JTextField tfNumber1;
     private javax.swing.JTextField tfPrice;
-    private javax.swing.JTextField tfPrice1;
     private javax.swing.JTextField tfPublisher;
-    private javax.swing.JTextField tfPublisher1;
     private javax.swing.JTextField tfPublisherDay;
-    private javax.swing.JTextField tfPublisherDay1;
     private javax.swing.JTextField tfReaderIDN;
     private javax.swing.JTextField tfReaderName;
     private javax.swing.JTextField tfReaderSex;
