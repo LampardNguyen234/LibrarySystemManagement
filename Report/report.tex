@@ -135,7 +135,7 @@ TP. Hồ Chí Minh, tháng 5 năm 2017
 		\textbf{Chương 1} nêu ra vấn đề và giới thiệu đề tài \textbf{\textit{Xây dựng hệ thống quản lý thư viện sử dụng mã vạch}}, chương này cũng đồng thời nói về phạm vi và mục đích của đề tài. Ngoài ra, chương này cũng đưa ra những yêu cầu đối với sản phẩm mà Đề tài hướng đến.\\
 		\textbf{Chương 2}, chúng tôi sẽ nói về một số định nghĩa và các công cụ được sử dụng trong Đề tài lần này. \\
 		\textbf{Chương 3} nói về việc phân tích và thiết kế hệ thống. \\
-		\textbf{Chương 4} mô tả về ứng dụng sa khi hoàn thành\\
+		\textbf{Chương 4} mô tả về ứng dụng sau khi hoàn thành\\
 		Cuối cùng, \textbf{Chương 5} là phần tổng kết lại đề tài, những điểm hạn chế và hướng phát triển.
 		\par Vì kiến thức còn hạn chế, ứng dụng của chúng tôi sẽ có một số thiếu sót so với những ứng dụng đã được tung ra thị trường hay được sử dụng trong các hệ thống Thư viện. Vì vậy, rất mong nhận được sự góp ý từ các bạn. 
 		\begin{flushright}
@@ -241,10 +241,14 @@ TP. Hồ Chí Minh, tháng 5 năm 2017
 					\label{fig:NetBeans}
 					\end{figure}
 					\footnotetext{\url{https://netbeans.org}}
-					\item{\textbf{Ngôn ngữ lập trình:}} Java cũng là một ngôn ngữ lập trình mã nguồn mở, hỗ trợ rất nhiều thư viện giúp việc triển khai ứng dụng và thiết kế giao diện. Một số ưu điểm của Java và cũng là lý do mà chúng tôi quyết định sử dụng ngôn ngữ này:
+					\item{\textbf{Ngôn ngữ lập trình:}} Java cũng là một ngôn ngữ lập trình mã nguồn mở, hỗ trợ rất nhiều thư viện giúp việc triển khai ứng dụng và thiết kế giao diện. Một số ưu điểm của Java và cũng là lý do mà chúng tôi quyết định sử dụng ngôn ngữ này\footnote{https://techmaster.vn/posts/3967/hoc-ngon-ngu-lap-trinh-java-tot-nhat}:
 						\begin{itemize}
-							\item{Java là một ngôn ngữ lập trình hướng đối tượng. Cú pháp của Java được vay mượn nhiều từ C và C++ nhưng có cú pháp hướng đối tượng đơn giản hơn, ít tính năng xử lý cấp thấp hơn. Do đó, việc viết một chương trình bằng Java dễ dàng, đơn giản hơn và ít tốn công sửa lỗi hơn.}
-							\item{Ngoài ra, bộ nhớ trong Java được quản lý và tự động dọn dẹp bằng Java Virtual Machine nên sẽ không có hiện tượng rò rỉ bộ nhớ, rác bộ nhớ. Người lập trình không phải quan tâm đến việc cấp phát và xóa bộ nhớ như C và C++.}
+							\item{Java rất dễ tìm hiểu: Java có cú pháp rõ ràng với chú thích nhỏ đi kèm àm cho việc đọc và học chương trình Java trở nên dễ dàng và nhanh chóng. Một khi lập trình viên đã quen thuộc với những rào cản ban đầu như cài đặt JDK và thiết lập PATH và hiểu phương thức hoạt động của Classpath thì họ có thể viết chương trình trong Java rất dễ dàng.}
+							\item{Java là ngôn ngữ lập trình hướng đối tượng: Lập trình hướng đối tượng đang là một xu hướng lập trình phổ biến hiện nay. Lập trình hướng đối tượng giúp cho lập trình viên dễ dàng quản lý code khi có sự thay đổi chương trình, dễ mở rộng dự án, tiết kiệm được đáng kể tài nguyên cho hệ thống, có tính bảo mật và tính tái sử dụng cao, … và Java là một trong số ít ngôn ngữ lập trình thuần hướng đối tượng.}
+							\item{Số lượng hàm dùng sẵn (API function) của Java hết sức phong phú: Java cung cấp API cho I/O (giao tiếp dữ liệu), mạng, tiện ích, XML, phân tích cú pháp, kết nối cơ sở dữ liệu, và gần như tất cả mọi thứ. Điều này giúp cho lập trình viên giảm rất nhiều công sức trong việc phải hiện thực các hàm thông dụng.}
+							\item{Bộ sưu tập thư viện mã nguồn mở phong phú: Thư viện mã nguồn mở đảm bảo rằng Java có thể được sử dụng ở khắp mọi nơi. Apache, Google, và các tổ chức khác đã đóng góp rất nhiều thư viện lớn, giúp Java phát triển dễ dàng hơn, nhanh hơn và tiết kiệm chi phí. Có những cấu trúc như Spring, Struts, Maven đảm bảo sự phát triển Java theo phương pháp xây dựng phần mềm tốt nhất, thúc đẩy sử dụng các mẫu thiết kế và hỗ trợ lập trình viên Java hoàn thành công việc.}
+							\item{Java là nền tảng độc lập: Không giống như những ngôn ngữ lập trình khác được biên dịch trực tiếp thành mã máy trên nền tảng cụ thể, code Java đầu tiên được biên dịch thành một định dạng trung gian gọi là bytecode. Java bytecode tương tự như mã máy nhưng được thực thi bởi một máy ảo phần cứng cụ thể (hardware-specific virtual machine). Đến nay, Java đã hỗ trợ hầu hết các nền tảng IT thông qua các JRE (Java Runtime Environment) chứa các máy ảo phần cứng cụ thể (hardware-specific virtual machines). Nó đi kèm trong nhiều phiên bản standard, enterprise, và micro. Các nền tảng được hỗ trợ bao gồm Windows, Mac OS, Linux, và Solaris. }
+							\item{Java hoàn toàn miễn phí.}
 						\end{itemize}
 						Chúng tôi sử dụng Java Swing để thiết kế giao diện, Swing hỗ trợ chức năng kéo thả giúp tiện lợi hơn trong việc thiết kế giao diện.
 						\begin{figure}[H]
@@ -256,8 +260,13 @@ TP. Hồ Chí Minh, tháng 5 năm 2017
 					\footnotetext{\url{https://java.com}}
 					\end{itemize}
 				\subsection{Công cụ quản trị cơ sở dữ liệu: MySQL}
-					\par MySQL là một hệ quản trị cơ sở dữ liệu quan hệ mã nguồn mở, sử dụng Ngôn ngữ truy vấn có cấu trúc (SQL).
-						MySQL có tốc độ xử lý nhanh, ổn định, có tính bảo mật cao và dễ sử dụng. Bên cạnh đó, MySQL có cung cấp phiên bản miễn phí với các tính năng đáp ứng đầy đủ cho việc học tập.
+					\par MySQL không chỉ là cơ sở dữ liệu mã nguồn mở phổ biến nhất trên thế giới, nó còn trở thành cơ sở dữ liệu được chọn cho thế hệ mới của các ứng dụng xây dựng trên nền Linux, Apache, MySQL, PHP/Perl/Python. MySQL chạy trên hơn 20 flatform bao gồm: Linux, Windows, OS/X, HP-UX, AIX, Netware, mang đến cho bạn tính linh hoạt trong việc sử dụng. Các ưu điểm nổi bật của MySQL\footnote{http://www.vinawebsoft.com/home/news/detail/?id=122}:
+					\begin{itemize}
+						\item {Tính linh hoạt: Máy chủ cơ sở dữ liệu MySQL cung cấp đặc tính linh hoạt, có sức chứa để xử lý các ứng dụng được nhúng sâu với dung lượng chỉ 1MB để chạy các kho dữ liệu đồ sộ lên đến hàng terabytes thông tin. }
+						\item {Tính thực thi cao: Kiến trúc storage-engine cho phép các chuyên gia cơ sở dữ liệu cấu hình máy chủ cơ sở dữ liệu MySQL đặc trưng cho các ứng dụng đặc thù. Dù ứng dụng là một hệ thống xử lý giao dịch tốc độ cao hay web site dung lượng lớn phục vụ hàng triệu yêu cầu mỗi ngày, MySQL có thể đáp ứng khả năng xử lý những đòi hỏi khắt khe nhất của bất kì hệ thống nào. Với các tiện ích tải tốc độ cao, đặc biệt bộ nhớ caches, và các cơ chế xử lý nâng cao khác, MySQL đưa ra tất cả các tính năng cần phải có cho các hệ thống doanh nghiệp khó tính ngày nay.}
+						\item {Chế độ bảo mật dữ liệu mạnh: MySQL đưa ra tính năng bảo mật đặc biệt chắc chắn dữ liệu sẽ được bảo mật tuyệt đối. Trong việc xác nhận truy cập cơ sở dữ liệu, MySQL cung cấp các kĩ thuật mạnh mà chắc chắn chỉ có người sử dụng đã được xác nhận mới có thể truy nhập được vào server cơ sở dữ liệu, với khả năng này để chặn người dùng ngay từ mức máy khách là điều có thể làm được.}
+						\item{Dễ dàng quản lý: MySQL trình diễn khả năng cài đặt nhanh đặc biệt với thời gian ở mức trung bình từ lúc download phần mềm đến khi cài đặt hoàn thành chỉ mất chưa đầy 15 phút. Điều này đúng cho dù flatform là Microsoft Windows, Linux, Macintosh hay Unix. Khi đã được cài đặt, tính năng tự quản lý như tự động mở rộng không gian, tự khởi động lại, và cấu hình động sẵn sàng cho người quản trị cơ sở dữ liệu làm việc. So với một số hệ quản trị cơ sở dữ liệu khác như Oracle, thì MySQL dễ sử dụng hơn rất nhiều.}
+					\end{itemize}
 						Với các lý do trên, chúng tôi quyết định sử dụng MySQL để quản lý cơ sở dữ liệu của mình.
 							\begin{figure}[H]
 								\centering

@@ -778,6 +778,11 @@ public class Management extends javax.swing.JFrame {
                 btAddBookMouseClicked(evt);
             }
         });
+        btAddBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAddBookActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnMOption2Layout = new javax.swing.GroupLayout(pnMOption2);
         pnMOption2.setLayout(pnMOption2Layout);
@@ -850,12 +855,12 @@ public class Management extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnManagementUpdateLayout.createSequentialGroup()
-                    .addContainerGap(502, Short.MAX_VALUE)
+                    .addContainerGap(465, Short.MAX_VALUE)
                     .addComponent(pnMOption2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(31, 31, 31)))
             .addGroup(pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnManagementUpdateLayout.createSequentialGroup()
-                    .addContainerGap(512, Short.MAX_VALUE)
+                    .addContainerGap(475, Short.MAX_VALUE)
                     .addComponent(pnMOption3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(21, 21, 21)))
         );
@@ -889,6 +894,8 @@ public class Management extends javax.swing.JFrame {
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
+        tbUserStats.setAutoCreateRowSorter(true);
+        tbUserStats.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         tbUserStats.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -912,8 +919,8 @@ public class Management extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbUserStats.setColumnSelectionAllowed(true);
         tbUserStats.setName("Thống kê người dùng"); // NOI18N
+        tbUserStats.setSelectionForeground(new java.awt.Color(51, 51, 255));
         tbUserStats.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         srpUserStat.setViewportView(tbUserStats);
         tbUserStats.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -951,7 +958,7 @@ public class Management extends javax.swing.JFrame {
                     .addGroup(pnUserStatsLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(srpUserStat, javax.swing.GroupLayout.PREFERRED_SIZE, 790, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         pnUserStatsLayout.setVerticalGroup(
             pnUserStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1774,6 +1781,8 @@ public class Management extends javax.swing.JFrame {
         lbBName1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbBName1.setText("Số lượng độc giả:");
 
+        tfCountReader.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        tfCountReader.setForeground(new java.awt.Color(255, 0, 0));
         tfCountReader.setEnabled(false);
         tfCountReader.setVerifyInputWhenFocusTarget(false);
 
@@ -1795,6 +1804,8 @@ public class Management extends javax.swing.JFrame {
         lbNumber1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbNumber1.setText("Số lượng tựa sách:");
 
+        tfBookRemain.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        tfBookRemain.setForeground(new java.awt.Color(255, 0, 0));
         tfBookRemain.setEnabled(false);
         tfBookRemain.setVerifyInputWhenFocusTarget(false);
         tfBookRemain.addActionListener(new java.awt.event.ActionListener() {
@@ -1803,12 +1814,18 @@ public class Management extends javax.swing.JFrame {
             }
         });
 
+        tfBookBorrowed.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        tfBookBorrowed.setForeground(new java.awt.Color(255, 0, 0));
         tfBookBorrowed.setEnabled(false);
         tfBookBorrowed.setVerifyInputWhenFocusTarget(false);
 
+        tfCountBook.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        tfCountBook.setForeground(new java.awt.Color(255, 0, 0));
         tfCountBook.setEnabled(false);
         tfCountBook.setVerifyInputWhenFocusTarget(false);
 
+        tfBookInMonth.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        tfBookInMonth.setForeground(new java.awt.Color(255, 0, 0));
         tfBookInMonth.setEnabled(false);
         tfBookInMonth.setVerifyInputWhenFocusTarget(false);
         tfBookInMonth.addActionListener(new java.awt.event.ActionListener() {
@@ -1817,9 +1834,13 @@ public class Management extends javax.swing.JFrame {
             }
         });
 
+        tfBookBorrowedInMonth.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        tfBookBorrowedInMonth.setForeground(new java.awt.Color(255, 0, 0));
         tfBookBorrowedInMonth.setEnabled(false);
         tfBookBorrowedInMonth.setVerifyInputWhenFocusTarget(false);
 
+        tfCountBName.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        tfCountBName.setForeground(new java.awt.Color(255, 0, 0));
         tfCountBName.setEnabled(false);
         tfCountBName.setVerifyInputWhenFocusTarget(false);
 
@@ -1863,7 +1884,7 @@ public class Management extends javax.swing.JFrame {
                 .addGroup(pnInpInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lnPublisher1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfBookBorrowed, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(19, 19, 19)
                 .addGroup(pnInpInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbGenre1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfCountBook, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2341,7 +2362,22 @@ public class Management extends javax.swing.JFrame {
 
     private void btAddBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAddBookMouseClicked
         // TODO add your handling code here:
+        int num = Integer.parseInt(tfNumber.getText());
+        int location = DatabaseQuery.GetBookshelf(tfGenre.getText());
+        if(location == 0)
+            location = DatabaseQuery.AddKE_Sach(tfGenre.getText());
+        System.out.println(String.valueOf(location));
+        Book book = new Book(tfInpSKU.getText(), tfBName.getText(), tfGenre.getText(), tfPublisher.getText(), tfPublisherDay.getText(), tfAuthor.getText(),
+        tfPrice.getText(), Integer.parseInt(tfNumber.getText()));
         
+        boolean success=   DatabaseQuery.AddBook(book);
+        int ID = DatabaseQuery.GetID()+1;
+        while(num>0)
+        {
+            DatabaseQuery.ADDBook(book, ID++, location);
+            num--;
+        }
+            JOptionPane.showMessageDialog(this, "Thêm sách thành công");
     }//GEN-LAST:event_btAddBookMouseClicked
 
     public static String check(boolean key){
@@ -2771,6 +2807,11 @@ public class Management extends javax.swing.JFrame {
     private void btConfirmMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btConfirmMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_btConfirmMouseEntered
+
+    private void btAddBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddBookActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btAddBookActionPerformed
 
     /**
      * @param args the command line arguments

@@ -11,12 +11,14 @@ import java.awt.geom.RoundRectangle2D;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import main.DatabaseQuery;
+import static main.DatabaseQuery.dateFormat;
 import main.People;
 import main.SupportFunctions;
 import main.ValidatingClass;
@@ -309,7 +311,7 @@ public class Admin extends javax.swing.JFrame {
         pnKhoiPhuc = new javax.swing.JPanel();
         lbKhoiPhuc = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        jLabel39 = new javax.swing.JLabel();
+        lbTime = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lbCancel = new javax.swing.JLabel();
         lbMinimize = new javax.swing.JLabel();
@@ -1339,6 +1341,9 @@ public class Admin extends javax.swing.JFrame {
         lbSaoLuu.setText("SAO LƯU");
         lbSaoLuu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbSaoLuu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbSaoLuuMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lbSaoLuuMouseEntered(evt);
             }
@@ -1446,9 +1451,9 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel8.setBackground(new java.awt.Color(38, 40, 55));
 
-        jLabel39.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel39.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel39.setText("Lần sao lưu gần nhất: 2017-05-06 20:51:26");
+        lbTime.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        lbTime.setForeground(new java.awt.Color(255, 255, 255));
+        lbTime.setText("Lần sao lưu gần nhất: 2017-05-06 20:51:26");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1456,14 +1461,14 @@ public class Admin extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(401, Short.MAX_VALUE))
+                .addComponent(lbTime, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(290, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel39, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addComponent(lbTime, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2014,6 +2019,13 @@ public class Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lbKhoiPhucMouseClicked
 
+    private void lbSaoLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSaoLuuMouseClicked
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Sao lưu dữ liệu thành công.");
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        lbTime.setText("Lần sao lưu gần nhất: " + now);
+    }//GEN-LAST:event_lbSaoLuuMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -2109,7 +2121,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2146,6 +2157,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel lbStaff;
     private javax.swing.JLabel lbStatistics;
     private javax.swing.JLabel lbStatistics1;
+    private javax.swing.JLabel lbTime;
     private javax.swing.JLabel lbUser;
     private javax.swing.JLabel onlineIcon;
     private javax.swing.JPanel pnAddStaff;

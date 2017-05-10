@@ -11,12 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import javax.naming.spi.DirStateFactory;
 /**
  *
  * @author Thành

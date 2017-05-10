@@ -2274,6 +2274,7 @@
                         </Property>
                       </Properties>
                       <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbSaoLuuMouseClicked"/>
                         <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbSaoLuuMouseEntered"/>
                         <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbSaoLuuMouseExited"/>
                       </Events>
@@ -2393,8 +2394,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel39" min="-2" pref="389" max="-2" attributes="0"/>
-                          <EmptySpace pref="401" max="32767" attributes="0"/>
+                          <Component id="lbTime" min="-2" pref="500" max="-2" attributes="0"/>
+                          <EmptySpace pref="290" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2402,14 +2403,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel39" pref="48" max="32767" attributes="0"/>
+                          <Component id="lbTime" pref="48" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel39">
+                <Component class="javax.swing.JLabel" name="lbTime">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Times New Roman" size="20" style="1"/>
