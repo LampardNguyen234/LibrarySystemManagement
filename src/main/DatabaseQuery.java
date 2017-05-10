@@ -486,7 +486,7 @@ public class DatabaseQuery {
     public static ResultSet History(String userID, String choice){
         try {
             Connection conn = DatabaseConnection.getMySQLConnection();
-            PreparedStatement pst = conn.prepareStatement("select * from muon where IDNguoiMuon = ? and TinhTrang = ?");
+            PreparedStatement pst = conn.prepareStatement("select * from datalibrary.muon where IDNguoiMuon = ? and TinhTrang = ?");
             pst.setString(1, userID);
             pst.setString(2, choice);
             return pst.executeQuery();
@@ -501,7 +501,7 @@ public class DatabaseQuery {
     public static ResultSet History(String userID){
         try {
             Connection conn = DatabaseConnection.getMySQLConnection();
-            PreparedStatement pst = conn.prepareStatement("select * from muon where IDNguoiMuon = ?");
+            PreparedStatement pst = conn.prepareStatement("select * from datalibrary.muon where IDNguoiMuon = ?");
             pst.setString(1, userID);
             return pst.executeQuery();
         } catch (SQLException ex) {
@@ -512,10 +512,42 @@ public class DatabaseQuery {
         return null;
     }
     
+    public static ResultSet checkHistory(String userID, String bookID){
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection();
+            PreparedStatement pst = conn.prepareStatement("select * from datalibrary.muon where IDNguoiMuon = ? and IDSach = ?");
+            pst.setString(1, userID);
+            pst.setString(2, bookID);
+            return pst.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public static void borrowBook(String userID, String bookID){
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection();
+            String date1 = String.valueOf(Calendar.getInstance().getTime().getYear())+"-"+String.valueOf(Calendar.getInstance().getTime().getMonth())+
+                    "-"+String.valueOf(Calendar.getInstance().getTime().getDate());
+            String date2 = String.valueOf(Calendar.getInstance().getTime().getYear())+"-"+String.valueOf(Calendar.getInstance().getTime().getMonth())+
+                    "-"+String.valueOf(Calendar.getInstance().getTime().getDate()+15);
+            PreparedStatement pst = conn.prepareStatement("insert into datalibrary.muon (IDNguoiMuon, IDSach, NgayMuon, NgayTra, TinhTrang, NgayTraDuKien) "+
+                    "values ("+userID+", "+bookID+", "+date1+", null, 0, "+date2);
+            JOptionPane.showMessageDialog(null, "Cập nhật mượn sách thành công!!!");
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public static ResultSet FindBookByID(String ID){
         try {
             Connection conn = DatabaseConnection.getMySQLConnection();
-            PreparedStatement pst = conn.prepareStatement("select * from cuon_sach where ID = ?");
+            PreparedStatement pst = conn.prepareStatement("select * from datalibrary.cuon_sach where ID = ?");
             pst.setString(1, ID);
             ResultSet res = pst.executeQuery();
             if(res.next())
@@ -530,6 +562,32 @@ public class DatabaseQuery {
             Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public static ResultSet FindBookStatusByID(String ID){
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection();
+            PreparedStatement pst = conn.prepareStatement("select * from datalibrary.cuon_sach where ID = ?");
+            pst.setString(1, ID);
+            return pst.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public static void updateBookStatus(String ID){
+        try {
+            Connection conn = DatabaseConnection.getMySQLConnection();
+            PreparedStatement pst = conn.prepareStatement("update datalibrary.muon set TinhTrang = 1 where IDSach = ?");
+            pst.setString(1, ID);
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public static People findUserByUsername(String Username, String Table){

@@ -1194,7 +1194,7 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel1" min="-2" pref="102" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jTextField1" min="-2" pref="220" max="-2" attributes="0"/>
+                                  <Component id="tfReaderID" min="-2" pref="220" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -1237,7 +1237,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel1" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="jTextField1" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="tfReaderID" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="lbReaderInfo" min="-2" pref="26" max="-2" attributes="0"/>
@@ -1272,7 +1272,10 @@
                     <Property name="text" type="java.lang.String" value="M&#xe3; &#x111;&#x1ed9;c gi&#x1ea3;:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField1">
+                <Component class="javax.swing.JTextField" name="tfReaderID">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbReaderName">
                   <Properties>
@@ -1329,11 +1332,11 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel3" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField2" min="-2" pref="220" max="-2" attributes="0"/>
+                          <Component id="jLabel3" min="-2" pref="87" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="tfBookID" min="-2" pref="220" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jSeparator2" alignment="1" max="32767" attributes="0"/>
@@ -1348,7 +1351,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="lbBookState" min="-2" pref="110" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="tfBookState" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Component id="tfBookSKU" min="-2" pref="172" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="lbAuthorName" min="-2" pref="110" max="-2" attributes="0"/>
@@ -1371,7 +1374,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel3" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="jTextField2" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="tfBookID" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="lbReaderInfo1" min="-2" pref="26" max="-2" attributes="0"/>
@@ -1390,7 +1393,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lbBookState" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="tfBookState" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="tfBookSKU" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="64" max="32767" attributes="0"/>
                       </Group>
@@ -1403,10 +1406,13 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Times New Roman" size="14" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="M&#xe3; s&#xe1;ch (SKU):"/>
+                    <Property name="text" type="java.lang.String" value="M&#xe3; s&#xe1;ch:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField2">
+                <Component class="javax.swing.JTextField" name="tfBookID">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbReaderInfo1">
                   <Properties>
@@ -1445,7 +1451,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Times New Roman" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="T&#xec;nh tr&#x1ea1;ng:"/>
+                    <Property name="text" type="java.lang.String" value="SKU:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="tfAuthorName">
@@ -1453,7 +1459,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfAuthorNameActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="tfBookState">
+                <Component class="javax.swing.JTextField" name="tfBookSKU">
                 </Component>
               </SubComponents>
             </Container>
@@ -1462,8 +1468,12 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="X&#xe1;c nh&#x1ead;n"/>
+                <Property name="text" type="java.lang.String" value="Ki&#x1ec3;m tra"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btConfirmMouseClicked"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btConfirmMouseEntered"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
