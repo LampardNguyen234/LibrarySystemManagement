@@ -7,9 +7,11 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.geom.RoundRectangle2D;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.UIManager;
+import main.DatabaseConnection;
+import static main.LibrarySystemManagement.conn;
 
 /**
  *
@@ -28,8 +30,7 @@ public class StartUp extends javax.swing.JFrame {
         this.setShape(new RoundRectangle2D.Float(0, 0, 560, 370, 45, 45));
         pbLoading.setValue(0);
         pbLoading.setStringPainted(true);
-        pbLoading.setForeground(Color.BLACK);
-        pbLoading.setBackground(Color.BLACK);
+        pbLoading.setForeground(Color.BLUE);
         Loading();
     }
 
@@ -37,19 +38,27 @@ public class StartUp extends javax.swing.JFrame {
         new Thread() {
             @Override
             public void run() {
-                int n = pbLoading.getValue();
-                while (n < 100) {
-                    n++;
-                    pbLoading.setValue(n);
-                    try {
-                        sleep(50);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(StartUp.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    int n = pbLoading.getValue();
+                    conn = DatabaseConnection.getMySQLConnection();
+                    while (n < 100) {
+                        n++;
+                        pbLoading.setValue(n);
+                        try {
+                            sleep(50);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(StartUp.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        if (n >= 100) {
+                            dispose();
+                            new HomePage().setVisible(true);
+                            stop();
+                        }
                     }
-                    if (n >= 100) {
-                        dispose();
-                        new HomePage().setVisible(true);
-                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(StartUp.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(StartUp.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
@@ -82,7 +91,7 @@ public class StartUp extends javax.swing.JFrame {
 
         pbLoading.setBackground(new java.awt.Color(240, 240, 242));
         pbLoading.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        pbLoading.setForeground(new java.awt.Color(220, 19, 19));
+        pbLoading.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(pbLoading, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 380, 20));
 
         lb2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/bkLogo2.png"))); // NOI18N
@@ -90,10 +99,7 @@ public class StartUp extends javax.swing.JFrame {
         jPanel1.add(lb2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 100, 100));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/DHBK2.jpg"))); // NOI18N
-        jLabel3.setMaximumSize(new java.awt.Dimension(570, 370));
-        jLabel3.setPreferredSize(new java.awt.Dimension(570, 370));
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -10, 570, 370));
-        jLabel3.getAccessibleContext().setAccessibleName("");
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 570, 360));
 

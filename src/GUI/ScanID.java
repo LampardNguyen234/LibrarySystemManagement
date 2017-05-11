@@ -23,7 +23,6 @@ public class ScanID extends javax.swing.JFrame {
         initComponents();
         this.setShape(new RoundRectangle2D.Float(0, 0, 300, 300, 45, 45));
         this.setSize(300, 300);
-        one.start();
     }
 
     /**
@@ -64,6 +63,14 @@ public class ScanID extends javax.swing.JFrame {
         tfID.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         tfID.setForeground(new java.awt.Color(255, 255, 255));
         tfID.setBorder(null);
+        tfID.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfIDFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfIDFocusLost(evt);
+            }
+        });
         jPanel1.add(tfID, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 200, 39));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 200, 17));
 
@@ -90,10 +97,24 @@ public class ScanID extends javax.swing.JFrame {
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
+        one.stop();
         this.dispose();
         new LoginSite().show();
                 
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void tfIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfIDFocusGained
+        // TODO add your handling code here:
+        if(one.getState() == Thread.State.NEW)
+            one.start();
+        else
+            one.resume();
+    }//GEN-LAST:event_tfIDFocusGained
+
+    private void tfIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfIDFocusLost
+        // TODO add your handling code here:
+        one.suspend();
+    }//GEN-LAST:event_tfIDFocusLost
 
     /**
      * @param args the command line arguments

@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import main.DatabaseQuery;
 import main.People;
 
+
 /**
  *
  * @author Thành
@@ -81,9 +82,15 @@ public class LoginSite extends javax.swing.JFrame {
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
 
         tfUsername.setBackground(new java.awt.Color(45, 59, 85));
-        tfUsername.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        tfUsername.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         tfUsername.setForeground(new java.awt.Color(255, 255, 255));
+        tfUsername.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfUsername.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tfUsername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfUsernameFocusGained(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(102, 255, 255));
@@ -93,8 +100,17 @@ public class LoginSite extends javax.swing.JFrame {
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
 
         pfPassword.setBackground(new java.awt.Color(45, 59, 85));
+        pfPassword.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         pfPassword.setForeground(new java.awt.Color(255, 255, 255));
+        pfPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pfPassword.setText("password");
+        pfPassword.setToolTipText("");
         pfPassword.setBorder(null);
+        pfPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                pfPasswordFocusGained(evt);
+            }
+        });
 
         lbLogin.setBackground(new java.awt.Color(37, 191, 139));
         lbLogin.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -320,6 +336,15 @@ public class LoginSite extends javax.swing.JFrame {
         dispose();
         new ScanID().show();
     }//GEN-LAST:event_lbLoginCardMouseClicked
+
+    private void pfPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pfPasswordFocusGained
+        // TODO add your handling code here:
+        pfPassword.setText("");
+    }//GEN-LAST:event_pfPasswordFocusGained
+
+    private void tfUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfUsernameFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfUsernameFocusGained
 
     /**
      * @param args the command line arguments

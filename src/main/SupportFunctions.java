@@ -13,14 +13,18 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -77,29 +81,35 @@ public class SupportFunctions {
 
     /*Generate an ID for a user*/
     public static String GenerateUserID() {
-        try {
-            Connection cnn = DatabaseConnection.getMySQLConnection();
-            Random rand = new Random();
-            int n;
-            while (true) {
-                n = rand.nextInt(7000000) + 2000000;
-                String ID = String.valueOf(n);
-                if (!DatabaseQuery.CheckIDUserExisted(ID, "doc_gia")) {
-                    return ID;
-                }
+        Random rand = new Random();
+        int n;
+        while (true) {
+            n = rand.nextInt(7000000) + 2000000;
+            String ID = String.valueOf(n);
+            if (!DatabaseQuery.CheckIDUserExisted(ID, "doc_gia")) {
+                return ID;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "";
     }
 
     /*Check if a given ID is staff ID or user ID (Staff ID begins with '1')*/
     public static boolean checkStaff(String ID) {
         char first = ID.charAt(0);
         return first == '1';
+    }
+
+    public static void setImageToLabel(JLabel label, String URL, boolean fullPath) {
+        label.setVerticalAlignment(JLabel.CENTER);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        ImageIcon icon;
+        if (!fullPath) {
+            icon = new ImageIcon(new ImageIcon(HomePage.class.getResource(URL)).getImage().getScaledInstance(label.getWidth(),
+                    label.getHeight(), Image.SCALE_SMOOTH));
+        } else {
+            icon = new ImageIcon(new ImageIcon(URL).getImage().getScaledInstance(label.getWidth(),
+                    label.getHeight(), Image.SCALE_SMOOTH));
+        }
+        label.setIcon(icon);
     }
 
     public static void setImageToLabel(JLabel label, String URL) {
@@ -160,7 +170,7 @@ public class SupportFunctions {
                 lb.setVerticalAlignment(JLabel.CENTER);
                 lbName.setVerticalAlignment(JLabel.CENTER);
                 lbName.setHorizontalAlignment(JLabel.CENTER);
-                setImageToLabel(lb, URL);
+                setImageToLabel(lb, URL, false);
                 ResultSet res = DatabaseQuery.FindBooksByID(imgName.get(i));
                 res.next();
                 String bookName = res.getString("BName");
@@ -225,7 +235,7 @@ public class SupportFunctions {
                         if (checkBookImageExist(SKU)) {
                             URL = "Images/Books/" + SKU + ".jpg";
                         } else {
-                            URL = "Images/transparent.png";
+                            URL = "Images/NoPhotoAvailable.jpg";
                         }
                         setImageToLabel(Image, URL);
                     } catch (SQLException ex) {
@@ -235,10 +245,9 @@ public class SupportFunctions {
                     name.setText(null);
                     name.setToolTipText(null);
                     String URL = "Images/transparent.png";
-                    setImageToLabel(Image, URL);
+                    setImageToLabel(Image, URL, false);
                 }
             }
-
             resBook.beforeFirst();
         } catch (SQLException ex) {
             Logger.getLogger(SupportFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -327,9 +336,9 @@ public class SupportFunctions {
         }
         return false;
     }
-    
-    public static void DisplayHistory(ResultSet res, JTable result){
-        String[] columnNames = { "ID sách","SKU", "Tên sách","Tác giả","Ngày Mượn", "Ngày Trả", "Tình Trạng", "Hạn trả"};
+
+    public static void DisplayHistory(ResultSet res, JTable result) {
+        String[] columnNames = {"ID sách", "SKU", "Tên sách", "Tác giả", "Ngày Mượn", "Ngày Trả", "Tình Trạng", "Hạn trả"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -349,12 +358,11 @@ public class SupportFunctions {
                 String rDay = String.valueOf(res.getDate("NgayTra"));
                 String dLine = String.valueOf(res.getDate("NgayTraDuKien"));
                 String status = res.getString("TinhTrang");
-                if(status.equals("0"))
-                {
+                if (status.equals("0")) {
                     status = "Chưa trả";
-                }
-                else
+                } else {
                     status = "Đã trả";
+                }
                 model.addRow(new Object[]{ID, SKU, BName, Author, bDay, rDay, status, dLine});
             }
             result.setModel(model);
@@ -371,5 +379,21 @@ public class SupportFunctions {
         } catch (SQLException ex) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static boolean CopyImage(String fromPath, String toPath) {
+        try {
+            File source = new File(fromPath);
+            File dest = new File(toPath);
+            String destination = dest.toString().substring(3);
+            destination = "build\\classes" + destination;
+            File dest2 = new File(destination);
+            Files.copy(source.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(source.toPath(), dest2.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            return true;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 }

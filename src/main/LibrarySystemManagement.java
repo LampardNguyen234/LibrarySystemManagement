@@ -5,11 +5,8 @@
  */
 package main;
 
-import GUI.HomePage;
+import GUI.StartUp;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -21,14 +18,7 @@ public class LibrarySystemManagement {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
-            conn = DatabaseConnection.getMySQLConnection();
-            new HomePage().show();
-        } catch (SQLException ex) {
-            Logger.getLogger(LibrarySystemManagement.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LibrarySystemManagement.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        new StartUp().show();
     }
     public static Connection conn;
 }

@@ -5,24 +5,21 @@
  */
 package GUI;
 
-import com.sun.org.apache.xerces.internal.impl.dv.xs.YearDV;
 import java.awt.Color;
 import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Year;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import main.Book;
 import main.DatabaseQuery;
@@ -46,12 +43,14 @@ public class Management extends javax.swing.JFrame {
     int quantityPerPage = 10;
     int resultNum = 0;
     int state;
-    int panel =1;
-    
+    int panel = 1;
+    File file1;
+    File file2;
+
     ArrayList<JLabel> resultName = new ArrayList<>();
     ArrayList<JLabel> resultImage = new ArrayList<>();
     ArrayList<JPanel> resultPanel = new ArrayList<>();
-    
+
     public Management(People user) {
         initComponents();
         this.setResizable(false);
@@ -60,7 +59,7 @@ public class Management extends javax.swing.JFrame {
         this.user = user;
         lbName.setText(this.user.getFullName());
         changeBackPanel(4);
-        
+
         resultName.add(ResultName1);
         resultName.add(ResultName2);
         resultName.add(ResultName3);
@@ -94,16 +93,11 @@ public class Management extends javax.swing.JFrame {
         pnShowResult.hide();
         res = DatabaseQuery.GetAllBook();
         resultNum = SupportFunctions.GetSize(res);
-        lbResultNum.setText("Có " + String.valueOf(resultNum)+" kết quả.");
-        lbCurrentPage.setText("Trang hiện tại: "+ String.valueOf(currentPage));
+        lbResultNum.setText("Có " + String.valueOf(resultNum) + " kết quả.");
+        lbCurrentPage.setText("Trang hiện tại: " + String.valueOf(currentPage));
         maxPage = SupportFunctions.getMaxPage(resultNum, quantityPerPage);
         res = SupportFunctions.Display(resultImage, resultName, res, currentPage);
-       
-        //int total = SupportFunctions.GetSize(DatabaseQuery.History(user.getID()));
-        //int unret  = SupportFunctions.GetSize(DatabaseQuery.History(user.getID(), "0"));
-        //lbName.setText(user.getFullName());
-        //lbHInfo1.setText("Bạn đã mượn "+ String.valueOf(total)+" cuốn sách." );
-        //lbHInfo3.setText("Hiện đang có "+ String.valueOf(unret)+" cuốn sách chưa trả." );
+
     }
 
     /**
@@ -162,6 +156,8 @@ public class Management extends javax.swing.JFrame {
         pnMOption2 = new javax.swing.JPanel();
         btAddBook = new javax.swing.JButton();
         pnMOption3 = new javax.swing.JPanel();
+        lbImageSearch = new javax.swing.JLabel();
+        btnChooseFile = new javax.swing.JButton();
         pnUserStats = new javax.swing.JPanel();
         pnBackGr = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -569,10 +565,10 @@ public class Management extends javax.swing.JFrame {
 
         tfInpSKU.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         tfInpSKU.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 tfInpSKUInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         tfInpSKU.addActionListener(new java.awt.event.ActionListener() {
@@ -732,6 +728,7 @@ public class Management extends javax.swing.JFrame {
         btOkUpdate.setBackground(new java.awt.Color(255, 153, 0));
         btOkUpdate.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btOkUpdate.setText("Cập nhật");
+        btOkUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btOkUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btOkUpdateMouseClicked(evt);
@@ -741,6 +738,7 @@ public class Management extends javax.swing.JFrame {
         btDelete.setBackground(new java.awt.Color(255, 153, 0));
         btDelete.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btDelete.setText("Xóa sách");
+        btDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btDelete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btDeleteMouseClicked(evt);
@@ -813,32 +811,48 @@ public class Management extends javax.swing.JFrame {
             .addGap(0, 47, Short.MAX_VALUE)
         );
 
+        btnChooseFile.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnChooseFile.setText("Chọn Ảnh....");
+        btnChooseFile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnChooseFile.setEnabled(false);
+        btnChooseFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChooseFileActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnManagementUpdateLayout = new javax.swing.GroupLayout(pnManagementUpdate);
         pnManagementUpdate.setLayout(pnManagementUpdateLayout);
         pnManagementUpdateLayout.setHorizontalGroup(
             pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnManagementUpdateLayout.createSequentialGroup()
+                .addGap(294, 294, 294)
+                .addComponent(pnMOption1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(330, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnManagementUpdateLayout.createSequentialGroup()
-                .addContainerGap(195, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnInpSKU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(200, 200, 200))
-            .addGroup(pnManagementUpdateLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnManagementUpdateLayout.createSequentialGroup()
                 .addGroup(pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnManagementUpdateLayout.createSequentialGroup()
-                        .addGap(242, 242, 242)
-                        .addComponent(pnInpInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(125, 125, 125)
+                        .addComponent(btnChooseFile))
                     .addGroup(pnManagementUpdateLayout.createSequentialGroup()
-                        .addGap(294, 294, 294)
-                        .addComponent(pnMOption1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(61, 61, 61)
+                        .addComponent(lbImageSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnInpInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(109, 109, 109))
             .addGroup(pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnManagementUpdateLayout.createSequentialGroup()
                     .addGap(304, 304, 304)
                     .addComponent(pnMOption2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(310, Short.MAX_VALUE)))
+                    .addContainerGap(320, Short.MAX_VALUE)))
             .addGroup(pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnManagementUpdateLayout.createSequentialGroup()
-                    .addContainerGap(314, Short.MAX_VALUE)
+                    .addContainerGap(324, Short.MAX_VALUE)
                     .addComponent(pnMOption3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(300, 300, 300)))
         );
@@ -849,18 +863,23 @@ public class Management extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnInpSKU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnInpInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnInpInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnManagementUpdateLayout.createSequentialGroup()
+                        .addComponent(lbImageSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnChooseFile)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnMOption1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
             .addGroup(pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnManagementUpdateLayout.createSequentialGroup()
-                    .addContainerGap(465, Short.MAX_VALUE)
+                    .addContainerGap(502, Short.MAX_VALUE)
                     .addComponent(pnMOption2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(31, 31, 31)))
             .addGroup(pnManagementUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnManagementUpdateLayout.createSequentialGroup()
-                    .addContainerGap(475, Short.MAX_VALUE)
+                    .addContainerGap(512, Short.MAX_VALUE)
                     .addComponent(pnMOption3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(21, 21, 21)))
         );
@@ -1008,6 +1027,14 @@ public class Management extends javax.swing.JFrame {
         jLabel1.setText("Mã độc giả:");
 
         tfReaderID.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tfReaderID.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfReaderIDFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfReaderIDFocusLost(evt);
+            }
+        });
 
         lbReaderName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lbReaderName.setText("Tên độc giả:");
@@ -1090,6 +1117,14 @@ public class Management extends javax.swing.JFrame {
         jLabel3.setText("Mã sách:");
 
         tfBookID.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tfBookID.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfBookIDFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfBookIDFocusLost(evt);
+            }
+        });
 
         lbReaderInfo1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbReaderInfo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -2018,8 +2053,8 @@ public class Management extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void changeBackPanel(int inpState){
-        switch (inpState){
+    public void changeBackPanel(int inpState) {
+        switch (inpState) {
             case 1:
                 pnUserStats.hide();
                 pnBooks.hide();
@@ -2030,11 +2065,11 @@ public class Management extends javax.swing.JFrame {
                 pnMOption1.hide();
                 pnMOption3.show();
                 state = 1;
-                pnUserStatLeft.setBackground(new Color(38,40,55));
-                pnBooksLeft.setBackground(new Color(38,40,55));
-                pnAdvancedSearchLeft.setBackground(new Color(38,40,55));
-                pnStorageStatsLeft.setBackground(new Color(38,40,55));
-                pnUpdateLeft.setBackground(new Color(255,153,0));
+                pnUserStatLeft.setBackground(new Color(38, 40, 55));
+                pnBooksLeft.setBackground(new Color(38, 40, 55));
+                pnAdvancedSearchLeft.setBackground(new Color(38, 40, 55));
+                pnStorageStatsLeft.setBackground(new Color(38, 40, 55));
+                pnUpdateLeft.setBackground(new Color(255, 153, 0));
                 break;
             case 2:
                 pnManagementUpdate.hide();
@@ -2042,15 +2077,15 @@ public class Management extends javax.swing.JFrame {
                 pnAdvancedSearch.hide();
                 pnStorageStats.hide();
                 pnUserStats.show();
-                pnUpdateLeft.setBackground(new Color(38,40,55));
-                pnBooksLeft.setBackground(new Color(38,40,55));
-                pnAdvancedSearchLeft.setBackground(new Color(38,40,55));
-                pnStorageStatsLeft.setBackground(new Color(38,40,55));
+                pnUpdateLeft.setBackground(new Color(38, 40, 55));
+                pnBooksLeft.setBackground(new Color(38, 40, 55));
+                pnAdvancedSearchLeft.setBackground(new Color(38, 40, 55));
+                pnStorageStatsLeft.setBackground(new Color(38, 40, 55));
                 state = 2;
                 addDataToTable();
                 btDetails.show();
                 btBack.hide();
-                pnUserStatLeft.setBackground(new Color(255,153,0));
+                pnUserStatLeft.setBackground(new Color(255, 153, 0));
                 break;
             case 3:
                 pnUserStats.hide();
@@ -2058,12 +2093,12 @@ public class Management extends javax.swing.JFrame {
                 pnAdvancedSearch.hide();
                 pnStorageStats.hide();
                 pnBooks.show();
-                pnUpdateLeft.setBackground(new Color(38,40,55));
-                pnUserStatLeft.setBackground(new Color(38,40,55));
-                pnAdvancedSearchLeft.setBackground(new Color(38,40,55));
-                pnStorageStatsLeft.setBackground(new Color(38,40,55));
+                pnUpdateLeft.setBackground(new Color(38, 40, 55));
+                pnUserStatLeft.setBackground(new Color(38, 40, 55));
+                pnAdvancedSearchLeft.setBackground(new Color(38, 40, 55));
+                pnStorageStatsLeft.setBackground(new Color(38, 40, 55));
                 state = 3;
-                pnBooksLeft.setBackground(new Color(255,153,0));
+                pnBooksLeft.setBackground(new Color(255, 153, 0));
                 break;
             case 4:
                 pnUserStats.hide();
@@ -2071,12 +2106,12 @@ public class Management extends javax.swing.JFrame {
                 pnBooks.hide();
                 pnStorageStats.hide();
                 pnAdvancedSearch.show();
-                pnUpdateLeft.setBackground(new Color(38,40,55));
-                pnBooksLeft.setBackground(new Color(38,40,55));
-                pnUserStatLeft.setBackground(new Color(38,40,55));
-                pnStorageStatsLeft.setBackground(new Color(38,40,55));
+                pnUpdateLeft.setBackground(new Color(38, 40, 55));
+                pnBooksLeft.setBackground(new Color(38, 40, 55));
+                pnUserStatLeft.setBackground(new Color(38, 40, 55));
+                pnStorageStatsLeft.setBackground(new Color(38, 40, 55));
                 state = 4;
-                pnAdvancedSearchLeft.setBackground(new Color(255,153,0));
+                pnAdvancedSearchLeft.setBackground(new Color(255, 153, 0));
                 break;
             case 5:
                 pnUserStats.hide();
@@ -2085,18 +2120,18 @@ public class Management extends javax.swing.JFrame {
                 pnAdvancedSearch.hide();
                 pnStorageStats.show();
                 showUserStats();
-                pnUpdateLeft.setBackground(new Color(38,40,55));
-                pnBooksLeft.setBackground(new Color(38,40,55));
-                pnUserStatLeft.setBackground(new Color(38,40,55));
-                pnAdvancedSearchLeft.setBackground(new Color(38,40,55));
+                pnUpdateLeft.setBackground(new Color(38, 40, 55));
+                pnBooksLeft.setBackground(new Color(38, 40, 55));
+                pnUserStatLeft.setBackground(new Color(38, 40, 55));
+                pnAdvancedSearchLeft.setBackground(new Color(38, 40, 55));
                 state = 5;
-                pnStorageStatsLeft.setBackground(new Color(255,153,0));
+                pnStorageStatsLeft.setBackground(new Color(255, 153, 0));
                 break;
             default:
                 break;
         }
     }
-    
+
     Thread one = new Thread() {
         public void run() {
             String text;
@@ -2104,19 +2139,15 @@ public class Management extends javax.swing.JFrame {
                 text = tfReaderID.getText();
                 System.out.println(text);
                 if (text.length() == 7) {
-                    tfReaderID.requestFocus(false);
                     People reader = DatabaseQuery.findUserByID(text, "doc_gia");
-                    if (reader == null){
+                    if (reader == null) {
                         JOptionPane.showMessageDialog(null, "ID độc giả không tồn tại!!!");
                         tfReaderID.setText("");
-                    }
-                    else
-                    {
+                    } else {
                         tfReaderID.disable();
                         tfReaderName.setText(reader.getFullName());
                         tfReaderSex.setText(reader.getSex());
                         tfReaderIDN.setText(reader.getCMND());
-                        two.run();
                         stop();
                         break;
                     }
@@ -2124,7 +2155,7 @@ public class Management extends javax.swing.JFrame {
             }
         }
     };
-    
+
     Thread two = new Thread() {
         public void run() {
             boolean ok = false;
@@ -2132,37 +2163,36 @@ public class Management extends javax.swing.JFrame {
             while (true) {
                 text = tfBookID.getText();
                 System.out.println(text);
-                if (text.length() == 2) {
+                if (text.length() == 7) {
                     tfBookID.requestFocus(false);
                     ResultSet book = DatabaseQuery.FindBookByID(text);
                     if (SupportFunctions.GetSize(book) == 0) {
                         JOptionPane.showMessageDialog(null, "ID sách không tồn tại!!!");
                         tfBookID.setText("");
-                    }
-                    else
-                    {
-                            try {
-                                book.next();
-                                tfBookID.disable();
-                                tfBookName.setText(book.getString("BName"));
-                                tfAuthorName.setText(book.getString("Author"));
-                                tfBookSKU.setText(book.getString("SKU"));
-                                stop();
-                                ok = true;
-                                break;
-                            } catch (SQLException ex) {
-                                Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);                            
-                            }               
+                    } else {
+                        try {
+                            book.next();
+                            tfBookID.disable();
+                            tfBookName.setText(book.getString("BName"));
+                            tfAuthorName.setText(book.getString("Author"));
+                            tfBookSKU.setText(book.getString("SKU"));
+                            stop();
+                            ok = true;
+                            break;
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
-                if (ok) break;
+                if (ok) {
+                    break;
+                }
             }
         }
     };
 
-    
-    public void addDataToTable(){
-        String[] columnNames = { "Mã đọc giả","Tên đọc giả","Số sách đã mượn"};
+    public void addDataToTable() {
+        String[] columnNames = {"Mã đọc giả", "Tên đọc giả", "Số sách đã mượn"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -2172,26 +2202,28 @@ public class Management extends javax.swing.JFrame {
         tbUserStats.setModel(model);
         res = DatabaseQuery.getReaderBook();
         try {
-            while (res.next()){
-                model.addRow(new Object[]{res.getString("IDNguoiMuon"),res.getString("Name"),Integer.parseInt(res.getString("countID"))});
+            while (res.next()) {
+                model.addRow(new Object[]{res.getString("IDNguoiMuon"), res.getString("Name"), Integer.parseInt(res.getString("countID"))});
             }
         } catch (SQLException ex) {
             Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void showUserStats(){
-        tfCountReader.setText(String.valueOf(DatabaseQuery.countReaderOrBook("datalibrary.doc_gia","ID")));
+
+    public void showUserStats() {
+        tfCountReader.setText(String.valueOf(DatabaseQuery.countReaderOrBook("datalibrary.doc_gia", "ID")));
         tfBookRemain.setText(String.valueOf(DatabaseQuery.countBookRemainOrNot(0)));
         tfBookBorrowed.setText(String.valueOf(DatabaseQuery.countBookRemainOrNot(1)));
-        tfCountBook.setText(String.valueOf(DatabaseQuery.countBookRemainOrNot(0)+DatabaseQuery.countBookRemainOrNot(1)));
+        tfCountBook.setText(String.valueOf(DatabaseQuery.countBookRemainOrNot(0) + DatabaseQuery.countBookRemainOrNot(1)));
         tfBookInMonth.setText(String.valueOf(DatabaseQuery.countBookInMonth("datalibrary.cuon_sach", "ImportedDay", "ID")));
         tfBookBorrowedInMonth.setText(String.valueOf(DatabaseQuery.countBookInMonth("datalibrary.muon", "NgayMuon", "IDSach")));
         tfCountBName.setText(String.valueOf(DatabaseQuery.countReaderOrBook("datalibrary.tua_sach", "SKU")));
     }
-    
+
     private void lbNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNameMouseClicked
         // TODO add your handling code here:
+        one.stop();
+        two.stop();
         dispose();
         new HomePage().setVisible(true);
     }//GEN-LAST:event_lbNameMouseClicked
@@ -2203,58 +2235,70 @@ public class Management extends javax.swing.JFrame {
 
     private void lbNameMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNameMouseExited
         // TODO add your handling code here:
-        pnHome.setBackground(new Color(38,40,55));
+        pnHome.setBackground(new Color(38, 40, 55));
     }//GEN-LAST:event_lbNameMouseExited
 
     private void lbUserStatsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUserStatsMouseClicked
         // TODO add your handling code here:
-        if (state != 2)
+        if (state != 2) {
             changeBackPanel(2);
+        }
     }//GEN-LAST:event_lbUserStatsMouseClicked
 
     private void lbUserStatsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUserStatsMouseEntered
         // TODO add your handling code here:
-        if (state != 2) 
+        if (state != 2) {
             pnUserStatLeft.setBackground(new Color(0, 116, 163));
+        }
     }//GEN-LAST:event_lbUserStatsMouseEntered
 
     private void lbUserStatsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUserStatsMouseExited
         // TODO add your handling code here:
-        if (state != 2) pnUserStatLeft.setBackground(new Color(38,40,55));
+        if (state != 2) {
+            pnUserStatLeft.setBackground(new Color(38, 40, 55));
+        }
     }//GEN-LAST:event_lbUserStatsMouseExited
 
     private void lbBooksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBooksMouseClicked
         // TODO add your handling code here:
         if (state != 3) {
             changeBackPanel(3);
-            one.start();
         }
     }//GEN-LAST:event_lbBooksMouseClicked
 
     private void lbBooksMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBooksMouseEntered
         // TODO add your handling code here:
-        if (state != 3) pnBooksLeft.setBackground(new Color(0, 116, 163));
+        if (state != 3) {
+            pnBooksLeft.setBackground(new Color(0, 116, 163));
+        }
     }//GEN-LAST:event_lbBooksMouseEntered
 
     private void lbBooksMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBooksMouseExited
         // TODO add your handling code here:
-        if (state != 3) pnBooksLeft.setBackground(new Color(38,40,55));
+        if (state != 3) {
+            pnBooksLeft.setBackground(new Color(38, 40, 55));
+        }
     }//GEN-LAST:event_lbBooksMouseExited
 
     private void lbUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUpdateMouseClicked
         // TODO add your handling code here:
-        if (state != 1) 
+        if (state != 1) {
             changeBackPanel(1);
+        }
     }//GEN-LAST:event_lbUpdateMouseClicked
 
     private void lbUpdateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUpdateMouseEntered
         // TODO add your handling code here:
-        if (state != 1) pnUpdateLeft.setBackground(new Color(0, 116, 163));
+        if (state != 1) {
+            pnUpdateLeft.setBackground(new Color(0, 116, 163));
+        }
     }//GEN-LAST:event_lbUpdateMouseEntered
 
     private void lbUpdateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUpdateMouseExited
         // TODO add your handling code here:
-        if (state != 1) pnUpdateLeft.setBackground(new Color(38,40,55));
+        if (state != 1) {
+            pnUpdateLeft.setBackground(new Color(38, 40, 55));
+        }
     }//GEN-LAST:event_lbUpdateMouseExited
 
     private void lbCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCancelMouseClicked
@@ -2267,8 +2311,9 @@ public class Management extends javax.swing.JFrame {
         this.setState(Frame.ICONIFIED);
     }//GEN-LAST:event_lbMinimizeMouseClicked
 
-    private void searchAction(){
-    Double SKU;
+    private void searchAction() {
+        Double SKU;
+        btnChooseFile.setEnabled(true);
         try {
             SKU = Double.valueOf(tfInpSKU.getText());
             res = DatabaseQuery.FindBooksBySKU(tfInpSKU.getText());
@@ -2279,7 +2324,7 @@ public class Management extends javax.swing.JFrame {
             tfGenre.enable();
             tfPublisherDay.enable();
             tfPrice.enable();
-            tfNumber.enable();            
+            tfNumber.enable();
             if (Numres > 0) {
                 JOptionPane.showMessageDialog(null, "Sách đã tồn tại, cập nhật lại thông tin sách ...");
                 try {
@@ -2294,6 +2339,8 @@ public class Management extends javax.swing.JFrame {
                     tfPublisherDay.setText(res.getString("PublishedDay"));
                     tfPrice.setText(res.getString("Price"));
                     tfNumber.setText(res.getString("Total"));
+                    file2 = new File("Images\\Books\\" + tfInpSKU.getText() + ".jpg");
+                    SupportFunctions.setImageToLabel(lbImageSearch, file2.toString(), false);
                 } catch (Exception e) {
                     Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, e);
                 }
@@ -2309,27 +2356,41 @@ public class Management extends javax.swing.JFrame {
                 pnMOption1.hide();
                 pnMOption3.hide();
                 pnMOption2.show();
+                String file = "Images\\NoPhotoAvailable.jpg";
+                SupportFunctions.setImageToLabel(lbImageSearch, file,false);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "SKU phải là chuỗi số");
         }
-    
+
     }
-    
+
     private void tfPublisherDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPublisherDayActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfPublisherDayActionPerformed
 
     private void btOkUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btOkUpdateMouseClicked
         // TODO add your handling code here:
-        Book updateBook = new Book(tfInpSKU.getText(), tfBName.getText(), tfGenre.getText(), tfPublisher.getText(), tfPublisherDay.getText(), tfAuthor.getText(), tfPrice.getText(),Integer.parseInt(tfNumber.getText()));
+        Book updateBook = new Book(tfInpSKU.getText(), tfBName.getText(), tfGenre.getText(), tfPublisher.getText(), tfPublisherDay.getText(), tfAuthor.getText(), tfPrice.getText(), Integer.parseInt(tfNumber.getText()));
         try {
             DatabaseQuery.updateBook(updateBook);
+            if (file1 != null) {
+                file2 = new File("src/GUI/Images/Books/" + tfInpSKU.getText() + ".jpg");
+               boolean success =  SupportFunctions.CopyImage(file1.toString(), file2.toString());
+               if(success){
+                   JOptionPane.showMessageDialog(this, "Cập nhật hình ảnh sách thành công!!!");
+               }
+               else
+               {
+                   JOptionPane.showMessageDialog(this, "Cập nhật thông tin sách không thành công!!!");
+                   return;
+               }
+            }
+            JOptionPane.showMessageDialog(this, "Cập nhật thông tin sách thành công!!!");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Lỗi cập nhật vào CSDL, vui lòng thử lại");         
+            JOptionPane.showMessageDialog(this, "Lỗi cập nhật vào CSDL, vui lòng thử lại");
         }
-        JOptionPane.showMessageDialog(null, "Cập nhật thông tin sách thành công!!!");
     }//GEN-LAST:event_btOkUpdateMouseClicked
 
     private void btDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btDeleteMouseClicked
@@ -2362,32 +2423,36 @@ public class Management extends javax.swing.JFrame {
 
     private void btAddBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAddBookMouseClicked
         // TODO add your handling code here:
+        
         int num = Integer.parseInt(tfNumber.getText());
         int location = DatabaseQuery.GetBookshelf(tfGenre.getText());
-        if(location == 0)
+        if (location == 0) {
             location = DatabaseQuery.AddKE_Sach(tfGenre.getText());
-        System.out.println(String.valueOf(location));
+        }
         Book book = new Book(tfInpSKU.getText(), tfBName.getText(), tfGenre.getText(), tfPublisher.getText(), tfPublisherDay.getText(), tfAuthor.getText(),
-        tfPrice.getText(), Integer.parseInt(tfNumber.getText()));
-        
-        boolean success=   DatabaseQuery.AddBook(book);
-        int ID = DatabaseQuery.GetID()+1;
-        while(num>0)
-        {
+                tfPrice.getText(), Integer.parseInt(tfNumber.getText()));
+
+        boolean success = DatabaseQuery.AddBook(book);
+        int ID = DatabaseQuery.GetID() + 1;
+        while (num > 0) {
             DatabaseQuery.ADDBook(book, ID++, location);
             num--;
         }
-            JOptionPane.showMessageDialog(this, "Thêm sách thành công");
+        JOptionPane.showMessageDialog(this, "Thêm sách thành công");
+        if (file1 != null) {
+                file2 = new File("Images\\Books\\" + tfInpSKU.getText() + ".jpg");
+                SupportFunctions.CopyImage(file1.toString(), file2.toString());
+            }
     }//GEN-LAST:event_btAddBookMouseClicked
 
-    public static String check(boolean key){
+    public static String check(boolean key) {
         if (key) {
             key = false;
             return "";
         }
         return " or";
     }
-    
+
     public void setText(JTextArea taResult, Book book) {
         taResult.setText("\n\n");
         tempSKU = book.getSKU();
@@ -2407,7 +2472,7 @@ public class Management extends javax.swing.JFrame {
         } else {
             URL = "Images/NoPhotoAvailable.jpg";
         }
-        SupportFunctions.setImageToLabel(lbResult, URL);
+        SupportFunctions.setImageToLabel(lbResult, URL, false);
     }
 
     public void setClick(int i) {
@@ -2417,23 +2482,28 @@ public class Management extends javax.swing.JFrame {
             setResult(taResult, lbResult, DatabaseQuery.findBookByExactName(resultName.get(i - 1).getText()));
         }
     }
-    
+
     private void lbAdvancedSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAdvancedSearchMouseClicked
         // TODO add your handling code here:
         if (state != 4) {
             changeBackPanel(4);
             pnShowResult.hide();
             main.show();
-            if (!cbAuthor.isSelected())
+            if (!cbAuthor.isSelected()) {
                 cbAuthor.doClick();
-            if (!cbGenre.isSelected())
+            }
+            if (!cbGenre.isSelected()) {
                 cbGenre.doClick();
-            if (!cbISBN.isSelected())
+            }
+            if (!cbISBN.isSelected()) {
                 cbISBN.doClick();
-            if (!cbName.isSelected())
+            }
+            if (!cbName.isSelected()) {
                 cbName.doClick();
-            if (!cbPublisher.isSelected())
+            }
+            if (!cbPublisher.isSelected()) {
                 cbPublisher.doClick();
+            }
             res = DatabaseQuery.GetAllBook();
             res = SupportFunctions.Display(resultImage, resultName, res, currentPage);
         }
@@ -2441,50 +2511,55 @@ public class Management extends javax.swing.JFrame {
 
     private void lbAdvancedSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAdvancedSearchMouseEntered
         // TODO add your handling code here:
-        if (state != 4) pnAdvancedSearchLeft.setBackground(new Color(0, 116, 163));
+        if (state != 4) {
+            pnAdvancedSearchLeft.setBackground(new Color(0, 116, 163));
+        }
     }//GEN-LAST:event_lbAdvancedSearchMouseEntered
 
     private void lbAdvancedSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAdvancedSearchMouseExited
         // TODO add your handling code here:
-        if (state != 4) pnAdvancedSearchLeft.setBackground(new Color(38,40,55));
+        if (state != 4) {
+            pnAdvancedSearchLeft.setBackground(new Color(38, 40, 55));
+        }
     }//GEN-LAST:event_lbAdvancedSearchMouseExited
-    
+
     private void tfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSearchActionPerformed
         // TODO add your handling code here:
         String querryString;
         boolean key = true;
-        String keyword = "'%" + tfSearch.getText()+"%'";
+        String keyword = "'%" + tfSearch.getText() + "%'";
         querryString = "select * from datalibrary.tua_sach where";
         if (cbISBN.isSelected()) {
             querryString += check(key) + " SKU like " + keyword;
             key = false;
         }
         if (cbAuthor.isSelected()) {
-            querryString += check(key)+" Author like " + keyword;
+            querryString += check(key) + " Author like " + keyword;
             key = false;
         }
         if (cbName.isSelected()) {
-            querryString += check(key)+" BName like " + keyword;
+            querryString += check(key) + " BName like " + keyword;
             key = false;
         }
         if (cbGenre.isSelected()) {
-            querryString += check(key)+" Gender like " + keyword;
+            querryString += check(key) + " Gender like " + keyword;
             key = false;
         }
         if (cbPublisher.isSelected()) {
-            querryString += check(key)+" Publisher like " + keyword;
+            querryString += check(key) + " Publisher like " + keyword;
             key = false;
         }
         querryString += " order by SKU";
-        System.out.println(querryString);
-        if (!key)
-        res = DatabaseQuery.SearchBookAdvanced(querryString);
-        else res = DatabaseQuery.GetAllBook();
+        if (!key) {
+            res = DatabaseQuery.SearchBookAdvanced(querryString);
+        } else {
+            res = DatabaseQuery.GetAllBook();
+        }
         resultNum = SupportFunctions.GetSize(res);
         lbResultNum.setText("Có tất cả " + String.valueOf(resultNum) + " kết quả:");
         maxPage = SupportFunctions.getMaxPage(resultNum, quantityPerPage);
         res = SupportFunctions.Display(resultImage, resultName, res, currentPage = 1);
-        lbCurrentPage.setText("Trang hiện tại: "+ String.valueOf(currentPage));
+        lbCurrentPage.setText("Trang hiện tại: " + String.valueOf(currentPage));
     }//GEN-LAST:event_tfSearchActionPerformed
 
     private void cbNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbNameMouseClicked
@@ -2569,7 +2644,7 @@ public class Management extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (currentPage < maxPage) {
             currentPage++;
-            lbCurrentPage.setText("Trang hiện tại: "+ String.valueOf(currentPage));
+            lbCurrentPage.setText("Trang hiện tại: " + String.valueOf(currentPage));
             res = SupportFunctions.Display(resultImage, resultName, res, currentPage);
         }
     }//GEN-LAST:event_lbNextMouseClicked
@@ -2590,7 +2665,7 @@ public class Management extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (currentPage > 1) {
             currentPage--;
-            lbCurrentPage.setText("Trang hiện tại: "+ String.valueOf(currentPage));
+            lbCurrentPage.setText("Trang hiện tại: " + String.valueOf(currentPage));
             res = SupportFunctions.Display(resultImage, resultName, res, currentPage);
         }
     }//GEN-LAST:event_lbPreviousMouseClicked
@@ -2626,7 +2701,7 @@ public class Management extends javax.swing.JFrame {
 
     private void pnAdvancedSearchLeftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnAdvancedSearchLeftMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_pnAdvancedSearchLeftMouseClicked
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
@@ -2652,12 +2727,12 @@ public class Management extends javax.swing.JFrame {
         int count = tbUserStats.getSelectedRow();
         try {
             res.first();
-            while (count>0){
+            while (count > 0) {
                 count--;
                 res.next();
-                
+
             }
-            SupportFunctions.DisplayHistory(DatabaseQuery.History(res.getString("IDNguoiMuon")),tbUserStats);
+            SupportFunctions.DisplayHistory(DatabaseQuery.History(res.getString("IDNguoiMuon")), tbUserStats);
         } catch (SQLException ex) {
             Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -2712,7 +2787,6 @@ public class Management extends javax.swing.JFrame {
 
     private void tfInpSKUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfInpSKUActionPerformed
         // TODO add your handling code here:
-        System.out.println(evt);
         searchAction();
     }//GEN-LAST:event_tfInpSKUActionPerformed
 
@@ -2730,12 +2804,16 @@ public class Management extends javax.swing.JFrame {
 
     private void lbStorageStatsLeftMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbStorageStatsLeftMouseEntered
         // TODO add your handling code here:
-        if (state != 5) pnStorageStatsLeft.setBackground(new Color(0, 116, 163));
+        if (state != 5) {
+            pnStorageStatsLeft.setBackground(new Color(0, 116, 163));
+        }
     }//GEN-LAST:event_lbStorageStatsLeftMouseEntered
 
     private void lbStorageStatsLeftMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbStorageStatsLeftMouseExited
         // TODO add your handling code here:
-        if (state != 5) pnStorageStatsLeft.setBackground(new Color(38, 40, 55));
+        if (state != 5) {
+            pnStorageStatsLeft.setBackground(new Color(38, 40, 55));
+        }
     }//GEN-LAST:event_lbStorageStatsLeftMouseExited
 
     private void pnStorageStatsLeftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnStorageStatsLeftMouseClicked
@@ -2749,15 +2827,14 @@ public class Management extends javax.swing.JFrame {
     private void btConfirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btConfirmMouseClicked
         // TODO add your handling code here:
         ResultSet checkRes = DatabaseQuery.checkHistory(tfReaderID.getText(), tfBookID.getText());
-        System.out.println(SupportFunctions.GetSize(checkRes));
         if (SupportFunctions.GetSize(checkRes) == 0) {
             ResultSet fBookRes = DatabaseQuery.FindBookStatusByID(tfBookID.getText());
             try {
                 fBookRes.next();
-                if (Integer.parseInt(fBookRes.getString("mStatus")) == 1)
+                if (Integer.parseInt(fBookRes.getString("mStatus")) == 1) {
                     JOptionPane.showMessageDialog(null, "Sách này đã được mượn bởi người khác!!! Vui lòng kiểm tra lại");
-                else
-                    switch (JOptionPane.showConfirmDialog(null, "Sách chưa được mượn bởi độc giả. Xác nhận mượn sách?")){
+                } else {
+                    switch (JOptionPane.showConfirmDialog(null, "Sách chưa được mượn bởi độc giả. Xác nhận mượn sách?")) {
                         case 0:
                             DatabaseQuery.borrowBook(tfReaderID.getText(), tfBookID.getText());
                         case 1:
@@ -2769,22 +2846,21 @@ public class Management extends javax.swing.JFrame {
                             tfBookName.setText("");
                             tfBookSKU.setText("");
                             tfAuthorName.setText("");
-                            one.run();
                             break;
                         case 2:
                             break;
                         default:
                             break;
                     }
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else{           
-            switch (JOptionPane.showConfirmDialog(null, "Sách đang được mượn bởi độc giả này. Xác nhận trả sách?")){
+        } else {
+            switch (JOptionPane.showConfirmDialog(null, "Sách đang được mượn bởi độc giả này. Xác nhận trả sách?")) {
                 case 0:
                     DatabaseQuery.updateBookStatus(tfBookID.getText());
-                case 1:   
+                case 1:
                     tfReaderID.setText("");
                     tfReaderIDN.setText("");
                     tfReaderName.setText("");
@@ -2792,11 +2868,10 @@ public class Management extends javax.swing.JFrame {
                     tfBookID.setText("");
                     tfBookName.setText("");
                     tfBookSKU.setText("");
-                    tfAuthorName.setText("");   
-                    one.run();
-                    break;                   
+                    tfAuthorName.setText("");
+                    break;
                 case 2:
-                    
+
                     break;
                 default:
                     break;
@@ -2810,8 +2885,47 @@ public class Management extends javax.swing.JFrame {
 
     private void btAddBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddBookActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btAddBookActionPerformed
+
+    private void tfReaderIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfReaderIDFocusGained
+        // TODO add your handling code here:
+        if (one.getState() == Thread.State.NEW) {
+            one.start();
+        } else {
+            one.resume();
+        }
+    }//GEN-LAST:event_tfReaderIDFocusGained
+
+    private void tfReaderIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfReaderIDFocusLost
+        // TODO add your handling code here:
+        one.suspend();
+    }//GEN-LAST:event_tfReaderIDFocusLost
+
+    private void tfBookIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfBookIDFocusGained
+        // TODO add your handling code here:
+        if (two.getState() == Thread.State.NEW) {
+            two.start();
+        } else {
+            two.resume();
+        }
+    }//GEN-LAST:event_tfBookIDFocusGained
+
+    private void tfBookIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfBookIDFocusLost
+        // TODO add your handling code here:
+        two.suspend();
+    }//GEN-LAST:event_tfBookIDFocusLost
+
+    private void btnChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseFileActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "png", "gif", "bmp"));
+        int returnVal = fileChooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            file1 = fileChooser.getSelectedFile();
+            SupportFunctions.setImageToLabel(lbImageSearch, file1.toString(), true);
+        } 
+    }//GEN-LAST:event_btnChooseFileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2885,6 +2999,7 @@ public class Management extends javax.swing.JFrame {
     private javax.swing.JButton btDelete;
     private javax.swing.JButton btDetails;
     private javax.swing.JButton btOkUpdate;
+    private javax.swing.JButton btnChooseFile;
     private javax.swing.JCheckBox cbAuthor;
     private javax.swing.JCheckBox cbGenre;
     private javax.swing.JCheckBox cbISBN;
@@ -2927,6 +3042,7 @@ public class Management extends javax.swing.JFrame {
     private javax.swing.JLabel lbGenre;
     private javax.swing.JLabel lbGenre1;
     private javax.swing.JLabel lbHome;
+    private javax.swing.JLabel lbImageSearch;
     private javax.swing.JLabel lbInpSKU;
     private javax.swing.JLabel lbMinimize;
     private javax.swing.JLabel lbMinimize1;

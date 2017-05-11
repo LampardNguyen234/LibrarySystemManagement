@@ -408,8 +408,7 @@ public class DatabaseQuery {
 
     public static boolean CheckUserNameExisted(String Username) {
         try {
-            
-            PreparedStatement pst = conn.prepareStatement("select * from doc_gia where TaiKhoan = ?");
+            PreparedStatement pst = conn.prepareStatement("select * from doc_gia where Username = ?");
             pst.setString(1, Username);
             ResultSet res = pst.executeQuery();
             if (res.next()) {

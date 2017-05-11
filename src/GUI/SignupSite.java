@@ -13,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import main.BarcodeGenerator;
 import main.DatabaseQuery;
 import main.People;
 import main.SupportFunctions;
@@ -121,7 +122,13 @@ public class SignupSite extends javax.swing.JFrame {
 
         pfPassword.setBackground(new java.awt.Color(45, 59, 85));
         pfPassword.setForeground(new java.awt.Color(255, 255, 255));
+        pfPassword.setText("123456");
         pfPassword.setBorder(null);
+        pfPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                pfPasswordFocusGained(evt);
+            }
+        });
         jPanel3.add(pfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 78, 216, 23));
 
         lbSignup.setBackground(new java.awt.Color(37, 191, 139));
@@ -174,6 +181,11 @@ public class SignupSite extends javax.swing.JFrame {
         tfBirthDay.setForeground(new java.awt.Color(255, 255, 255));
         tfBirthDay.setText("dd-MM-yyyy");
         tfBirthDay.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tfBirthDay.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfBirthDayFocusGained(evt);
+            }
+        });
         jPanel3.add(tfBirthDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 216, -1));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -305,7 +317,7 @@ public class SignupSite extends javax.swing.JFrame {
 
     private void lbLoginCardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLoginCardMouseExited
         // TODO add your handling code here:
-       lbLoginCard.setForeground(new Color(255, 255, 255));
+        lbLoginCard.setForeground(new Color(255, 255, 255));
     }//GEN-LAST:event_lbLoginCardMouseExited
 
     private void lbCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCancelMouseClicked
@@ -350,6 +362,8 @@ public class SignupSite extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ngày sinh không đúng định dạng, vui lòng nhập lại!");
         } else if (ValidatingClass.isCMNDExisting(tfCMND.getText(), "doc_gia")) {
             JOptionPane.showMessageDialog(null, "CMND bị trùng, vui lòng nhập lại!");
+        } else if (!ValidatingClass.checkPhonenum(tfPhoneNum.getText())) {
+            JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ!");
         } else {
             try {
                 String ID = SupportFunctions.GenerateUserID();
@@ -360,7 +374,8 @@ public class SignupSite extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Tạo tài khoản thành công!");
                     Clear();
                     dispose();
-                    new LoginSite().show();
+                    BarcodeGenerator.Generate(ID, "Users");
+                    new Barcode(ID, "Users").show();
                 } else {
                     JOptionPane.showMessageDialog(null, "Tạo tài khoản không thành công!");
                 }
@@ -369,6 +384,16 @@ public class SignupSite extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_lbSignupMouseClicked
+
+    private void tfBirthDayFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfBirthDayFocusGained
+        // TODO add your handling code here:
+        tfBirthDay.setText("");
+    }//GEN-LAST:event_tfBirthDayFocusGained
+
+    private void pfPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pfPasswordFocusGained
+        // TODO add your handling code here:
+        pfPassword.setText("");
+    }//GEN-LAST:event_pfPasswordFocusGained
 
     public void Clear() {
         tfFullName.setText("");

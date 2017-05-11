@@ -37,12 +37,13 @@ public class Admin extends javax.swing.JFrame {
     final String staffDatabase = "nguoi_quan_ly";
     final String userDatabase = "doc_gia";
     public static People admin;
+
     public Admin(People admin) {
         this.setResizable(false);
         initComponents();
         this.setShape(new RoundRectangle2D.Float(0, 0, 1000, 600, 45, 45));
         this.setSize(1000, 600);
-        this.admin=admin;
+        this.admin = admin;
         adminName.setText(admin.getFullName());
         SetAdminState(0, 0);
         SetTable(DatabaseQuery.getAllManager(), tbStaff, 0);
@@ -1658,6 +1659,8 @@ public class Admin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ngày sinh không đúng định dạng, vui lòng nhập lại!");
         } else if (ValidatingClass.isCMNDExisting(tfCMND.getText(), staffDatabase)) {
             JOptionPane.showMessageDialog(null, "CMND bị trùng, vui lòng nhập lại!");
+        } else if (!ValidatingClass.checkPhonenum(tfPhoneNum.getText())) {
+            JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ!");
         } else {
             try {
                 String ID = SupportFunctions.GenerateStaffID();
@@ -1756,8 +1759,11 @@ public class Admin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Email không đúng định dạng, vui lòng nhập lại!");
         } else if (!ValidatingClass.isDateValid(tfBirthDay1.getText())) {
             JOptionPane.showMessageDialog(null, "Ngày sinh không đúng định dạng, vui lòng nhập lại!");
+        } else if (!ValidatingClass.checkPhonenum(tfPhoneNum1.getText())) {
+            JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ!");
         } else {
-            People staff = new People(tfID.getText(), tfFullname1.getText(), tfAddress1.getText(), tfBirthDay1.getText(), tfEmail1.getText(), cbStaffEdit.getSelectedItem().toString(), tfCMND1.getText(), tfPhoneNum1.getText());
+            People staff = new People(tfID.getText(), tfFullname1.getText(), tfAddress1.getText(), tfBirthDay1.getText(), tfEmail1.getText(),
+                    cbStaffEdit.getSelectedItem().toString(), tfCMND1.getText(), tfPhoneNum1.getText());
             boolean status = DatabaseQuery.UpdateUser(staff, staffDatabase);
             if (status == false) {
                 JOptionPane.showMessageDialog(null, "Cập nhật không thành công, vui lòng thử lại!");
@@ -1932,9 +1938,12 @@ public class Admin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ngày sinh không đúng định dạng, vui lòng nhập lại!");
         } else if (ValidatingClass.isCMNDExisting(tfCMND2.getText(), userDatabase)) {
             JOptionPane.showMessageDialog(null, "CMND bị trùng, vui lòng nhập lại!");
+        } else if (!ValidatingClass.checkPhonenum(tfPhoneNum2.getText())) {
+            JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ!");
         } else {
             String ID = SupportFunctions.GenerateUserID();
-            People user = new People(ID, tfFullname2.getText(), tfAddress2.getText(), tfBirthDay2.getText(), tfEmail2.getText(), cbUserAdd.getSelectedItem().toString(), tfCMND2.getText(), tfPhoneNum2.getText());
+            People user = new People(ID, tfFullname2.getText(), tfAddress2.getText(), tfBirthDay2.getText(), tfEmail2.getText(),
+                    cbUserAdd.getSelectedItem().toString(), tfCMND2.getText(), tfPhoneNum2.getText());
             boolean insertSuccessfully = DatabaseQuery.AddUser(user, userDatabase);
             if (insertSuccessfully == false) {
                 JOptionPane.showMessageDialog(null, "Thêm người dùng không thành công, vui lòng thử lại!");
@@ -1968,6 +1977,8 @@ public class Admin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Email không đúng định dạng, vui lòng nhập lại!");
         } else if (!ValidatingClass.isDateValid(tfBirthDay3.getText())) {
             JOptionPane.showMessageDialog(null, "Ngày sinh không đúng định dạng, vui lòng nhập lại!");
+        } else if (!ValidatingClass.checkPhonenum(tfPhoneNum.getText())) {
+            JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ!");
         } else {
             People user = new People(tfID1.getText(), tfFullname3.getText(), tfAddress3.getText(), tfBirthDay3.getText(), tfEmail3.getText(), cbUserEdit.getSelectedItem().toString(), tfCMND3.getText(), tfPhoneNum3.getText());
             boolean status = DatabaseQuery.UpdateUser(user, userDatabase);
