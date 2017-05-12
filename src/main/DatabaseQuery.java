@@ -85,6 +85,7 @@ public class DatabaseQuery {
             pstatement.setString(8, user.getPassword());
             pstatement.setString(9, user.getEmail());
             pstatement.setString(10, user.getPhoneNumber());
+            BarcodeGenerator.Generate(user.getID(), "Users");
             if (pstatement.executeUpdate() > 0) {
                 return true;
             } else {
@@ -360,7 +361,7 @@ public class DatabaseQuery {
             
             PreparedStatement pst  = conn.prepareStatement("delete from datalibrary.tua_sach where SKU = ?");
             pst.setString(1, SKU);
-            return pst.execute();
+            return pst.executeUpdate()!=0;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -370,13 +371,14 @@ public class DatabaseQuery {
     public static boolean updateBook(Book updateBook) throws ClassNotFoundException{
         try {
             
-            PreparedStatement pst = conn.prepareStatement("update datalibrary.tua_sach set BName = '"+updateBook.getName()+"', Author = '"+updateBook.getAuthor()
-            +"', Publisher = '"+updateBook.getPublisher()+"', PublishedDay = '"+updateBook.getPublishedDay()+"', Gender = '"+updateBook.getGendre()
-            +"', Price = '"+updateBook.getPrice()+"', Total = "+String.valueOf(updateBook.getTotal())+" where SKU = '"+updateBook.getSKU()+"'");
-            System.out.println("update datalibrary.tua_sach set BName = '"+updateBook.getName()+"', Author = '"+updateBook.getAuthor()
-            +"', Publisher = '"+updateBook.getPublisher()+"', PublishedDay = '"+updateBook.getPublishedDay()+"', Gender = '"+updateBook.getGendre()
-            +"', Price = '"+updateBook.getPrice()+"', Total = "+String.valueOf(updateBook.getTotal())+" where SKU = '"+updateBook.getSKU()+"'");
-            return pst.execute();
+            PreparedStatement pst = conn.prepareStatement("update datalibrary.tua_sach set BName = ? , Author = ?, Publisher = ?, Price = ?, Total = ? where SKU = ?");
+            pst.setString(1, updateBook.getName());
+            pst.setString(2, updateBook.getAuthor());
+            pst.setString(3, updateBook.getPublisher());
+            pst.setString(4, updateBook.getPrice());
+            pst.setInt(5, updateBook.getTotal());
+            pst.setString(6, updateBook.getSKU());
+            return pst.executeUpdate()!=0;
         } catch (SQLException e) {
             Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, e);
             JOptionPane.showMessageDialog(null, "Lỗi cập nhật vào CSDL, vui lòng thử lại");         
@@ -422,7 +424,6 @@ public class DatabaseQuery {
     
     public static ResultSet getReaderBook(){
         try {
-            
             PreparedStatement pst = conn.prepareStatement("select IDNguoiMuon, Name, count(IDNguoiMuon) as countID from ("+
                     "(select * from datalibrary.muon left outer join datalibrary.doc_gia on muon.IDNguoiMuon = doc_gia.ID)"+
                     " as muonsach)"+"group by IDNguoiMuon");
@@ -433,9 +434,22 @@ public class DatabaseQuery {
         return null;
     }
     
+    public static ResultSet getReaderBook(String keyword){
+        try {
+            PreparedStatement pst = conn.prepareStatement("select IDNguoiMuon, Name, count(IDNguoiMuon) as countID from ("+
+                    "(select * from datalibrary.muon left outer join datalibrary.doc_gia on muon.IDNguoiMuon = doc_gia.ID)"+
+                    " as muonsach)"+"where Name like ? or IDNguoiMuon like ?");
+            pst.setString(1, "%"+ keyword+"%");
+            pst.setString(2, "%"+ keyword+"%");
+            return pst.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return null;
+    }
+    
     public static boolean CheckValidAccount(String Username, String Password, String Table) {
         try {
-            
             PreparedStatement pst = conn.prepareStatement("select * from " + Table +" where Username = ?");
             pst.setString(1, Username);
             ResultSet res = pst.executeQuery();
@@ -491,25 +505,10 @@ public class DatabaseQuery {
         return null;
     }
     
-    public static void borrowBook(String userID, String bookID){
-        try {
-            
-            String date1 = String.valueOf(Calendar.getInstance().getTime().getYear())+"-"+String.valueOf(Calendar.getInstance().getTime().getMonth())+
-                    "-"+String.valueOf(Calendar.getInstance().getTime().getDate());
-            String date2 = String.valueOf(Calendar.getInstance().getTime().getYear())+"-"+String.valueOf(Calendar.getInstance().getTime().getMonth())+
-                    "-"+String.valueOf(Calendar.getInstance().getTime().getDate()+15);
-            PreparedStatement pst = conn.prepareStatement("insert into datalibrary.muon (IDNguoiMuon, IDSach, NgayMuon, NgayTra, TinhTrang, NgayTraDuKien) "+
-                    "values ("+userID+", "+bookID+", "+date1+", null, 0, "+date2);
-            JOptionPane.showMessageDialog(null, "Cập nhật mượn sách thành công!!!");
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-    }
-    
     public static ResultSet FindBookByID(String ID){
         try {
             
-            PreparedStatement pst = conn.prepareStatement("select * from datalibrary.cuon_sach where ID = ?");
+            PreparedStatement pst = conn.prepareStatement("select * from datalibrary.cuon_sach natural join datalibrary.tua_sach where ID = ?");
             pst.setString(1, ID);
             ResultSet res = pst.executeQuery();
             if(res.next())
@@ -536,11 +535,16 @@ public class DatabaseQuery {
         return null;
     }
     
-    public static void updateBookStatus(String ID){
+    public static void ReturnBook(String ID){
         try {
             
-            PreparedStatement pst = conn.prepareStatement("update datalibrary.muon set TinhTrang = 1 where IDSach = ?");
+            PreparedStatement pst = conn.prepareStatement("update datalibrary.muon set TinhTrang = 1, NgayTra = ? where IDSach = ?");
+            pst.setString(2, ID);
+            pst.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+            pst.execute();
+            pst = conn.prepareStatement("update datalibrary.cuon_sach set mStatus = 0 where ID  =?");
             pst.setString(1, ID);
+            pst.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
         }  
@@ -584,20 +588,23 @@ public class DatabaseQuery {
         return null;
     }
     
-     public static void ADDBorrow(String IDReaderString, String IDBook){
+     public static void borrowBook(String IDReaderString, String IDBook){
         try {
-            
-            PreparedStatement pst = conn.prepareStatement("insert into datalibrary.muon values(?,?,?,?,?, ?)");
+            PreparedStatement pst = conn.prepareStatement("update datalibrary.cuon_sach set mStatus = ? where ID = ?");
+            pst.setInt(1, 1);
+            pst.setString(2, IDBook);
+            pst.executeUpdate();
+             pst = conn.prepareStatement("insert into datalibrary.muon values(?,?,?,?,?, ?)");
             pst.setString(1, IDReaderString);
             pst.setString(2, IDBook);
             Random rand = new Random();
-            long rando = rand.nextInt(514800)*1000;
+            //long rando = rand.nextInt(514800)*1000;
+            long rando = 0;
             pst.setTimestamp(3, new Timestamp(System.currentTimeMillis()- rando));
             pst.setTimestamp(4, null );
             pst.setString(5, "0");
             pst.setTimestamp(6, new Timestamp(System.currentTimeMillis() + WEEK-rando));
-            pst.execute(); 
-            System.out.println(IDBook);
+            pst.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -673,4 +680,5 @@ public class DatabaseQuery {
         }
         return 0;
     }
+   
 }

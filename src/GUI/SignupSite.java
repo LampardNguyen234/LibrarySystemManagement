@@ -374,7 +374,6 @@ public class SignupSite extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Tạo tài khoản thành công!");
                     Clear();
                     dispose();
-                    BarcodeGenerator.Generate(ID, "Users");
                     new Barcode(ID, "Users").show();
                 } else {
                     JOptionPane.showMessageDialog(null, "Tạo tài khoản không thành công!");

@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import main.DatabaseQuery;
-import static main.DatabaseQuery.dateFormat;
 import main.People;
 import main.SupportFunctions;
 import main.ValidatingClass;

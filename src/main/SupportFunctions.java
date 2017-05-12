@@ -387,7 +387,9 @@ public class SupportFunctions {
             File dest = new File(toPath);
             String destination = dest.toString().substring(3);
             destination = "build\\classes" + destination;
+            System.out.println(dest.toString());
             File dest2 = new File(destination);
+            System.out.println(dest2.toString());
             Files.copy(source.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
             Files.copy(source.toPath(), dest2.toPath(), StandardCopyOption.REPLACE_EXISTING);
             return true;

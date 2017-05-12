@@ -105,15 +105,12 @@ public class ScanID extends javax.swing.JFrame {
 
     private void tfIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfIDFocusGained
         // TODO add your handling code here:
-        if(one.getState() == Thread.State.NEW)
-            one.start();
-        else
-            one.resume();
+       one.start();
     }//GEN-LAST:event_tfIDFocusGained
 
     private void tfIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfIDFocusLost
         // TODO add your handling code here:
-        one.suspend();
+       
     }//GEN-LAST:event_tfIDFocusLost
 
     /**
