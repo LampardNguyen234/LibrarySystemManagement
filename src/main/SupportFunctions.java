@@ -116,7 +116,7 @@ public class SupportFunctions {
         label.setVerticalAlignment(JLabel.CENTER);
         label.setHorizontalAlignment(JLabel.CENTER);
         ImageIcon icon = new ImageIcon(new ImageIcon(HomePage.class.getResource(URL)).getImage().getScaledInstance(label.getWidth(),
-                label.getHeight(), Image.SCALE_SMOOTH));
+                label.eight(), Image.SCALE_SMOOTH));
         label.setIcon(icon);
     }
 
